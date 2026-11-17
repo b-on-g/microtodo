@@ -493,6 +493,70 @@ $mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
 $mol_button_major $mol_button_minor
 	theme \$mol_theme_base
 
+$giper_baza_link_chip $mol_link
+	param \link
+	link $giper_baza_link
+	sub /
+		<= icon \
+		<= title
+
+$giper_baza_land_rights $mol_list
+	land $giper_baza_land
+	rows /
+		<= Add $mol_view sub /
+			<= Add_key $mol_string
+				hint @ \Public key
+				value? <=> add_key? \
+				submit? <=> add_commit? null
+				enabled <= enabled false
+			<= Add_commit $mol_button_minor
+				click? <=> add_commit? null
+				enabled <= enabled false
+				sub /
+					<= Add_commit_icon $mol_icon_plus
+		^ gifts /
+			<= Gift*0 $mol_view sub /
+				<= Gift_rate* $mol_select
+					hint @ \Speed
+					value? <=> gift_rate*? \0
+					enabled <= enabled false
+					Filter null
+					dictionary *
+						0 \0 🦼 ~1W
+						1 \1 🚲 ~3D
+						2 \2 🛵 ~1D
+						3 \3 🚜 ~D/2
+						4 \4 🏇 ~8h
+						5 \5 🚂 ~4h
+						6 \6 🚛 ~2h
+						7 \7 🚗 ~1h
+						8 \8 🏍️ ~h/2
+						9 \9 🏎️ ~5m
+						A \A 🚅 ~2m
+						B \B 🚁 ~m/2
+						C \C 🛩️ ~2s
+						D \D ✈️ ~s/2
+						E \E 🚀 ~50ms
+						F \F 🛸 ~1ms
+				<= Gift_tier* $mol_select
+					hint @ \Level
+					value? <=> gift_tier*? \deny
+					Filter null
+					dictionary <= tier_options *
+						deny @ \🛑 Deny
+						read @ \👀 Read
+						post @ \✍ Post
+						pull @ \🥂 Pull
+						rule @ \👑 Rule
+					enabled <= enabled false
+				<= Gift_name* $giper_baza_link_chip
+					param <= link_param \link
+					link <= peer_link* $giper_baza_link
+					sub /
+						^
+						<= Gift_avatar* $mol_avatar
+							id <= peer_id* \
+
 $mol_icon_clipboard $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3
 
 $mol_icon_clipboard_outline $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7Z
@@ -729,6 +793,7 @@ $bog_keyqr $mol_list
 			found? <=> found?
 
 $bog_microtodo_settings $mol_page
+	lands_owned /$giper_baza_land
 	title @ \Настройки
 	tools /
 		<= Close $mol_link
@@ -755,6 +820,10 @@ $bog_microtodo_settings $mol_page
 							title @ \Списки привязаны к ключу аккаунта в этом браузере. Чтобы видеть их на телефоне или другом компьютере, отсканируйте там код камерой или откройте ссылку. Ключ даёт полный доступ к спискам, никому его не показывайте.
 						<= Lord $mol_paragraph
 							title <= lord_label \
+						<= Pass_copy $mol_button_copy
+							title @ \Скопировать ключ для приглашений
+							hint @ \Этот ключ публичный, его можно отправить владельцу общего списка
+							text <= pass_text \
 						<= Transfer $bog_keyqr
 							key <= account_link \
 							found? <=> account_found? \
@@ -1281,6 +1350,7 @@ $bog_microtodo_app $mol_book2
 						sub /
 							<= List_new_icon $mol_icon_plus
 	Settings $bog_microtodo_settings
+		lands_owned <= lands_owned /$giper_baza_land
 	List_page* $mol_page
 		title <= list_title*
 		head <= list_head* /
@@ -1299,9 +1369,11 @@ $bog_microtodo_app $mol_book2
 			<= Share* $mol_view
 				sub <= share_content* /
 					<= Share_hint* $mol_paragraph
-						title <= share_hint* @ \Все, у кого есть ссылка, смогут видеть и менять этот список
+						title <= share_hint* @ \Список видят только участники. Попросите человека прислать ключ аккаунта из настроек, добавьте его ниже и поставьте «Запись», потом отправьте ему ссылку на список.
+					<= Rights* $giper_baza_land_rights
+						land <= list_land* null
 					<= Share_copy* $mol_button_copy
-						title @ \Скопировать ссылку
+						title @ \Скопировать ссылку на список
 						text <= share_link* \
 			<= Rows* $mol_list
 				rows <= task_rows* /

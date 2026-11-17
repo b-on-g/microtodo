@@ -133,6 +133,7 @@
 	pack wire git \https://github.com/b-on-g/wire.git
 	pack brelok git \https://github.com/b-on-g/brelok.git
 	pack microtodo git \https://github.com/b-on-g/microtodo.git
+	pack ssr git \https://github.com/b-on-g/ssr.git
 \/giper
 	pack balls git \https://github.com/giper-dev/balls.git
 	pack baza git \https://github.com/giper-dev/baza.git

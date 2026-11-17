@@ -43218,6 +43218,16 @@ var $;
 			(obj.title) = () => ((this.lord_label()));
 			return obj;
 		}
+		pass_text(){
+			return "";
+		}
+		Pass_copy(){
+			const obj = new this.$.$mol_button_copy();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Pass_copy_title")));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Pass_copy_hint")));
+			(obj.text) = () => ((this.pass_text()));
+			return obj;
+		}
 		account_link(){
 			return "";
 		}
@@ -43276,6 +43286,7 @@ var $;
 			(obj.rows) = () => ([
 				(this.Sync_hint()), 
 				(this.Lord()), 
+				(this.Pass_copy()), 
 				(this.Transfer()), 
 				(this.Import()), 
 				(this.Import_hint()), 
@@ -43288,6 +43299,9 @@ var $;
 			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Sync_title")));
 			(obj.content) = () => ([(this.Sync_list())]);
 			return obj;
+		}
+		lands_owned(){
+			return [];
 		}
 		title(){
 			return (this.$.$mol_locale.text("$bog_microtodo_settings_title"));
@@ -43304,6 +43318,7 @@ var $;
 	($mol_mem(($.$bog_microtodo_settings.prototype), "Install"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "Sync_hint"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "Lord"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Pass_copy"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "account_found"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "Transfer"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "account_input"));
@@ -43345,10 +43360,16 @@ var $;
                 const decoded = decodeURIComponent(key);
                 return decoded.length >= 160 && !/\s/.test(decoded) ? decoded : '';
             }
+            pass_text() {
+                return this.$.$giper_baza_auth.current().pass().toString();
+            }
             account_switch(key) {
                 if (!key || key === this.account_key())
                     return false;
                 const lord = this.$.$giper_baza_auth.current().pass().lord().str;
+                const pass = $giper_baza_auth.from(key).pass();
+                for (const land of this.lands_owned())
+                    land.give(pass, $giper_baza_rank_rule);
                 this.$.$mol_state_local.value('bog_microtodo_merge', lord);
                 this.$.$mol_state_local.value('$giper_baza_auth', key);
                 return true;
@@ -44647,6 +44668,9 @@ var $;
 			(obj.sub) = () => ([(this.List_new_title()), (this.List_new_submit())]);
 			return obj;
 		}
+		lands_owned(){
+			return [];
+		}
 		list_head(id){
 			return [];
 		}
@@ -44691,6 +44715,14 @@ var $;
 			(obj.title) = () => ((this.share_hint(id)));
 			return obj;
 		}
+		list_land(id){
+			return null;
+		}
+		Rights(id){
+			const obj = new this.$.$giper_baza_land_rights();
+			(obj.land) = () => ((this.list_land(id)));
+			return obj;
+		}
 		share_link(id){
 			return "";
 		}
@@ -44701,7 +44733,11 @@ var $;
 			return obj;
 		}
 		share_content(id){
-			return [(this.Share_hint(id)), (this.Share_copy(id))];
+			return [
+				(this.Share_hint(id)), 
+				(this.Rights(id)), 
+				(this.Share_copy(id))
+			];
 		}
 		Share(id){
 			const obj = new this.$.$mol_view();
@@ -44809,6 +44845,7 @@ var $;
 		}
 		Settings(){
 			const obj = new this.$.$bog_microtodo_settings();
+			(obj.lands_owned) = () => ((this.lands_owned()));
 			return obj;
 		}
 		List_page(id){
@@ -44897,6 +44934,7 @@ var $;
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add_submit"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_hint"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Rights"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_copy"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Empty"));
@@ -45028,6 +45066,25 @@ var $;
                     this.Rows(id),
                     ...this.list_finished(id).length ? [this.Finished(id)] : [],
                 ];
+            }
+            list_land(id) {
+                return this.$.$giper_baza_glob.Land(new $giper_baza_link(id).land());
+            }
+            list_owned(id) {
+                const land = this.list_land(id);
+                return land.lord_rank(land.auth().pass().lord()) >= $giper_baza_rank_rule;
+            }
+            lands_owned() {
+                return this.list_ids()
+                    .filter(id => this.list_shared(id) && this.list_owned(id))
+                    .map(id => this.list_land(id));
+            }
+            share_hint(id) {
+                if (this.list_owned(id))
+                    return super.share_hint(id);
+                if (!this.list_land(id).encrypted())
+                    return 'Список открыт всем, у кого есть ссылка';
+                return 'Вы участник списка. Доступ раздаёт его владелец.';
             }
             share_link(id) {
                 return this.$.$mol_state_arg.make_link({ join: id });
@@ -45212,7 +45269,7 @@ var $;
             list_publish(id) {
                 const source = this.list(id);
                 const tasks = [...this.list_task_ids(id)].reverse();
-                const land = this.$.$giper_baza_glob.land_grab([[null, $giper_baza_rank_post('just')]]);
+                const land = this.$.$giper_baza_glob.land_grab([[null, $giper_baza_rank_deny]]);
                 const target = land.Data($bog_microtodo_list);
                 target.Title('auto').val(source.Title()?.val() ?? '');
                 for (const task of tasks) {

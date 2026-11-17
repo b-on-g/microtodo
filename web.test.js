@@ -7662,7 +7662,47 @@ var $;
             $mol_assert_equal(app.list_ids().filter(id => id === list).length, 1);
             $mol_assert_equal(app.list_id(), list);
         },
-        async 'shared list copies tasks into an open land'($) {
+        async 'owner adds a member by key and the member reads the encrypted list'($) {
+            const app = app_make($);
+            const list = list_make(app, 'Ремонт');
+            task_make(app, list, 'Купить краску');
+            const shared = await $mol_wire_async(app).list_publish(list);
+            const land = app.list_land(shared);
+            $mol_assert_equal(land.encrypted(), true);
+            $mol_assert_equal(app.list_owned(shared), true);
+            $mol_assert_equal(app.share_content(shared).includes(app.Rights(shared)), true);
+            $mol_assert_equal(app.lands_owned(), [land]);
+            const friend = await $mol_wire_async($.$giper_baza_auth).grab();
+            const rights = app.Rights(shared);
+            const ops = {
+                add() {
+                    rights.add_key(friend.pass().toString());
+                    rights.add_commit();
+                    rights.gift_tier(friend.pass().lord(), 'post');
+                },
+            };
+            await $mol_wire_async(ops).add();
+            $mol_assert_equal(land.lord_rank(friend.pass().lord()), $giper_baza_rank_post('just'));
+            $mol_assert_equal(rights.gifts().includes(rights.Gift(friend.pass().lord())), true);
+            const copy = $giper_baza_land.make({ $, link: () => land.link(), auth: () => friend });
+            const send = {
+                pack() {
+                    return $giper_baza_pack.from($giper_baza_pack.make(land.diff_parts()).asArray().slice());
+                },
+            };
+            const wire = await $mol_wire_async(send).pack();
+            const read = {
+                title() {
+                    for (const [, part] of wire.parts())
+                        copy.diff_apply(part.units);
+                    const data = copy.Data($bog_microtodo_list);
+                    const task = copy.Pawn($bog_microtodo_task).Head(data.Tasks().items()[0].head());
+                    return [data.Title()?.val(), task.Title()?.val()];
+                },
+            };
+            $mol_assert_equal(await $mol_wire_async(read).title(), ['Ремонт', 'Купить краску']);
+        },
+        async 'shared list copies tasks into its own land'($) {
             const app = app_make($);
             const list = list_make(app, 'Семья');
             const task = task_make(app, list, 'Купить подарок');

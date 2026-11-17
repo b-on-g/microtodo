@@ -42518,6 +42518,224 @@ declare namespace $ {
 //# sourceMappingURL=major.view.tree.d.ts.map
 declare namespace $ {
 
+	export class $giper_baza_link_chip extends $mol_link {
+		icon( ): string
+		param( ): string
+		link( ): $giper_baza_link
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=chip.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $giper_baza_link_chip extends $.$giper_baza_link_chip {
+        subj(): $giper_baza_flex_subj | null;
+        meta(): $giper_baza_flex_meta | null;
+        icon(): string;
+        title(): string;
+        hint(): string;
+        arg(): {
+            [x: string]: string;
+        };
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	type $mol_string__hint_giper_baza_land_rights_1 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_string['hint'] >
+	>
+	type $mol_string__value_giper_baza_land_rights_2 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['add_key'] >
+		,
+		ReturnType< $mol_string['value'] >
+	>
+	type $mol_string__submit_giper_baza_land_rights_3 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['add_commit'] >
+		,
+		ReturnType< $mol_string['submit'] >
+	>
+	type $mol_string__enabled_giper_baza_land_rights_4 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['enabled'] >
+		,
+		ReturnType< $mol_string['enabled'] >
+	>
+	type $mol_button_minor__click_giper_baza_land_rights_5 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['add_commit'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__enabled_giper_baza_land_rights_6 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['enabled'] >
+		,
+		ReturnType< $mol_button_minor['enabled'] >
+	>
+	type $mol_button_minor__sub_giper_baza_land_rights_7 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub_giper_baza_land_rights_8 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_select__hint_giper_baza_land_rights_9 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_select['hint'] >
+	>
+	type $mol_select__value_giper_baza_land_rights_10 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['gift_rate'] >
+		,
+		ReturnType< $mol_select['value'] >
+	>
+	type $mol_select__enabled_giper_baza_land_rights_11 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['enabled'] >
+		,
+		ReturnType< $mol_select['enabled'] >
+	>
+	type $mol_select__Filter_giper_baza_land_rights_12 = $mol_type_enforce<
+		any
+		,
+		ReturnType< $mol_select['Filter'] >
+	>
+	type $mol_select__dictionary_giper_baza_land_rights_13 = $mol_type_enforce<
+		({ 
+			'0': string,
+			'1': string,
+			'2': string,
+			'3': string,
+			'4': string,
+			'5': string,
+			'6': string,
+			'7': string,
+			'8': string,
+			'9': string,
+			'A': string,
+			'B': string,
+			'C': string,
+			'D': string,
+			'E': string,
+			'F': string,
+		}) 
+		,
+		ReturnType< $mol_select['dictionary'] >
+	>
+	type $mol_select__hint_giper_baza_land_rights_14 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_select['hint'] >
+	>
+	type $mol_select__value_giper_baza_land_rights_15 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['gift_tier'] >
+		,
+		ReturnType< $mol_select['value'] >
+	>
+	type $mol_select__Filter_giper_baza_land_rights_16 = $mol_type_enforce<
+		any
+		,
+		ReturnType< $mol_select['Filter'] >
+	>
+	type $mol_select__dictionary_giper_baza_land_rights_17 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['tier_options'] >
+		,
+		ReturnType< $mol_select['dictionary'] >
+	>
+	type $mol_select__enabled_giper_baza_land_rights_18 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['enabled'] >
+		,
+		ReturnType< $mol_select['enabled'] >
+	>
+	type $mol_avatar__id_giper_baza_land_rights_19 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['peer_id'] >
+		,
+		ReturnType< $mol_avatar['id'] >
+	>
+	type $giper_baza_link_chip__param_giper_baza_land_rights_20 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['link_param'] >
+		,
+		ReturnType< $giper_baza_link_chip['param'] >
+	>
+	type $giper_baza_link_chip__link_giper_baza_land_rights_21 = $mol_type_enforce<
+		ReturnType< $giper_baza_land_rights['peer_link'] >
+		,
+		ReturnType< $giper_baza_link_chip['link'] >
+	>
+	type $giper_baza_link_chip__sub_giper_baza_land_rights_22 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $giper_baza_link_chip['sub'] >
+	>
+	type $mol_view__sub_giper_baza_land_rights_23 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $giper_baza_land_rights extends $mol_list {
+		add_key( next?: string ): string
+		add_commit( next?: any ): any
+		enabled( ): boolean
+		Add_key( ): $mol_string
+		Add_commit_icon( ): $mol_icon_plus
+		Add_commit( ): $mol_button_minor
+		Add( ): $mol_view
+		gift_rate( id: any, next?: string ): string
+		Gift_rate( id: any): $mol_select
+		gift_tier( id: any, next?: string ): string
+		tier_options( ): ({ 
+			'deny': string,
+			'read': string,
+			'post': string,
+			'pull': string,
+			'rule': string,
+		}) 
+		Gift_tier( id: any): $mol_select
+		link_param( ): string
+		peer_link( id: any): $giper_baza_link
+		peer_id( id: any): string
+		Gift_avatar( id: any): $mol_avatar
+		Gift_name( id: any): $giper_baza_link_chip
+		Gift( id: any): $mol_view
+		gifts( ): readonly(any)[]
+		land( ): $giper_baza_land
+		rows( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=rights.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $giper_baza_land_rights extends $.$giper_baza_land_rights {
+        rows(): readonly any[];
+        gifts(): $mol_view[];
+        peer_link(lord: $giper_baza_link): $giper_baza_link;
+        peer_id(lord: $giper_baza_link): string;
+        gift_tier(lord: $giper_baza_link, next?: keyof typeof $giper_baza_rank_tier): keyof typeof $giper_baza_rank_tier;
+        gift_rate(lord: $giper_baza_link, next?: string): string;
+        add_commit(): undefined;
+        tier_options(): {
+            deny: string;
+            read: string;
+            post: string;
+            pull: string;
+            rule: string;
+        };
+        enabled(): boolean;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
 	export class $mol_icon_clipboard extends $mol_icon {
 		path( ): string
 	}
@@ -43379,67 +43597,82 @@ declare namespace $ {
 		,
 		ReturnType< $mol_paragraph['title'] >
 	>
-	type $bog_keyqr__key_bog_microtodo_settings_13 = $mol_type_enforce<
+	type $mol_button_copy__title_bog_microtodo_settings_13 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_copy['title'] >
+	>
+	type $mol_button_copy__hint_bog_microtodo_settings_14 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_copy['hint'] >
+	>
+	type $mol_button_copy__text_bog_microtodo_settings_15 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_settings['pass_text'] >
+		,
+		ReturnType< $mol_button_copy['text'] >
+	>
+	type $bog_keyqr__key_bog_microtodo_settings_16 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_settings['account_link'] >
 		,
 		ReturnType< $bog_keyqr['key'] >
 	>
-	type $bog_keyqr__found_bog_microtodo_settings_14 = $mol_type_enforce<
+	type $bog_keyqr__found_bog_microtodo_settings_17 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_settings['account_found'] >
 		,
 		ReturnType< $bog_keyqr['found'] >
 	>
-	type $mol_string__hint_bog_microtodo_settings_15 = $mol_type_enforce<
+	type $mol_string__hint_bog_microtodo_settings_18 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_string['hint'] >
 	>
-	type $mol_string__value_bog_microtodo_settings_16 = $mol_type_enforce<
+	type $mol_string__value_bog_microtodo_settings_19 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_settings['account_input'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_string__submit_bog_microtodo_settings_17 = $mol_type_enforce<
+	type $mol_string__submit_bog_microtodo_settings_20 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_settings['account_apply'] >
 		,
 		ReturnType< $mol_string['submit'] >
 	>
-	type $mol_button_major__title_bog_microtodo_settings_18 = $mol_type_enforce<
+	type $mol_button_major__title_bog_microtodo_settings_21 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_major['title'] >
 	>
-	type $mol_button_major__click_bog_microtodo_settings_19 = $mol_type_enforce<
+	type $mol_button_major__click_bog_microtodo_settings_22 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_settings['account_apply'] >
 		,
 		ReturnType< $mol_button_major['click'] >
 	>
-	type $mol_view__sub_bog_microtodo_settings_20 = $mol_type_enforce<
+	type $mol_view__sub_bog_microtodo_settings_23 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_paragraph__title_bog_microtodo_settings_21 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_microtodo_settings_24 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_paragraph__title_bog_microtodo_settings_22 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_microtodo_settings_25 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_settings['account_status'] >
 		,
 		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_list__rows_bog_microtodo_settings_23 = $mol_type_enforce<
+	type $mol_list__rows_bog_microtodo_settings_26 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_labeler__title_bog_microtodo_settings_24 = $mol_type_enforce<
+	type $mol_labeler__title_bog_microtodo_settings_27 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_labeler['title'] >
 	>
-	type $mol_labeler__content_bog_microtodo_settings_25 = $mol_type_enforce<
+	type $mol_labeler__content_bog_microtodo_settings_28 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_labeler['content'] >
@@ -43451,6 +43684,8 @@ declare namespace $ {
 		Sync_hint( ): $mol_paragraph
 		lord_label( ): string
 		Lord( ): $mol_paragraph
+		pass_text( ): string
+		Pass_copy( ): $mol_button_copy
 		account_link( ): string
 		account_found( next?: string ): string
 		Transfer( ): $bog_keyqr
@@ -43464,6 +43699,7 @@ declare namespace $ {
 		Status( ): $mol_paragraph
 		Sync_list( ): $mol_list
 		Sync( ): $mol_labeler
+		lands_owned( ): readonly($giper_baza_land)[]
 		title( ): string
 		tools( ): readonly(any)[]
 		body( ): readonly(any)[]
@@ -43478,6 +43714,7 @@ declare namespace $.$$ {
         lord_label(): string;
         account_link(): string;
         account_key_of(text: string): string;
+        pass_text(): string;
         account_switch(key: string): boolean;
         account_found(next?: string): string;
         account_apply(): void;
@@ -45302,172 +45539,182 @@ declare namespace $ {
 		,
 		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_button_copy__title_bog_microtodo_app_45 = $mol_type_enforce<
+	type $giper_baza_land_rights__land_bog_microtodo_app_45 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_app['list_land'] >
+		,
+		ReturnType< $giper_baza_land_rights['land'] >
+	>
+	type $mol_button_copy__title_bog_microtodo_app_46 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_copy['title'] >
 	>
-	type $mol_button_copy__text_bog_microtodo_app_46 = $mol_type_enforce<
+	type $mol_button_copy__text_bog_microtodo_app_47 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['share_link'] >
 		,
 		ReturnType< $mol_button_copy['text'] >
 	>
-	type $mol_view__sub_bog_microtodo_app_47 = $mol_type_enforce<
+	type $mol_view__sub_bog_microtodo_app_48 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['share_content'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_paragraph__title_bog_microtodo_app_48 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_microtodo_app_49 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['empty_text'] >
 		,
 		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_list__rows_bog_microtodo_app_49 = $mol_type_enforce<
+	type $mol_list__rows_bog_microtodo_app_50 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_rows'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_list__Empty_bog_microtodo_app_50 = $mol_type_enforce<
+	type $mol_list__Empty_bog_microtodo_app_51 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['Empty'] >
 		,
 		ReturnType< $mol_list['Empty'] >
 	>
-	type $mol_expander__title_bog_microtodo_app_51 = $mol_type_enforce<
+	type $mol_expander__title_bog_microtodo_app_52 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['finished_title'] >
 		,
 		ReturnType< $mol_expander['title'] >
 	>
-	type $mol_expander__content_bog_microtodo_app_52 = $mol_type_enforce<
+	type $mol_expander__content_bog_microtodo_app_53 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['finished_rows'] >
 		,
 		ReturnType< $mol_expander['content'] >
 	>
-	type $mol_page__title_bog_microtodo_app_53 = $mol_type_enforce<
+	type $mol_page__title_bog_microtodo_app_54 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_microtodo_app_54 = $mol_type_enforce<
+	type $mol_page__tools_bog_microtodo_app_55 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_bog_microtodo_app_55 = $mol_type_enforce<
+	type $mol_page__body_bog_microtodo_app_56 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_page__foot_bog_microtodo_app_56 = $mol_type_enforce<
+	type $mol_page__foot_bog_microtodo_app_57 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['foot'] >
 	>
-	type $mol_page__title_bog_microtodo_app_57 = $mol_type_enforce<
+	type $bog_microtodo_settings__lands_owned_bog_microtodo_app_58 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_app['lands_owned'] >
+		,
+		ReturnType< $bog_microtodo_settings['lands_owned'] >
+	>
+	type $mol_page__title_bog_microtodo_app_59 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_title'] >
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__head_bog_microtodo_app_58 = $mol_type_enforce<
+	type $mol_page__head_bog_microtodo_app_60 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_head'] >
 		,
 		ReturnType< $mol_page['head'] >
 	>
-	type $mol_page__tools_bog_microtodo_app_59 = $mol_type_enforce<
+	type $mol_page__tools_bog_microtodo_app_61 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_tools'] >
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_bog_microtodo_app_60 = $mol_type_enforce<
+	type $mol_page__body_bog_microtodo_app_62 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_body'] >
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_string__hint_bog_microtodo_app_61 = $mol_type_enforce<
+	type $mol_string__hint_bog_microtodo_app_63 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_string['hint'] >
 	>
-	type $mol_string__value_bog_microtodo_app_62 = $mol_type_enforce<
+	type $mol_string__value_bog_microtodo_app_64 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_title'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_button_minor__hint_bog_microtodo_app_63 = $mol_type_enforce<
+	type $mol_button_minor__hint_bog_microtodo_app_65 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_bog_microtodo_app_64 = $mol_type_enforce<
+	type $mol_button_minor__click_bog_microtodo_app_66 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_share'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_bog_microtodo_app_65 = $mol_type_enforce<
+	type $mol_button_minor__sub_bog_microtodo_app_67 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__hint_bog_microtodo_app_66 = $mol_type_enforce<
+	type $mol_button_minor__hint_bog_microtodo_app_68 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_drop_hint'] >
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_bog_microtodo_app_67 = $mol_type_enforce<
+	type $mol_button_minor__click_bog_microtodo_app_69 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_drop'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_bog_microtodo_app_68 = $mol_type_enforce<
+	type $mol_button_minor__sub_bog_microtodo_app_70 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $bog_microtodo_row__link_bog_microtodo_app_69 = $mol_type_enforce<
+	type $bog_microtodo_row__link_bog_microtodo_app_71 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_link'] >
 		,
 		ReturnType< $bog_microtodo_row['link'] >
 	>
-	type $bog_microtodo_row__arg_bog_microtodo_app_70 = $mol_type_enforce<
+	type $bog_microtodo_row__arg_bog_microtodo_app_72 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_arg'] >
 		,
 		ReturnType< $bog_microtodo_row['arg'] >
 	>
-	type $bog_microtodo_row__list_title_bog_microtodo_app_71 = $mol_type_enforce<
+	type $bog_microtodo_row__list_title_bog_microtodo_app_73 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_list_title'] >
 		,
 		ReturnType< $bog_microtodo_row['list_title'] >
 	>
-	type $bog_microtodo_row__myday_bog_microtodo_app_72 = $mol_type_enforce<
+	type $bog_microtodo_row__myday_bog_microtodo_app_74 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_myday'] >
 		,
 		ReturnType< $bog_microtodo_row['myday'] >
 	>
-	type $bog_microtodo_row__done_bog_microtodo_app_73 = $mol_type_enforce<
+	type $bog_microtodo_row__done_bog_microtodo_app_75 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_done'] >
 		,
 		ReturnType< $bog_microtodo_row['done'] >
 	>
-	type $bog_microtodo_details__link_bog_microtodo_app_74 = $mol_type_enforce<
+	type $bog_microtodo_details__link_bog_microtodo_app_76 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_link'] >
 		,
 		ReturnType< $bog_microtodo_details['link'] >
 	>
-	type $bog_microtodo_details__list_title_bog_microtodo_app_75 = $mol_type_enforce<
+	type $bog_microtodo_details__list_title_bog_microtodo_app_77 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_list_title'] >
 		,
 		ReturnType< $bog_microtodo_details['list_title'] >
 	>
-	type $bog_microtodo_details__done_bog_microtodo_app_76 = $mol_type_enforce<
+	type $bog_microtodo_details__done_bog_microtodo_app_78 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_done'] >
 		,
 		ReturnType< $bog_microtodo_details['done'] >
 	>
-	type $bog_microtodo_details__myday_bog_microtodo_app_77 = $mol_type_enforce<
+	type $bog_microtodo_details__myday_bog_microtodo_app_79 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_myday'] >
 		,
 		ReturnType< $bog_microtodo_details['myday'] >
 	>
-	type $bog_microtodo_details__drop_bog_microtodo_app_78 = $mol_type_enforce<
+	type $bog_microtodo_details__drop_bog_microtodo_app_80 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_drop'] >
 		,
 		ReturnType< $bog_microtodo_details['drop'] >
@@ -45535,6 +45782,7 @@ declare namespace $ {
 		List_new_icon( ): $mol_icon_plus
 		List_new_submit( ): $mol_button_minor
 		List_new( ): $mol_view
+		lands_owned( ): readonly($giper_baza_land)[]
 		list_head( id: any): readonly(any)[]
 		list_tools( id: any): readonly(any)[]
 		task_title_new( id: any, next?: string ): string
@@ -45545,6 +45793,8 @@ declare namespace $ {
 		Add( id: any): $mol_view
 		share_hint( id: any): string
 		Share_hint( id: any): $mol_paragraph
+		list_land( id: any): any
+		Rights( id: any): $giper_baza_land_rights
 		share_link( id: any): string
 		Share_copy( id: any): $mol_button_copy
 		share_content( id: any): readonly(any)[]
@@ -45651,6 +45901,10 @@ declare namespace $.$$ {
         list_head(id: string): ($mol_view | $.$mol_string)[];
         list_tools(id: string): $mol_button_minor[];
         list_body(id: string): $mol_view[];
+        list_land(id: string): $giper_baza_land;
+        list_owned(id: string): boolean;
+        lands_owned(): $giper_baza_land[];
+        share_hint(id: string): string;
         share_link(id: string): string;
         list_drop_hint(id: string): string;
         list_task_ids(id: string): string[];

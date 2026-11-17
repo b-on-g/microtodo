@@ -20026,6 +20026,373 @@ var $;
 
 
 ;
+	($.$giper_baza_link_chip) = class $giper_baza_link_chip extends ($.$mol_link) {
+		icon(){
+			return "";
+		}
+		param(){
+			return "link";
+		}
+		link(){
+			const obj = new this.$.$giper_baza_link();
+			return obj;
+		}
+		sub(){
+			return [(this.icon()), (this.title())];
+		}
+	};
+	($mol_mem(($.$giper_baza_link_chip.prototype), "link"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $giper_baza_link_chip extends $.$giper_baza_link_chip {
+            subj() {
+                const link = this.link();
+                if (!link.str)
+                    return null;
+                return this.$.$giper_baza_glob.Pawn(link, $giper_baza_flex_subj);
+            }
+            meta() {
+                const link = this.subj()?.meta();
+                if (!link)
+                    return null;
+                return this.$.$giper_baza_glob.Pawn(link, $giper_baza_flex_meta);
+            }
+            icon() {
+                return (this.subj()?.icon() || '💠') + ' ';
+            }
+            title() {
+                const link = this.link();
+                if (!link.str)
+                    return '______every______';
+                return this.subj()?.name() || link.str;
+            }
+            hint() {
+                return this.subj()?.hint() ?? '';
+            }
+            arg() {
+                return { [this.param()]: this.link().str };
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $giper_baza_link_chip.prototype, "subj", null);
+        __decorate([
+            $mol_mem
+        ], $giper_baza_link_chip.prototype, "meta", null);
+        __decorate([
+            $mol_mem
+        ], $giper_baza_link_chip.prototype, "icon", null);
+        __decorate([
+            $mol_mem
+        ], $giper_baza_link_chip.prototype, "title", null);
+        __decorate([
+            $mol_mem
+        ], $giper_baza_link_chip.prototype, "arg", null);
+        $$.$giper_baza_link_chip = $giper_baza_link_chip;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($giper_baza_link_chip, {
+            font: {
+                family: 'monospace',
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$giper_baza_land_rights) = class $giper_baza_land_rights extends ($.$mol_list) {
+		add_key(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		add_commit(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		enabled(){
+			return false;
+		}
+		Add_key(){
+			const obj = new this.$.$mol_string();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$giper_baza_land_rights_Add_key_hint")));
+			(obj.value) = (next) => ((this.add_key(next)));
+			(obj.submit) = (next) => ((this.add_commit(next)));
+			(obj.enabled) = () => ((this.enabled()));
+			return obj;
+		}
+		Add_commit_icon(){
+			const obj = new this.$.$mol_icon_plus();
+			return obj;
+		}
+		Add_commit(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.click) = (next) => ((this.add_commit(next)));
+			(obj.enabled) = () => ((this.enabled()));
+			(obj.sub) = () => ([(this.Add_commit_icon())]);
+			return obj;
+		}
+		Add(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Add_key()), (this.Add_commit())]);
+			return obj;
+		}
+		gift_rate(id, next){
+			if(next !== undefined) return next;
+			return "0";
+		}
+		Gift_rate(id){
+			const obj = new this.$.$mol_select();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$giper_baza_land_rights_Gift_rate_hint")));
+			(obj.value) = (next) => ((this.gift_rate(id, next)));
+			(obj.enabled) = () => ((this.enabled()));
+			(obj.Filter) = () => (null);
+			(obj.dictionary) = () => ({
+				"0": "0 🦼 ~1W", 
+				"1": "1 🚲 ~3D", 
+				"2": "2 🛵 ~1D", 
+				"3": "3 🚜 ~D/2", 
+				"4": "4 🏇 ~8h", 
+				"5": "5 🚂 ~4h", 
+				"6": "6 🚛 ~2h", 
+				"7": "7 🚗 ~1h", 
+				"8": "8 🏍️ ~h/2", 
+				"9": "9 🏎️ ~5m", 
+				"A": "A 🚅 ~2m", 
+				"B": "B 🚁 ~m/2", 
+				"C": "C 🛩️ ~2s", 
+				"D": "D ✈️ ~s/2", 
+				"E": "E 🚀 ~50ms", 
+				"F": "F 🛸 ~1ms"
+			});
+			return obj;
+		}
+		gift_tier(id, next){
+			if(next !== undefined) return next;
+			return "deny";
+		}
+		tier_options(){
+			return {
+				"deny": (this.$.$mol_locale.text("$giper_baza_land_rights_tier_options_deny")), 
+				"read": (this.$.$mol_locale.text("$giper_baza_land_rights_tier_options_read")), 
+				"post": (this.$.$mol_locale.text("$giper_baza_land_rights_tier_options_post")), 
+				"pull": (this.$.$mol_locale.text("$giper_baza_land_rights_tier_options_pull")), 
+				"rule": (this.$.$mol_locale.text("$giper_baza_land_rights_tier_options_rule"))
+			};
+		}
+		Gift_tier(id){
+			const obj = new this.$.$mol_select();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$giper_baza_land_rights_Gift_tier_hint")));
+			(obj.value) = (next) => ((this.gift_tier(id, next)));
+			(obj.Filter) = () => (null);
+			(obj.dictionary) = () => ((this.tier_options()));
+			(obj.enabled) = () => ((this.enabled()));
+			return obj;
+		}
+		link_param(){
+			return "link";
+		}
+		peer_link(id){
+			const obj = new this.$.$giper_baza_link();
+			return obj;
+		}
+		peer_id(id){
+			return "";
+		}
+		Gift_avatar(id){
+			const obj = new this.$.$mol_avatar();
+			(obj.id) = () => ((this.peer_id(id)));
+			return obj;
+		}
+		Gift_name(id){
+			const obj = new this.$.$giper_baza_link_chip();
+			(obj.param) = () => ((this.link_param()));
+			(obj.link) = () => ((this.peer_link(id)));
+			(obj.sub) = () => ([...(this.$.$giper_baza_link_chip.prototype.sub.call(obj)), (this.Gift_avatar(id))]);
+			return obj;
+		}
+		Gift(id){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([
+				(this.Gift_rate(id)), 
+				(this.Gift_tier(id)), 
+				(this.Gift_name(id))
+			]);
+			return obj;
+		}
+		gifts(){
+			return [(this.Gift("0"))];
+		}
+		land(){
+			const obj = new this.$.$giper_baza_land();
+			return obj;
+		}
+		rows(){
+			return [(this.Add()), ...(this.gifts())];
+		}
+	};
+	($mol_mem(($.$giper_baza_land_rights.prototype), "add_key"));
+	($mol_mem(($.$giper_baza_land_rights.prototype), "add_commit"));
+	($mol_mem(($.$giper_baza_land_rights.prototype), "Add_key"));
+	($mol_mem(($.$giper_baza_land_rights.prototype), "Add_commit_icon"));
+	($mol_mem(($.$giper_baza_land_rights.prototype), "Add_commit"));
+	($mol_mem(($.$giper_baza_land_rights.prototype), "Add"));
+	($mol_mem_key(($.$giper_baza_land_rights.prototype), "gift_rate"));
+	($mol_mem_key(($.$giper_baza_land_rights.prototype), "Gift_rate"));
+	($mol_mem_key(($.$giper_baza_land_rights.prototype), "gift_tier"));
+	($mol_mem_key(($.$giper_baza_land_rights.prototype), "Gift_tier"));
+	($mol_mem_key(($.$giper_baza_land_rights.prototype), "peer_link"));
+	($mol_mem_key(($.$giper_baza_land_rights.prototype), "Gift_avatar"));
+	($mol_mem_key(($.$giper_baza_land_rights.prototype), "Gift_name"));
+	($mol_mem_key(($.$giper_baza_land_rights.prototype), "Gift"));
+	($mol_mem(($.$giper_baza_land_rights.prototype), "land"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $giper_baza_land_rights extends $.$giper_baza_land_rights {
+            rows() {
+                if (this.enabled())
+                    return super.rows();
+                else
+                    return this.gifts();
+            }
+            gifts() {
+                const land = this.land();
+                return [...land._gift.keys()]
+                    .filter(link => link !== land.link().lord().str)
+                    .reverse()
+                    .map(link => this.Gift(new $giper_baza_link(link)));
+            }
+            peer_link(lord) {
+                return lord;
+            }
+            peer_id(lord) {
+                return lord.str;
+            }
+            gift_tier(lord, next) {
+                const rank = this.land().lord_rank(lord, next && $giper_baza_rank_make(next, 'just'));
+                return $giper_baza_rank_tier[rank & 0b0_1111_0000];
+            }
+            gift_rate(lord, next) {
+                const arg = next ? $giper_baza_rank(this.land().lord_rank(lord) & 0b0_1111_0000 | parseInt(next, 16)) : undefined;
+                const rank = this.land().lord_rank(lord, arg);
+                return (rank & 0b1111).toString(16).toUpperCase();
+            }
+            add_commit() {
+                let key = this.add_key();
+                if (/^\w{8}_\w{8}$/.test(key)) {
+                    const link = new $giper_baza_link(key);
+                    const peer_land = this.$.$giper_baza_glob.Land(link);
+                    const pass = peer_land.lord_pass(link);
+                    if (!pass)
+                        return $mol_fail(new Error('No Pass for Lord'));
+                    this.land().give(pass, $giper_baza_rank_read);
+                }
+                else {
+                    const pass = $giper_baza_auth_pass.from(key);
+                    this.land().give(pass, $giper_baza_rank_read);
+                }
+                this.add_key('');
+            }
+            tier_options() {
+                if (this.land().encrypted())
+                    return super.tier_options();
+                const options = { ...super.tier_options() };
+                delete options.deny;
+                return options;
+            }
+            enabled() {
+                return this.land().lord_rank(this.land().auth().pass().lord()) >= $giper_baza_rank_rule;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $giper_baza_land_rights.prototype, "rows", null);
+        __decorate([
+            $mol_mem
+        ], $giper_baza_land_rights.prototype, "gifts", null);
+        __decorate([
+            $mol_mem_key
+        ], $giper_baza_land_rights.prototype, "gift_tier", null);
+        __decorate([
+            $mol_mem_key
+        ], $giper_baza_land_rights.prototype, "gift_rate", null);
+        __decorate([
+            $mol_mem
+        ], $giper_baza_land_rights.prototype, "tier_options", null);
+        __decorate([
+            $mol_mem
+        ], $giper_baza_land_rights.prototype, "enabled", null);
+        $$.$giper_baza_land_rights = $giper_baza_land_rights;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($giper_baza_land_rights, {
+            gap: $mol_gap.block,
+            Gift: {
+                flex: {
+                    wrap: 'wrap',
+                },
+                background: {
+                    color: $mol_theme.card,
+                },
+            },
+            Gift_name: {
+                flex: {
+                    grow: 1,
+                },
+            },
+            Gift_tier: {
+                flex: {
+                    grow: 0,
+                    basis: `7em`,
+                },
+                font: {
+                    family: 'monospace',
+                },
+            },
+            Gift_rate: {
+                flex: {
+                    grow: 0,
+                    basis: `8em`,
+                },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
 	($.$mol_icon_clipboard) = class $mol_icon_clipboard extends ($.$mol_icon) {
 		path(){
 			return "M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3";
@@ -21774,6 +22141,16 @@ var $;
 			(obj.title) = () => ((this.lord_label()));
 			return obj;
 		}
+		pass_text(){
+			return "";
+		}
+		Pass_copy(){
+			const obj = new this.$.$mol_button_copy();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Pass_copy_title")));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Pass_copy_hint")));
+			(obj.text) = () => ((this.pass_text()));
+			return obj;
+		}
 		account_link(){
 			return "";
 		}
@@ -21832,6 +22209,7 @@ var $;
 			(obj.rows) = () => ([
 				(this.Sync_hint()), 
 				(this.Lord()), 
+				(this.Pass_copy()), 
 				(this.Transfer()), 
 				(this.Import()), 
 				(this.Import_hint()), 
@@ -21844,6 +22222,9 @@ var $;
 			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Sync_title")));
 			(obj.content) = () => ([(this.Sync_list())]);
 			return obj;
+		}
+		lands_owned(){
+			return [];
 		}
 		title(){
 			return (this.$.$mol_locale.text("$bog_microtodo_settings_title"));
@@ -21860,6 +22241,7 @@ var $;
 	($mol_mem(($.$bog_microtodo_settings.prototype), "Install"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "Sync_hint"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "Lord"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Pass_copy"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "account_found"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "Transfer"));
 	($mol_mem(($.$bog_microtodo_settings.prototype), "account_input"));
@@ -21901,10 +22283,16 @@ var $;
                 const decoded = decodeURIComponent(key);
                 return decoded.length >= 160 && !/\s/.test(decoded) ? decoded : '';
             }
+            pass_text() {
+                return this.$.$giper_baza_auth.current().pass().toString();
+            }
             account_switch(key) {
                 if (!key || key === this.account_key())
                     return false;
                 const lord = this.$.$giper_baza_auth.current().pass().lord().str;
+                const pass = $giper_baza_auth.from(key).pass();
+                for (const land of this.lands_owned())
+                    land.give(pass, $giper_baza_rank_rule);
                 this.$.$mol_state_local.value('bog_microtodo_merge', lord);
                 this.$.$mol_state_local.value('$giper_baza_auth', key);
                 return true;
@@ -25052,6 +25440,9 @@ var $;
 			(obj.sub) = () => ([(this.List_new_title()), (this.List_new_submit())]);
 			return obj;
 		}
+		lands_owned(){
+			return [];
+		}
 		list_head(id){
 			return [];
 		}
@@ -25096,6 +25487,14 @@ var $;
 			(obj.title) = () => ((this.share_hint(id)));
 			return obj;
 		}
+		list_land(id){
+			return null;
+		}
+		Rights(id){
+			const obj = new this.$.$giper_baza_land_rights();
+			(obj.land) = () => ((this.list_land(id)));
+			return obj;
+		}
 		share_link(id){
 			return "";
 		}
@@ -25106,7 +25505,11 @@ var $;
 			return obj;
 		}
 		share_content(id){
-			return [(this.Share_hint(id)), (this.Share_copy(id))];
+			return [
+				(this.Share_hint(id)), 
+				(this.Rights(id)), 
+				(this.Share_copy(id))
+			];
 		}
 		Share(id){
 			const obj = new this.$.$mol_view();
@@ -25214,6 +25617,7 @@ var $;
 		}
 		Settings(){
 			const obj = new this.$.$bog_microtodo_settings();
+			(obj.lands_owned) = () => ((this.lands_owned()));
 			return obj;
 		}
 		List_page(id){
@@ -25302,6 +25706,7 @@ var $;
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add_submit"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_hint"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Rights"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_copy"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Empty"));
@@ -25433,6 +25838,25 @@ var $;
                     this.Rows(id),
                     ...this.list_finished(id).length ? [this.Finished(id)] : [],
                 ];
+            }
+            list_land(id) {
+                return this.$.$giper_baza_glob.Land(new $giper_baza_link(id).land());
+            }
+            list_owned(id) {
+                const land = this.list_land(id);
+                return land.lord_rank(land.auth().pass().lord()) >= $giper_baza_rank_rule;
+            }
+            lands_owned() {
+                return this.list_ids()
+                    .filter(id => this.list_shared(id) && this.list_owned(id))
+                    .map(id => this.list_land(id));
+            }
+            share_hint(id) {
+                if (this.list_owned(id))
+                    return super.share_hint(id);
+                if (!this.list_land(id).encrypted())
+                    return 'Список открыт всем, у кого есть ссылка';
+                return 'Вы участник списка. Доступ раздаёт его владелец.';
             }
             share_link(id) {
                 return this.$.$mol_state_arg.make_link({ join: id });
@@ -25617,7 +26041,7 @@ var $;
             list_publish(id) {
                 const source = this.list(id);
                 const tasks = [...this.list_task_ids(id)].reverse();
-                const land = this.$.$giper_baza_glob.land_grab([[null, $giper_baza_rank_post('just')]]);
+                const land = this.$.$giper_baza_glob.land_grab([[null, $giper_baza_rank_deny]]);
                 const target = land.Data($bog_microtodo_list);
                 target.Title('auto').val(source.Title()?.val() ?? '');
                 for (const task of tasks) {
@@ -32972,7 +33396,47 @@ var $;
             $mol_assert_equal(app.list_ids().filter(id => id === list).length, 1);
             $mol_assert_equal(app.list_id(), list);
         },
-        async 'shared list copies tasks into an open land'($) {
+        async 'owner adds a member by key and the member reads the encrypted list'($) {
+            const app = app_make($);
+            const list = list_make(app, 'Ремонт');
+            task_make(app, list, 'Купить краску');
+            const shared = await $mol_wire_async(app).list_publish(list);
+            const land = app.list_land(shared);
+            $mol_assert_equal(land.encrypted(), true);
+            $mol_assert_equal(app.list_owned(shared), true);
+            $mol_assert_equal(app.share_content(shared).includes(app.Rights(shared)), true);
+            $mol_assert_equal(app.lands_owned(), [land]);
+            const friend = await $mol_wire_async($.$giper_baza_auth).grab();
+            const rights = app.Rights(shared);
+            const ops = {
+                add() {
+                    rights.add_key(friend.pass().toString());
+                    rights.add_commit();
+                    rights.gift_tier(friend.pass().lord(), 'post');
+                },
+            };
+            await $mol_wire_async(ops).add();
+            $mol_assert_equal(land.lord_rank(friend.pass().lord()), $giper_baza_rank_post('just'));
+            $mol_assert_equal(rights.gifts().includes(rights.Gift(friend.pass().lord())), true);
+            const copy = $giper_baza_land.make({ $, link: () => land.link(), auth: () => friend });
+            const send = {
+                pack() {
+                    return $giper_baza_pack.from($giper_baza_pack.make(land.diff_parts()).asArray().slice());
+                },
+            };
+            const wire = await $mol_wire_async(send).pack();
+            const read = {
+                title() {
+                    for (const [, part] of wire.parts())
+                        copy.diff_apply(part.units);
+                    const data = copy.Data($bog_microtodo_list);
+                    const task = copy.Pawn($bog_microtodo_task).Head(data.Tasks().items()[0].head());
+                    return [data.Title()?.val(), task.Title()?.val()];
+                },
+            };
+            $mol_assert_equal(await $mol_wire_async(read).title(), ['Ремонт', 'Купить краску']);
+        },
+        async 'shared list copies tasks into its own land'($) {
             const app = app_make($);
             const list = list_make(app, 'Семья');
             const task = task_make(app, list, 'Купить подарок');

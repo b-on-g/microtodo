@@ -2406,6 +2406,7 @@ $bog_keyqr $mol_list
 			found? <=> found?
 
 $bog_microtodo_settings $mol_page
+	lands_owned /$giper_baza_land
 	title @ \Настройки
 	tools /
 		<= Close $mol_link
@@ -2432,6 +2433,10 @@ $bog_microtodo_settings $mol_page
 							title @ \Списки привязаны к ключу аккаунта в этом браузере. Чтобы видеть их на телефоне или другом компьютере, отсканируйте там код камерой или откройте ссылку. Ключ даёт полный доступ к спискам, никому его не показывайте.
 						<= Lord $mol_paragraph
 							title <= lord_label \
+						<= Pass_copy $mol_button_copy
+							title @ \Скопировать ключ для приглашений
+							hint @ \Этот ключ публичный, его можно отправить владельцу общего списка
+							text <= pass_text \
 						<= Transfer $bog_keyqr
 							key <= account_link \
 							found? <=> account_found? \
@@ -2688,6 +2693,7 @@ $bog_microtodo_app $mol_book2
 						sub /
 							<= List_new_icon $mol_icon_plus
 	Settings $bog_microtodo_settings
+		lands_owned <= lands_owned /$giper_baza_land
 	List_page* $mol_page
 		title <= list_title*
 		head <= list_head* /
@@ -2706,9 +2712,11 @@ $bog_microtodo_app $mol_book2
 			<= Share* $mol_view
 				sub <= share_content* /
 					<= Share_hint* $mol_paragraph
-						title <= share_hint* @ \Все, у кого есть ссылка, смогут видеть и менять этот список
+						title <= share_hint* @ \Список видят только участники. Попросите человека прислать ключ аккаунта из настроек, добавьте его ниже и поставьте «Запись», потом отправьте ему ссылку на список.
+					<= Rights* $giper_baza_land_rights
+						land <= list_land* null
 					<= Share_copy* $mol_button_copy
-						title @ \Скопировать ссылку
+						title @ \Скопировать ссылку на список
 						text <= share_link* \
 			<= Rows* $mol_list
 				rows <= task_rows* /
