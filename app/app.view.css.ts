@@ -17,6 +17,11 @@ namespace $ {
 		Add: {
 			padding: $mol_gap.block,
 		},
+		List_new_title: {
+			flex: {
+				grow: 1,
+			},
+		},
 		Add_title: {
 			flex: {
 				grow: 1,

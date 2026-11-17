@@ -48,6 +48,10 @@ namespace $.$$ {
 			return this.step( id ).Done( next === undefined ? undefined : 'auto' )?.val( next ) ?? false
 		}
 
+		step_add_enabled() {
+			return Boolean( this.step_title_new().trim() )
+		}
+
 		@ $mol_action
 		step_add() {
 			const title = this.step_title_new().trim()

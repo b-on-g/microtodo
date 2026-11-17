@@ -21,6 +21,11 @@ namespace $ {
 		Body_content: {
 			gap: $mol_gap.block,
 		},
+		Step_add: {
+			flex: {
+				grow: 1,
+			},
+		},
 		Note: {
 			minHeight: '8rem',
 		},

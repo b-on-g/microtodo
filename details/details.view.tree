@@ -31,10 +31,18 @@ $bog_microtodo_details $mol_page
 							click? <=> step_drop*? null
 							sub /
 								<= Step_drop_icon* $mol_icon_close
-		<= Step_add $mol_string
-			hint @ \+ Следующий шаг
-			value? <=> step_title_new? \
-			submit? <=> step_add? null
+		<= Step_new $mol_view
+			sub /
+				<= Step_add $mol_string
+					hint @ \Следующий шаг
+					value? <=> step_title_new? \
+					submit? <=> step_add? null
+				<= Step_submit $mol_button_minor
+					hint @ \Добавить шаг
+					enabled <= step_add_enabled false
+					click? <=> step_add? null
+					sub /
+						<= Step_submit_icon $mol_icon_plus
 		<= Myday $mol_check
 			Icon <= Myday_icon $mol_icon_white_balance_sunny
 			title <= myday_label @ \Добавить в «Мой день»

@@ -65,10 +65,18 @@ $bog_microtodo_app $mol_book2
 						count <= list_count* 0
 						Icon <= List_icon* null
 		foot /
-			<= List_new $mol_string
-				hint @ \+ Создать список
-				value? <=> list_title_new? \
-				submit? <=> list_add? null
+			<= List_new $mol_view
+				sub /
+					<= List_new_title $mol_string
+						hint @ \Создать список
+						value? <=> list_title_new? \
+						submit? <=> list_add? null
+					<= List_new_submit $mol_button_minor
+						hint @ \Создать список
+						enabled <= list_add_enabled false
+						click? <=> list_add? null
+						sub /
+							<= List_new_icon $mol_icon_plus
 	Settings $bog_microtodo_settings
 	List_page* $mol_page
 		title <= list_title*
@@ -78,9 +86,13 @@ $bog_microtodo_app $mol_book2
 			<= Add* $mol_view
 				sub /
 					<= Add_title* $mol_string
-						hint @ \+ Добавить задачу
+						hint @ \Добавить задачу
 						value? <=> task_title_new*? \
 						submit? <=> task_add*? null
+					<= Add_submit* $mol_button_major
+						title @ \Добавить
+						enabled <= task_add_enabled* false
+						click? <=> task_add*? null
 			<= Share* $mol_view
 				sub <= share_content* /
 					<= Share_hint* $mol_paragraph

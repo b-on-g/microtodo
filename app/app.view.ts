@@ -271,6 +271,14 @@ namespace $.$$ {
 			}
 		}
 
+		task_add_enabled( id: string ) {
+			return Boolean( this.task_title_new( id ).trim() )
+		}
+
+		list_add_enabled() {
+			return Boolean( this.list_title_new().trim() )
+		}
+
 		@ $mol_action
 		task_add( id: string ) {
 			const title = this.task_title_new( id ).trim()
