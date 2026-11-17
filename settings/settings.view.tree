@@ -1,4 +1,5 @@
 $bog_microtodo_settings $mol_page
+	lands_owned /$giper_baza_land
 	title @ \Настройки
 	tools /
 		<= Close $mol_link
@@ -25,6 +26,10 @@ $bog_microtodo_settings $mol_page
 							title @ \Списки привязаны к ключу аккаунта в этом браузере. Чтобы видеть их на телефоне или другом компьютере, отсканируйте там код камерой или откройте ссылку. Ключ даёт полный доступ к спискам, никому его не показывайте.
 						<= Lord $mol_paragraph
 							title <= lord_label \
+						<= Pass_copy $mol_button_copy
+							title @ \Скопировать ключ для приглашений
+							hint @ \Этот ключ публичный, его можно отправить владельцу общего списка
+							text <= pass_text \
 						<= Transfer $bog_keyqr
 							key <= account_link \
 							found? <=> account_found? \

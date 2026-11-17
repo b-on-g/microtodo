@@ -22,9 +22,15 @@ namespace $.$$ {
 			return decoded.length >= 160 && !/\s/.test( decoded ) ? decoded : ''
 		}
 
+		pass_text() {
+			return this.$.$giper_baza_auth.current().pass().toString()
+		}
+
 		account_switch( key: string ) {
 			if( !key || key === this.account_key() ) return false
 			const lord = this.$.$giper_baza_auth.current().pass().lord().str
+			const pass = $giper_baza_auth.from( key ).pass()
+			for( const land of this.lands_owned() ) land.give( pass, $giper_baza_rank_rule )
 			this.$.$mol_state_local.value( 'bog_microtodo_merge', lord )
 			this.$.$mol_state_local.value( '$giper_baza_auth', key )
 			return true

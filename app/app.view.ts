@@ -114,6 +114,27 @@ namespace $.$$ {
 			]
 		}
 
+		list_land( id: string ) {
+			return this.$.$giper_baza_glob.Land( new $giper_baza_link( id ).land() )
+		}
+
+		list_owned( id: string ) {
+			const land = this.list_land( id )
+			return land.lord_rank( land.auth().pass().lord() ) >= $giper_baza_rank_rule
+		}
+
+		lands_owned() {
+			return this.list_ids()
+				.filter( id => this.list_shared( id ) && this.list_owned( id ) )
+				.map( id => this.list_land( id ) )
+		}
+
+		share_hint( id: string ) {
+			if( this.list_owned( id ) ) return super.share_hint( id )
+			if( !this.list_land( id ).encrypted() ) return 'Список открыт всем, у кого есть ссылка'
+			return 'Вы участник списка. Доступ раздаёт его владелец.'
+		}
+
 		share_link( id: string ) {
 			return this.$.$mol_state_arg.make_link({ join: id })
 		}
@@ -323,7 +344,7 @@ namespace $.$$ {
 		list_publish( id: string ) {
 			const source = this.list( id )
 			const tasks = [ ... this.list_task_ids( id ) ].reverse()
-			const land = this.$.$giper_baza_glob.land_grab([[ null, $giper_baza_rank_post( 'just' ) ]])
+			const land = this.$.$giper_baza_glob.land_grab([[ null, $giper_baza_rank_deny ]])
 			const target = land.Data( $bog_microtodo_list )
 			target.Title( 'auto' )!.val( source.Title()?.val() ?? '' )
 			for( const task of tasks ) {
