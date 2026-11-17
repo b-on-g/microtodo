@@ -19199,6 +19199,18 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_icon_settings) = class $mol_icon_settings extends ($.$mol_icon) {
+		path(){
+			return "M12,15.5C10.07,15.5 8.5,13.93 8.5,12C8.5,10.07 10.07,8.5 12,8.5C13.93,8.5 15.5,10.07 15.5,12C15.5,13.93 13.93,15.5 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z";
+		}
+	};
+
+
+;
+"use strict";
+
+
+;
 	($.$bog_theme_picker_row) = class $bog_theme_picker_row extends ($.$mol_button_minor) {
 		focused_str(){
 			return "";
@@ -20534,6 +20546,1417 @@ var $;
 })($ || ($ = {}));
 
 ;
+	($.$mol_labeler) = class $mol_labeler extends ($.$mol_list) {
+		label(){
+			return [(this.title())];
+		}
+		Label(){
+			const obj = new this.$.$mol_view();
+			(obj.minimal_height) = () => (32);
+			(obj.sub) = () => ((this.label()));
+			return obj;
+		}
+		content(){
+			return [];
+		}
+		Content(){
+			const obj = new this.$.$mol_view();
+			(obj.minimal_height) = () => (24);
+			(obj.sub) = () => ((this.content()));
+			return obj;
+		}
+		rows(){
+			return [(this.Label()), (this.Content())];
+		}
+	};
+	($mol_mem(($.$mol_labeler.prototype), "Label"));
+	($mol_mem(($.$mol_labeler.prototype), "Content"));
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: 0;\n\tpadding-top: .5rem;\n\tpadding-inline: .75rem;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n\tmin-height: 2.5rem;\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
+		theme(){
+			return "$mol_theme_base";
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+	($.$bog_install) = class $bog_install extends ($.$mol_labeler) {
+		install(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Install_button(){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ((this.button_title()));
+			(obj.click) = (next) => ((this.install(next)));
+			return obj;
+		}
+		title(){
+			return (this.$.$mol_locale.text("$bog_install_title"));
+		}
+		button_title(){
+			return (this.$.$mol_locale.text("$bog_install_button_title"));
+		}
+		install_ios_instruction(){
+			return (this.$.$mol_locale.text("$bog_install_install_ios_instruction"));
+		}
+		install_android_instruction(){
+			return (this.$.$mol_locale.text("$bog_install_install_android_instruction"));
+		}
+		install_desktop_instruction(){
+			return (this.$.$mol_locale.text("$bog_install_install_desktop_instruction"));
+		}
+		install_unsupported_browser(){
+			return (this.$.$mol_locale.text("$bog_install_install_unsupported_browser"));
+		}
+		install_already_installed(){
+			return (this.$.$mol_locale.text("$bog_install_install_already_installed"));
+		}
+		content(){
+			return [(this.Install_button())];
+		}
+	};
+	($mol_mem(($.$bog_install.prototype), "install"));
+	($mol_mem(($.$bog_install.prototype), "Install_button"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $bog_install extends $.$bog_install {
+            prompt_event(next) {
+                return next ?? null;
+            }
+            installed(next) {
+                return next ?? false;
+            }
+            prompt_capture(event) {
+                event.preventDefault();
+                this.prompt_event(event);
+            }
+            listeners() {
+                const win = this.$.$mol_dom_context;
+                return [
+                    new $mol_dom_listener(win, 'beforeinstallprompt', (event) => this.prompt_capture(event)),
+                    new $mol_dom_listener(win, 'appinstalled', () => {
+                        this.prompt_event(null);
+                        this.installed(true);
+                    }),
+                ];
+            }
+            auto() {
+                super.auto();
+                this.listeners();
+            }
+            install() {
+                const prompt = this.prompt_event();
+                if (prompt) {
+                    prompt.prompt();
+                    prompt.userChoice.finally(() => this.prompt_event(null));
+                    return;
+                }
+                if (this.installed() || this.$.$mol_dom_context.matchMedia?.('(display-mode: standalone)')?.matches || this.$.$mol_dom_context.navigator.standalone) {
+                    this.$.$mol_dom_context.alert(this.install_already_installed());
+                    return;
+                }
+                const agent = this.$.$mol_dom_context.navigator.userAgent;
+                if (/iPad|iPhone|iPod/.test(agent)) {
+                    this.$.$mol_dom_context.alert(this.install_ios_instruction());
+                    return;
+                }
+                if (/Android/.test(agent)) {
+                    this.$.$mol_dom_context.alert(this.install_android_instruction());
+                    return;
+                }
+                if (/Windows|Macintosh|Linux/.test(agent)) {
+                    this.$.$mol_dom_context.alert(this.install_desktop_instruction());
+                    return;
+                }
+                this.$.$mol_dom_context.alert(this.install_unsupported_browser());
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $bog_install.prototype, "prompt_event", null);
+        __decorate([
+            $mol_mem
+        ], $bog_install.prototype, "installed", null);
+        __decorate([
+            $mol_action
+        ], $bog_install.prototype, "prompt_capture", null);
+        __decorate([
+            $mol_mem
+        ], $bog_install.prototype, "listeners", null);
+        __decorate([
+            $mol_action
+        ], $bog_install.prototype, "install", null);
+        $$.$bog_install = $bog_install;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$bog_qr) = class $bog_qr extends ($.$mol_svg_root) {
+		stop_offset(id){
+			return "0%";
+		}
+		stop_color(id){
+			return "";
+		}
+		qr_view_box(){
+			return "0 0 1 1";
+		}
+		grad_x1(){
+			return "0";
+		}
+		grad_y1(){
+			return "0";
+		}
+		grad_x2(){
+			return "1";
+		}
+		grad_y2(){
+			return "1";
+		}
+		gradient_stop_list(){
+			return [];
+		}
+		Gradient(){
+			const obj = new this.$.$mol_svg();
+			(obj.dom_name) = () => ("linearGradient");
+			(obj.attr) = () => ({
+				...(this.$.$mol_svg.prototype.attr.call(obj)), 
+				"id": (this.gradient_id()), 
+				"x1": (this.grad_x1()), 
+				"y1": (this.grad_y1()), 
+				"x2": (this.grad_x2()), 
+				"y2": (this.grad_y2())
+			});
+			(obj.sub) = () => ((this.gradient_stop_list()));
+			return obj;
+		}
+		Defs(){
+			const obj = new this.$.$mol_svg();
+			(obj.dom_name) = () => ("defs");
+			(obj.sub) = () => ([(this.Gradient())]);
+			return obj;
+		}
+		modules_d(){
+			return "";
+		}
+		Modules(){
+			const obj = new this.$.$mol_svg_path();
+			(obj.geometry) = () => ((this.modules_d()));
+			(obj.attr) = () => ({...(this.$.$mol_svg_path.prototype.attr.call(obj)), "fill": (this.gradient_fill())});
+			return obj;
+		}
+		rings_d(){
+			return "";
+		}
+		Rings(){
+			const obj = new this.$.$mol_svg_path();
+			(obj.geometry) = () => ((this.rings_d()));
+			(obj.attr) = () => ({
+				...(this.$.$mol_svg_path.prototype.attr.call(obj)), 
+				"fill": (this.gradient_fill()), 
+				"fill-rule": "evenodd"
+			});
+			return obj;
+		}
+		centers_d(){
+			return "";
+		}
+		Centers(){
+			const obj = new this.$.$mol_svg_path();
+			(obj.geometry) = () => ((this.centers_d()));
+			(obj.attr) = () => ({...(this.$.$mol_svg_path.prototype.attr.call(obj)), "fill": (this.gradient_fill())});
+			return obj;
+		}
+		center_x(){
+			return "0";
+		}
+		center_y(){
+			return "0";
+		}
+		center_size(){
+			return "0";
+		}
+		Center_body(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ((this.center()));
+			return obj;
+		}
+		Center_wrap(){
+			const obj = new this.$.$mol_svg();
+			(obj.dom_name) = () => ("foreignObject");
+			(obj.attr) = () => ({
+				...(this.$.$mol_svg.prototype.attr.call(obj)), 
+				"x": (this.center_x()), 
+				"y": (this.center_y()), 
+				"width": (this.center_size()), 
+				"height": (this.center_size())
+			});
+			(obj.sub) = () => ([(this.Center_body())]);
+			return obj;
+		}
+		uri(){
+			return "";
+		}
+		module_radius(){
+			return 0.35;
+		}
+		finder_radius(){
+			return 1.2;
+		}
+		gradient_angle(){
+			return 45;
+		}
+		error_correction(){
+			return "M";
+		}
+		quiet_zone(){
+			return 2;
+		}
+		center(){
+			return [];
+		}
+		gradient_id(){
+			return "qr-grad";
+		}
+		gradient_fill(){
+			return "url(#qr-grad)";
+		}
+		gradient_stops(){
+			return ["var(--mol_theme_special)", "var(--mol_theme_focus)"];
+		}
+		Stop(id){
+			const obj = new this.$.$mol_svg();
+			(obj.dom_name) = () => ("stop");
+			(obj.attr) = () => ({
+				...(this.$.$mol_svg.prototype.attr.call(obj)), 
+				"offset": (this.stop_offset(id)), 
+				"stop-color": (this.stop_color(id))
+			});
+			return obj;
+		}
+		view_box(){
+			return (this.qr_view_box());
+		}
+		sub(){
+			return [
+				(this.Defs()), 
+				(this.Modules()), 
+				(this.Rings()), 
+				(this.Centers()), 
+				(this.Center_wrap())
+			];
+		}
+	};
+	($mol_mem(($.$bog_qr.prototype), "Gradient"));
+	($mol_mem(($.$bog_qr.prototype), "Defs"));
+	($mol_mem(($.$bog_qr.prototype), "Modules"));
+	($mol_mem(($.$bog_qr.prototype), "Rings"));
+	($mol_mem(($.$bog_qr.prototype), "Centers"));
+	($mol_mem(($.$bog_qr.prototype), "Center_body"));
+	($mol_mem(($.$bog_qr.prototype), "Center_wrap"));
+	($mol_mem_key(($.$bog_qr.prototype), "Stop"));
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    /** Dynamic sources import. */
+    class $mol_import extends $mol_object2 {
+        static module(uri) {
+            $mol_wire_solid();
+            return $mol_wire_sync(this).module_async(uri);
+        }
+        static module_async(uri) {
+            return import(uri);
+        }
+        static script(uri) {
+            $mol_wire_solid();
+            return $mol_wire_sync(this).script_async(uri);
+        }
+        static script_async(uri) {
+            const doc = $mol_dom_context.document;
+            const script = doc.createElement('script');
+            script.src = uri;
+            doc.head.appendChild(script);
+            return new Promise((done, fail) => {
+                script.onload = () => done($mol_dom_context);
+                script.onerror = () => fail(new Error(`Can not import ${uri}`));
+            });
+        }
+        static style(uri) {
+            return $mol_wire_sync(this).style_async(uri);
+        }
+        static style_async(uri) {
+            const doc = $mol_dom_context.document;
+            const style = doc.createElement('link');
+            style.rel = 'stylesheet';
+            style.href = uri;
+            doc.head.appendChild(style);
+            return new Promise((done, fail) => {
+                style.onload = () => done(style.sheet);
+                style.onerror = () => fail(new Error(`Can not import ${uri}`));
+            });
+        }
+    }
+    __decorate([
+        $mol_mem_key
+    ], $mol_import, "module", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_import, "script", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_import, "style", null);
+    $.$mol_import = $mol_import;
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        let grad_counter = 0;
+        class $bog_qr extends $.$bog_qr {
+            gradient_id() {
+                return 'qr-grad-' + (++grad_counter);
+            }
+            gradient_fill() {
+                return `url(#${this.gradient_id()})`;
+            }
+            grad_x1() {
+                const a = this.gradient_angle() * Math.PI / 180;
+                return String(0.5 - Math.cos(a) * 0.5);
+            }
+            grad_y1() {
+                const a = this.gradient_angle() * Math.PI / 180;
+                return String(0.5 - Math.sin(a) * 0.5);
+            }
+            grad_x2() {
+                const a = this.gradient_angle() * Math.PI / 180;
+                return String(0.5 + Math.cos(a) * 0.5);
+            }
+            grad_y2() {
+                const a = this.gradient_angle() * Math.PI / 180;
+                return String(0.5 + Math.sin(a) * 0.5);
+            }
+            gradient_stop_list() {
+                const colors = this.gradient_stops();
+                return colors.map((_, i) => this.Stop(i));
+            }
+            stop_offset(index) {
+                const colors = this.gradient_stops();
+                if (colors.length <= 1)
+                    return '0%';
+                return Math.round(index / (colors.length - 1) * 100) + '%';
+            }
+            stop_color(index) {
+                return this.gradient_stops()[index];
+            }
+            qr_lib() {
+                return $mol_import.script('https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js');
+            }
+            qr_matrix() {
+                this.qr_lib();
+                const data = this.uri();
+                if (!data)
+                    return null;
+                const qr = qrcode(0, this.error_correction());
+                qr.addData(data);
+                qr.make();
+                const count = qr.getModuleCount();
+                const matrix = [];
+                for (let r = 0; r < count; r++) {
+                    matrix[r] = [];
+                    for (let c = 0; c < count; c++) {
+                        matrix[r][c] = qr.isDark(r, c);
+                    }
+                }
+                return matrix;
+            }
+            qr_view_box() {
+                const matrix = this.qr_matrix();
+                if (!matrix)
+                    return '0 0 1 1';
+                const total = matrix.length + this.quiet_zone() * 2;
+                return `0 0 ${total} ${total}`;
+            }
+            qr_paths() {
+                const matrix = this.qr_matrix();
+                if (!matrix)
+                    return { modules: '', rings: '', centers: '' };
+                const count = matrix.length;
+                const quiet = this.quiet_zone();
+                const r = this.module_radius();
+                const dark = (row, col) => row >= 0 && row < count && col >= 0 && col < count && matrix[row][col];
+                const isFinder = (row, col) => (row < 7 && col < 7) || (row < 7 && col >= count - 7) || (row >= count - 7 && col < 7);
+                const hasCenter = this.center().length > 0;
+                const centerRadius = hasCenter ? count * 0.15 : 0;
+                const centerMid = count / 2;
+                const isCenter = (row, col) => {
+                    if (!hasCenter)
+                        return false;
+                    const dx = col + 0.5 - centerMid;
+                    const dy = row + 0.5 - centerMid;
+                    return dx * dx + dy * dy < centerRadius * centerRadius;
+                };
+                let modules = '';
+                for (let row = 0; row < count; row++) {
+                    for (let col = 0; col < count; col++) {
+                        if (!matrix[row][col])
+                            continue;
+                        if (isFinder(row, col))
+                            continue;
+                        if (isCenter(row, col))
+                            continue;
+                        const x = col + quiet;
+                        const y = row + quiet;
+                        const top = dark(row - 1, col);
+                        const bottom = dark(row + 1, col);
+                        const left = dark(row, col - 1);
+                        const right = dark(row, col + 1);
+                        const alone = !top && !bottom && !left && !right;
+                        if (alone) {
+                            const cx = x + 0.5;
+                            const cy = y + 0.5;
+                            const cr = 0.5;
+                            modules += `M${cx - cr},${cy}A${cr},${cr},0,1,1,${cx + cr},${cy}A${cr},${cr},0,1,1,${cx - cr},${cy}Z`;
+                        }
+                        else {
+                            const tl = !top && !left ? r : 0;
+                            const tr = !top && !right ? r : 0;
+                            const br = !bottom && !right ? r : 0;
+                            const bl = !bottom && !left ? r : 0;
+                            modules += this.rect_path(x, y, 1, 1, tl, tr, br, bl);
+                        }
+                    }
+                }
+                const fr = this.finder_radius();
+                const finders = [
+                    [quiet, quiet],
+                    [count - 7 + quiet, quiet],
+                    [quiet, count - 7 + quiet],
+                ];
+                let rings = '';
+                let centers = '';
+                for (const [fx, fy] of finders) {
+                    rings += this.rect_path(fx, fy, 7, 7, fr, fr, fr, fr);
+                    rings += this.rect_path(fx + 1, fy + 1, 5, 5, fr * 0.7, fr * 0.7, fr * 0.7, fr * 0.7);
+                    centers += this.rect_path(fx + 2, fy + 2, 3, 3, fr * 0.5, fr * 0.5, fr * 0.5, fr * 0.5);
+                }
+                return { modules, rings, centers };
+            }
+            center_area() {
+                const matrix = this.qr_matrix();
+                if (!matrix || this.center().length === 0)
+                    return { x: 0, y: 0, size: 0 };
+                const count = matrix.length;
+                const quiet = this.quiet_zone();
+                const centerSize = count * 0.3;
+                const total = count + quiet * 2;
+                return {
+                    x: (total - centerSize) / 2,
+                    y: (total - centerSize) / 2,
+                    size: centerSize,
+                };
+            }
+            center_x() {
+                return String(this.center_area().x);
+            }
+            center_y() {
+                return String(this.center_area().y);
+            }
+            center_size() {
+                return String(this.center_area().size);
+            }
+            modules_d() {
+                return this.qr_paths().modules;
+            }
+            rings_d() {
+                return this.qr_paths().rings;
+            }
+            centers_d() {
+                return this.qr_paths().centers;
+            }
+            rect_path(x, y, w, h, tl, tr, br, bl) {
+                return [
+                    `M${x + tl},${y}`,
+                    `H${x + w - tr}`,
+                    tr ? `A${tr},${tr},0,0,1,${x + w},${y + tr}` : '',
+                    `V${y + h - br}`,
+                    br ? `A${br},${br},0,0,1,${x + w - br},${y + h}` : '',
+                    `H${x + bl}`,
+                    bl ? `A${bl},${bl},0,0,1,${x},${y + h - bl}` : '',
+                    `V${y + tl}`,
+                    tl ? `A${tl},${tl},0,0,1,${x + tl},${y}` : '',
+                    'Z',
+                ]
+                    .filter(Boolean)
+                    .join('');
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "gradient_id", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "gradient_fill", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "grad_x1", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "grad_y1", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "grad_x2", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "grad_y2", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "gradient_stop_list", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "qr_lib", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "qr_matrix", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "qr_view_box", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "qr_paths", null);
+        __decorate([
+            $mol_mem
+        ], $bog_qr.prototype, "center_area", null);
+        $$.$bog_qr = $bog_qr;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($bog_qr, {
+            width: '300px',
+            height: '300px',
+            Center_body: {
+                width: '80%',
+                height: '80%',
+                position: 'absolute',
+                top: '10%',
+                left: '10%',
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$mol_video_player) = class $mol_video_player extends ($.$mol_view) {
+		uri(){
+			return "";
+		}
+		controls(){
+			return true;
+		}
+		autoplay(){
+			return true;
+		}
+		inline(){
+			return true;
+		}
+		loop(){
+			return false;
+		}
+		muted(){
+			return false;
+		}
+		poster(){
+			return "";
+		}
+		stream(){
+			return null;
+		}
+		revolume(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		retime(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		redurate(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		playing_event(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		play_event(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		pause_event(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		dom_name(){
+			return "video";
+		}
+		playing(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		play(){
+			return null;
+		}
+		pause(){
+			return null;
+		}
+		volume(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		time(next){
+			if(next !== undefined) return next;
+			return 0;
+		}
+		duration(){
+			return 0;
+		}
+		attr(){
+			return {
+				"src": (this.uri()), 
+				"controls": (this.controls()), 
+				"autoplay": (this.autoplay()), 
+				"playsinline": (this.inline()), 
+				"loop": (this.loop()), 
+				"muted": (this.muted()), 
+				"poster": (this.poster())
+			};
+		}
+		field(){
+			return {"srcObject": (this.stream())};
+		}
+		event(){
+			return {
+				"volumechange": (next) => (this.revolume(next)), 
+				"timeupdate": (next) => (this.retime(next)), 
+				"durationchange": (next) => (this.redurate(next)), 
+				"playing": (next) => (this.playing_event(next)), 
+				"play": (next) => (this.play_event(next)), 
+				"pause": (next) => (this.pause_event(next))
+			};
+		}
+	};
+	($mol_mem(($.$mol_video_player.prototype), "revolume"));
+	($mol_mem(($.$mol_video_player.prototype), "retime"));
+	($mol_mem(($.$mol_video_player.prototype), "redurate"));
+	($mol_mem(($.$mol_video_player.prototype), "playing_event"));
+	($mol_mem(($.$mol_video_player.prototype), "play_event"));
+	($mol_mem(($.$mol_video_player.prototype), "pause_event"));
+	($mol_mem(($.$mol_video_player.prototype), "playing"));
+	($mol_mem(($.$mol_video_player.prototype), "volume"));
+	($mol_mem(($.$mol_video_player.prototype), "time"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        /**
+         * Video player component
+         * @see https://mol.hyoo.ru/#!section=demos/demo=mol_video_player_demo
+         */
+        class $mol_video_player extends $.$mol_video_player {
+            dom_node() {
+                return super.dom_node();
+            }
+            volume(next) {
+                this.revolume();
+                if (next === undefined) {
+                    return this.dom_node().volume;
+                }
+                else {
+                    return this.dom_node().volume = Math.max(0, Math.min(next, 1));
+                }
+            }
+            time(next) {
+                this.retime();
+                if (next === undefined) {
+                    return this.dom_node().currentTime;
+                }
+                else {
+                    return this.dom_node().currentTime = Math.max(0, Math.min(next, this.duration()));
+                }
+            }
+            duration() {
+                this.redurate();
+                return this.dom_node().duration;
+            }
+            playing(next) {
+                const node = this.dom_node();
+                this.playing_event();
+                this.play_event();
+                if (next === undefined)
+                    return !node.paused;
+                if (next && node.paused)
+                    $mol_wire_sync(node).play();
+                if (!next && !node.paused)
+                    node.pause();
+                return !node.paused;
+            }
+            play() {
+                this.playing(true);
+            }
+            pause() {
+                this.playing(false);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_video_player.prototype, "volume", null);
+        __decorate([
+            $mol_mem
+        ], $mol_video_player.prototype, "time", null);
+        __decorate([
+            $mol_mem
+        ], $mol_video_player.prototype, "duration", null);
+        __decorate([
+            $mol_mem
+        ], $mol_video_player.prototype, "playing", null);
+        $$.$mol_video_player = $mol_video_player;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/video/player/player.view.css", "[mol_video_player] {\n\tflex: 1 1 auto;\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_video_camera) = class $mol_video_camera extends ($.$mol_video_player) {
+		transform(){
+			return "";
+		}
+		facing(){
+			return "user";
+		}
+		aspect(){
+			return 1;
+		}
+		size(){
+			return 720;
+		}
+		width(){
+			return (this.size());
+		}
+		height(){
+			return (this.size());
+		}
+		brightness(){
+			return 128;
+		}
+		sharpness(){
+			return 2;
+		}
+		contrast(){
+			return 32;
+		}
+		saturation(){
+			return 64;
+		}
+		temperature(){
+			return 4000;
+		}
+		torch(){
+			return false;
+		}
+		controls(){
+			return false;
+		}
+		style(){
+			return {"transform": (this.transform())};
+		}
+		video_constraints(){
+			return {
+				"facingMode": (this.facing()), 
+				"aspectRatio": (this.aspect()), 
+				"width": {"ideal": (this.width())}, 
+				"height": {"ideal": (this.height())}
+			};
+		}
+		video_settings(){
+			return {
+				"brightness": (this.brightness()), 
+				"sharpness": (this.sharpness()), 
+				"contrast": (this.contrast()), 
+				"saturation": (this.saturation()), 
+				"advanced": [{"colorTemperature": (this.temperature())}, {"torch": (this.torch())}]
+			};
+		}
+	};
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_video_camera extends $.$mol_video_camera {
+            stream_raw() {
+                const stream = $mol_wire_sync(navigator.mediaDevices).getUserMedia({
+                    video: this.video_constraints(),
+                });
+                return Object.assign(stream, {
+                    destructor: () => stream.getTracks().forEach(track => track.stop())
+                });
+            }
+            stream() {
+                const settings = this.video_settings();
+                const stream = this.stream_raw();
+                for (const track of stream.getVideoTracks()) {
+                    for (const param in settings) {
+                        if (param === 'advanced') {
+                            for (const constraint of settings.advanced) {
+                                try {
+                                    track.applyConstraints({ advanced: [constraint] });
+                                }
+                                catch (error) {
+                                    $mol_fail_log(error);
+                                }
+                            }
+                        }
+                        else if (settings[param] !== null) {
+                            try {
+                                track.applyConstraints({ [param]: settings[param] });
+                            }
+                            catch (error) {
+                                $mol_fail_log(error);
+                            }
+                        }
+                    }
+                }
+                return stream;
+            }
+            dom_node_actual() {
+                return super.dom_node_actual();
+            }
+            transform() {
+                return this.facing() === 'user' ? 'scaleX(-1)' : '';
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_video_camera.prototype, "stream_raw", null);
+        __decorate([
+            $mol_mem
+        ], $mol_video_camera.prototype, "stream", null);
+        $$.$mol_video_camera = $mol_video_camera;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$bog_keyqr_scan) = class $bog_keyqr_scan extends ($.$mol_view) {
+		Toggle(){
+			const obj = new this.$.$mol_check();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_keyqr_scan_Toggle_title")));
+			(obj.checked) = (next) => ((this.scanning(next)));
+			return obj;
+		}
+		Camera(){
+			const obj = new this.$.$mol_video_camera();
+			(obj.facing) = () => ("environment");
+			(obj.muted) = () => (true);
+			return obj;
+		}
+		scanning(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		found(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		sub(){
+			return [(this.Toggle()), (this.Camera())];
+		}
+	};
+	($mol_mem(($.$bog_keyqr_scan.prototype), "Toggle"));
+	($mol_mem(($.$bog_keyqr_scan.prototype), "Camera"));
+	($mol_mem(($.$bog_keyqr_scan.prototype), "scanning"));
+	($mol_mem(($.$bog_keyqr_scan.prototype), "found"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        const qr_module = require('jsqr/dist/jsQR.js');
+        const qr_read = qr_module.default ?? qr_module;
+        class $bog_keyqr_scan extends $.$bog_keyqr_scan {
+            sub() {
+                return this.scanning() ? [this.Toggle(), this.Camera()] : [this.Toggle()];
+            }
+            canvas() {
+                return $mol_dom_context.document.createElement('canvas');
+            }
+            tick() {
+                if (!this.scanning())
+                    return null;
+                $mol_state_time.now(250);
+                const video = this.Camera().dom_node();
+                const width = video.videoWidth;
+                const height = video.videoHeight;
+                if (!width || !height)
+                    return null;
+                const canvas = this.canvas();
+                canvas.width = width;
+                canvas.height = height;
+                const context = canvas.getContext('2d', { willReadFrequently: true });
+                context.drawImage(video, 0, 0, width, height);
+                const found = qr_read(context.getImageData(0, 0, width, height).data, width, height);
+                if (!found?.data)
+                    return null;
+                setTimeout(() => {
+                    this.scanning(false);
+                    this.found(found.data);
+                });
+                return found.data;
+            }
+            auto() {
+                this.tick();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $bog_keyqr_scan.prototype, "canvas", null);
+        __decorate([
+            $mol_mem
+        ], $bog_keyqr_scan.prototype, "tick", null);
+        $$.$bog_keyqr_scan = $bog_keyqr_scan;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($bog_keyqr_scan, {
+            flex: { direction: 'column' },
+            gap: $mol_gap.text,
+            Camera: {
+                width: '100%',
+                maxWidth: '20rem',
+                aspectRatio: 1,
+                objectFit: 'cover',
+                border: { radius: $mol_gap.round },
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$bog_keyqr) = class $bog_keyqr extends ($.$mol_list) {
+		Show(){
+			const obj = new this.$.$mol_check();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_keyqr_Show_title")));
+			(obj.checked) = (next) => ((this.shown(next)));
+			return obj;
+		}
+		Warning(){
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_keyqr_Warning_title")));
+			return obj;
+		}
+		Qr(){
+			const obj = new this.$.$bog_qr();
+			(obj.uri) = () => ((this.key()));
+			(obj.error_correction) = () => ("L");
+			return obj;
+		}
+		Copy(){
+			const obj = new this.$.$mol_button_copy();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_keyqr_Copy_title")));
+			(obj.text) = () => ((this.key()));
+			return obj;
+		}
+		Scan(){
+			const obj = new this.$.$bog_keyqr_scan();
+			(obj.found) = (next) => ((this.found(next)));
+			return obj;
+		}
+		key(){
+			return "";
+		}
+		found(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		shown(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		rows(){
+			return [
+				(this.Show()), 
+				(this.Warning()), 
+				(this.Qr()), 
+				(this.Copy()), 
+				(this.Scan())
+			];
+		}
+	};
+	($mol_mem(($.$bog_keyqr.prototype), "Show"));
+	($mol_mem(($.$bog_keyqr.prototype), "Warning"));
+	($mol_mem(($.$bog_keyqr.prototype), "Qr"));
+	($mol_mem(($.$bog_keyqr.prototype), "Copy"));
+	($mol_mem(($.$bog_keyqr.prototype), "Scan"));
+	($mol_mem(($.$bog_keyqr.prototype), "found"));
+	($mol_mem(($.$bog_keyqr.prototype), "shown"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $bog_keyqr extends $.$bog_keyqr {
+            rows() {
+                if (!this.key())
+                    return [this.Scan()];
+                if (!this.shown())
+                    return [this.Show(), this.Scan()];
+                return [this.Show(), this.Warning(), this.Qr(), this.Copy(), this.Scan()];
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $bog_keyqr.prototype, "rows", null);
+        $$.$bog_keyqr = $bog_keyqr;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($bog_keyqr, {
+            gap: $mol_gap.text,
+            Qr: {
+                width: '100%',
+                maxWidth: '16rem',
+                aspectRatio: 1,
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$bog_microtodo_settings) = class $bog_microtodo_settings extends ($.$mol_page) {
+		Close_icon(){
+			const obj = new this.$.$mol_icon_close();
+			return obj;
+		}
+		Close(){
+			const obj = new this.$.$mol_link();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Close_hint")));
+			(obj.arg) = () => ({"settings": null});
+			(obj.sub) = () => ([(this.Close_icon())]);
+			return obj;
+		}
+		Install(){
+			const obj = new this.$.$bog_install();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Install_title")));
+			(obj.button_title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Install_button_title")));
+			(obj.install_ios_instruction) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Install_install_ios_instruction")));
+			(obj.install_android_instruction) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Install_install_android_instruction")));
+			(obj.install_desktop_instruction) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Install_install_desktop_instruction")));
+			(obj.install_unsupported_browser) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Install_install_unsupported_browser")));
+			(obj.install_already_installed) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Install_install_already_installed")));
+			return obj;
+		}
+		Sync_hint(){
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Sync_hint_title")));
+			return obj;
+		}
+		lord_label(){
+			return "";
+		}
+		Lord(){
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.lord_label()));
+			return obj;
+		}
+		account_link(){
+			return "";
+		}
+		account_found(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		Transfer(){
+			const obj = new this.$.$bog_keyqr();
+			(obj.key) = () => ((this.account_link()));
+			(obj.found) = (next) => ((this.account_found(next)));
+			return obj;
+		}
+		account_input(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		account_apply(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Import_field(){
+			const obj = new this.$.$mol_string();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Import_field_hint")));
+			(obj.value) = (next) => ((this.account_input(next)));
+			(obj.submit) = (next) => ((this.account_apply(next)));
+			return obj;
+		}
+		Import_apply(){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Import_apply_title")));
+			(obj.click) = (next) => ((this.account_apply(next)));
+			return obj;
+		}
+		Import(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Import_field()), (this.Import_apply())]);
+			return obj;
+		}
+		Import_hint(){
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Import_hint_title")));
+			return obj;
+		}
+		account_status(next){
+			if(next !== undefined) return next;
+			return "";
+		}
+		Status(){
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.account_status()));
+			return obj;
+		}
+		Sync_list(){
+			const obj = new this.$.$mol_list();
+			(obj.rows) = () => ([
+				(this.Sync_hint()), 
+				(this.Lord()), 
+				(this.Transfer()), 
+				(this.Import()), 
+				(this.Import_hint()), 
+				(this.Status())
+			]);
+			return obj;
+		}
+		Sync(){
+			const obj = new this.$.$mol_labeler();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_settings_Sync_title")));
+			(obj.content) = () => ([(this.Sync_list())]);
+			return obj;
+		}
+		title(){
+			return (this.$.$mol_locale.text("$bog_microtodo_settings_title"));
+		}
+		tools(){
+			return [(this.Close())];
+		}
+		body(){
+			return [(this.Install()), (this.Sync())];
+		}
+	};
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Close_icon"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Close"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Install"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Sync_hint"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Lord"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "account_found"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Transfer"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "account_input"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "account_apply"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Import_field"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Import_apply"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Import"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Import_hint"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "account_status"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Status"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Sync_list"));
+	($mol_mem(($.$bog_microtodo_settings.prototype), "Sync"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $bog_microtodo_settings extends $.$bog_microtodo_settings {
+            account_key() {
+                const auth = this.$.$giper_baza_auth.current();
+                return auth.toString() + auth.toStringPrivate();
+            }
+            lord_label() {
+                return 'Аккаунт: ' + this.$.$giper_baza_auth.current().pass().lord().str;
+            }
+            account_link() {
+                return this.$.$mol_state_arg.make_link({ account: this.account_key() });
+            }
+            account_key_of(text) {
+                const raw = text.trim();
+                const key = raw.match(/account=([^\/&\s]+)/)?.[1] ?? raw;
+                const decoded = decodeURIComponent(key);
+                return decoded.length >= 160 && !/\s/.test(decoded) ? decoded : '';
+            }
+            account_switch(key) {
+                if (!key || key === this.account_key())
+                    return false;
+                const lord = this.$.$giper_baza_auth.current().pass().lord().str;
+                this.$.$mol_state_local.value('bog_microtodo_merge', lord);
+                this.$.$mol_state_local.value('$giper_baza_auth', key);
+                return true;
+            }
+            account_found(next) {
+                if (next)
+                    this.account_enter(next);
+                return '';
+            }
+            account_apply() {
+                this.account_enter(this.account_input());
+            }
+            account_enter(text) {
+                const key = this.account_key_of(text);
+                if (!key)
+                    return this.account_status('Это не ссылка и не ключ аккаунта');
+                if (!this.account_switch(key))
+                    return this.account_status('Этот аккаунт уже здесь');
+                this.account_status('Входим…');
+                this.$.$mol_dom_context.location.reload();
+            }
+            account_import() {
+                const arg = this.$.$mol_state_arg.value('account');
+                if (!arg)
+                    return false;
+                const changed = this.account_switch(this.account_key_of(arg));
+                this.$.$mol_state_arg.value('account', null);
+                if (changed)
+                    this.$.$mol_dom_context.location.reload();
+                return changed;
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $bog_microtodo_settings.prototype, "account_import", null);
+        $$.$bog_microtodo_settings = $bog_microtodo_settings;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_define($bog_microtodo_settings, {
+        flex: {
+            basis: '32rem',
+            grow: 1,
+        },
+        Body_content: {
+            gap: $mol_gap.block,
+        },
+        Lord: {
+            color: $mol_theme.shade,
+            wordBreak: 'break-all',
+        },
+        Import_field: {
+            flex: {
+                grow: 1,
+            },
+        },
+    });
+})($ || ($ = {}));
+
+;
 	($.$mol_icon_account_multiple) = class $mol_icon_account_multiple extends ($.$mol_icon) {
 		path(){
 			return "M16 17V19H2V17S2 13 9 13 16 17 16 17M12.5 7.5A3.5 3.5 0 1 0 9 11A3.5 3.5 0 0 0 12.5 7.5M15.94 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13M15 4A3.39 3.39 0 0 0 13.07 4.59A5 5 0 0 1 13.07 10.41A3.39 3.39 0 0 0 15 11A3.5 3.5 0 0 0 15 4Z";
@@ -21800,45 +23223,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_labeler) = class $mol_labeler extends ($.$mol_list) {
-		label(){
-			return [(this.title())];
-		}
-		Label(){
-			const obj = new this.$.$mol_view();
-			(obj.minimal_height) = () => (32);
-			(obj.sub) = () => ((this.label()));
-			return obj;
-		}
-		content(){
-			return [];
-		}
-		Content(){
-			const obj = new this.$.$mol_view();
-			(obj.minimal_height) = () => (24);
-			(obj.sub) = () => ((this.content()));
-			return obj;
-		}
-		rows(){
-			return [(this.Label()), (this.Content())];
-		}
-	};
-	($mol_mem(($.$mol_labeler.prototype), "Label"));
-	($mol_mem(($.$mol_labeler.prototype), "Content"));
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: 0;\n\tpadding-top: .5rem;\n\tpadding-inline: .75rem;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n\tmin-height: 2.5rem;\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-
-;
 	($.$mol_form_field) = class $mol_form_field extends ($.$mol_labeler) {
 		state(){
 			return null;
@@ -22768,25 +24152,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
-		theme(){
-			return "$mol_theme_base";
-		}
-	};
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-
-;
 	($.$mol_status) = class $mol_status extends ($.$mol_view) {
 		message(){
 			return "";
@@ -23440,6 +24805,17 @@ var $;
 			const obj = new this.$.$giper_baza_status();
 			return obj;
 		}
+		Settings_icon(){
+			const obj = new this.$.$mol_icon_settings();
+			return obj;
+		}
+		Settings_link(){
+			const obj = new this.$.$mol_link();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_Settings_link_hint")));
+			(obj.arg) = () => ({"settings": "", "task": null});
+			(obj.sub) = () => ([(this.Settings_icon())]);
+			return obj;
+		}
 		Theme_toggle(){
 			const obj = new this.$.$bog_theme_toggle();
 			(obj.theme_auto) = () => ((this.Theme()));
@@ -23459,7 +24835,8 @@ var $;
 			return {
 				"list": "myday", 
 				"task": null, 
-				"search": null
+				"search": null, 
+				"settings": null
 			};
 		}
 		myday_title(){
@@ -23484,7 +24861,8 @@ var $;
 			return {
 				"list": "important", 
 				"task": null, 
-				"search": null
+				"search": null, 
+				"settings": null
 			};
 		}
 		important_title(){
@@ -23509,7 +24887,8 @@ var $;
 			return {
 				"list": "planned", 
 				"task": null, 
-				"search": null
+				"search": null, 
+				"settings": null
 			};
 		}
 		planned_title(){
@@ -23534,7 +24913,8 @@ var $;
 			return {
 				"list": "inbox", 
 				"task": null, 
-				"search": null
+				"search": null, 
+				"settings": null
 			};
 		}
 		inbox_title(){
@@ -23746,13 +25126,21 @@ var $;
 		Menu(){
 			const obj = new this.$.$mol_page();
 			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_Menu_title")));
-			(obj.tools) = () => ([(this.Status()), (this.Theme_toggle())]);
+			(obj.tools) = () => ([
+				(this.Status()), 
+				(this.Settings_link()), 
+				(this.Theme_toggle())
+			]);
 			(obj.body) = () => ([
 				(this.Search()), 
 				(this.Smart()), 
 				(this.Lists())
 			]);
 			(obj.foot) = () => ([(this.List_new())]);
+			return obj;
+		}
+		Settings(){
+			const obj = new this.$.$bog_microtodo_settings();
 			return obj;
 		}
 		List_page(id){
@@ -23812,6 +25200,8 @@ var $;
 	};
 	($mol_mem(($.$bog_microtodo_app.prototype), "Theme"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "Status"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "Settings_icon"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "Settings_link"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "Theme_toggle"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "search"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "Search"));
@@ -23848,6 +25238,7 @@ var $;
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "task_done"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "task_drop"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "Menu"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "Settings"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "List_page"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "List_plain_icon"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "List_shared_icon"));
@@ -23883,8 +25274,15 @@ var $;
                 return id === 'inbox' ? this.home().Inbox('auto') : this.list(id).Tasks('auto');
             }
             auto() {
+                ;
+                this.Settings().account_import();
+                this.Settings().Install().listeners();
+                this.merge_apply();
                 this.join_apply();
                 this.home();
+            }
+            settings_opened() {
+                return this.$.$mol_state_arg.value('settings') !== null;
             }
             list_id(next) {
                 return this.$.$mol_state_arg.value('list', next) ?? 'myday';
@@ -23899,6 +25297,8 @@ var $;
                 return this.search() ? 'search' : this.list_id();
             }
             pages() {
+                if (this.settings_opened())
+                    return [this.Menu(), this.Settings()];
                 const task = this.task_id();
                 return [
                     this.Menu(),
@@ -23913,7 +25313,7 @@ var $;
                 return this.list_ids().map(id => this.List_link(id));
             }
             list_arg(id) {
-                return { list: id, task: null, search: null };
+                return { list: id, task: null, search: null, settings: null };
             }
             list_custom(id) {
                 return !smart.includes(id);
@@ -24149,6 +25549,45 @@ var $;
                 this.list_id(target.link().str);
                 return target.link().str;
             }
+            merge_apply() {
+                const lord = this.$.$mol_state_local.value('bog_microtodo_merge');
+                if (!lord)
+                    return null;
+                const land = this.$.$giper_baza_glob.Land(new $giper_baza_link(lord));
+                const home = this.home();
+                if (land.link().str === home.land().link().str) {
+                    this.$.$mol_state_local.value('bog_microtodo_merge', null);
+                    return null;
+                }
+                const old = land.Data($bog_microtodo_home);
+                const inbox = old.Inbox()?.items() ?? [];
+                const lists = old.Lists()?.items() ?? [];
+                this.$.$mol_state_local.value('bog_microtodo_merge', null);
+                this.merge_tasks(old, inbox, home.Inbox('auto'));
+                const links = home.Lists('auto');
+                for (const link of lists) {
+                    if (links.has(link))
+                        continue;
+                    if (link.land().str !== land.link().str) {
+                        links.items([...links.items(), link]);
+                        continue;
+                    }
+                    const source = this.$.$giper_baza_glob.Pawn(link, $bog_microtodo_list);
+                    const target = links.make(null);
+                    target.Title('auto').val(source.Title()?.val() ?? '');
+                    this.merge_tasks(old, source.Tasks()?.items() ?? [], target.Tasks('auto'));
+                }
+                return lord;
+            }
+            merge_tasks(old, tasks, target) {
+                const today = $bog_microtodo_day();
+                for (const link of tasks) {
+                    const copy = target.make(null);
+                    this.task_copy(this.$.$giper_baza_glob.Pawn(link, $bog_microtodo_task), copy);
+                    if (old.Day()?.key(link.str)?.val() === today)
+                        this.task_myday(copy.link().str, true);
+                }
+            }
             join_apply() {
                 const id = this.$.$mol_state_arg.value('join');
                 if (!id)
@@ -24197,6 +25636,9 @@ var $;
         __decorate([
             $mol_action
         ], $bog_microtodo_app.prototype, "list_drop", null);
+        __decorate([
+            $mol_mem
+        ], $bog_microtodo_app.prototype, "merge_apply", null);
         __decorate([
             $mol_mem
         ], $bog_microtodo_app.prototype, "join_apply", null);
@@ -31206,6 +32648,28 @@ var $;
 ;
 "use strict";
 var $;
+(function ($_1) {
+    var $$;
+    (function ($$) {
+        $mol_test({
+            'Ключ виден только по запросу, отсканированное уходит наружу'($) {
+                const empty = $bog_keyqr.make({ $ });
+                $mol_assert_equal(empty.rows(), [empty.Scan()]);
+                const box = $bog_keyqr.make({ $, key: () => 'secret' });
+                $mol_assert_equal(box.rows(), [box.Show(), box.Scan()]);
+                box.Show().checked(true);
+                $mol_assert_equal(box.rows(), [box.Show(), box.Warning(), box.Qr(), box.Copy(), box.Scan()]);
+                $mol_assert_equal(box.Qr().uri(), 'secret');
+                box.Scan().found('other');
+                $mol_assert_equal(box.found(), 'other');
+            },
+        });
+    })($$ = $_1.$$ || ($_1.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
 (function ($) {
     function parse(theme) {
         if (theme === 'true')
@@ -31432,6 +32896,52 @@ var $;
             $mol_assert_equal(copy.length, 1);
             $mol_assert_equal(app.Row(copy[0]).title(), 'Купить подарок');
             $mol_assert_equal(app.task_myday(copy[0]), true);
+        },
+        'settings open instead of lists and close back'($) {
+            const app = app_make($);
+            app.$.$mol_state_arg.value('settings', '');
+            $mol_assert_equal(app.pages(), [app.Menu(), app.Settings()]);
+            app.$.$mol_state_arg.value('settings', null);
+            $mol_assert_equal(app.pages()[1], app.List_page('inbox'));
+        },
+        'account link carries the key and is parsed back'($) {
+            const app = app_make($);
+            const settings = app.Settings();
+            const key = settings.account_key();
+            $mol_assert_equal(key.length >= 160, true);
+            $mol_assert_equal(settings.account_key_of(settings.account_link()), key);
+            $mol_assert_equal(settings.account_key_of(' ' + key + '\n'), key);
+            $mol_assert_equal(settings.account_key_of('https://b-on-g.github.io/microtodo/'), '');
+            $mol_assert_equal(settings.account_switch(key), false);
+        },
+        async 'lists of the previous account move into the current one'($) {
+            const app = app_make($);
+            const shared = await $mol_wire_async(app).list_publish(list_make(app, 'Чужой общий'));
+            app.list_drop(shared);
+            const ops = {
+                land: null,
+                grab() {
+                    this.land = $.$giper_baza_glob.land_grab([[null, $giper_baza_rank_read]]);
+                    const old = this.land.Data($bog_microtodo_home);
+                    const task = old.Inbox('auto').make(null);
+                    task.Title('auto').val('Старая задача');
+                    const list = old.Lists('auto').make(null);
+                    list.Title('auto').val('Старый список');
+                    list.Tasks('auto').make(null).Title('auto').val('Старый пункт');
+                    old.Lists('auto').items([...old.Lists().items(), new $giper_baza_link(shared)]);
+                },
+            };
+            await $mol_wire_async(ops).grab();
+            new $mol_wire_atom('bog_microtodo_test_old', () => ops.land.Data($bog_microtodo_home)).fresh();
+            $.$mol_state_local.value('bog_microtodo_merge', ops.land.link().str);
+            app.merge_apply();
+            $mol_assert_equal($.$mol_state_local.value('bog_microtodo_merge'), null);
+            const titles = app.list_tasks('inbox').map(task => app.Row(task).title());
+            $mol_assert_equal(titles.includes('Старая задача'), true);
+            $mol_assert_equal(app.list_ids().includes(shared), true);
+            const moved = app.list_ids().find(id => app.list_title(id) === 'Старый список');
+            $mol_assert_equal(app.list_shared(moved), false);
+            $mol_assert_equal(app.list_tasks(moved).map(task => app.Row(task).title()), ['Старый пункт']);
         },
     });
 })($ || ($ = {}));

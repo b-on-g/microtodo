@@ -7445,6 +7445,28 @@ var $;
 ;
 "use strict";
 var $;
+(function ($_1) {
+    var $$;
+    (function ($$) {
+        $mol_test({
+            'Ключ виден только по запросу, отсканированное уходит наружу'($) {
+                const empty = $bog_keyqr.make({ $ });
+                $mol_assert_equal(empty.rows(), [empty.Scan()]);
+                const box = $bog_keyqr.make({ $, key: () => 'secret' });
+                $mol_assert_equal(box.rows(), [box.Show(), box.Scan()]);
+                box.Show().checked(true);
+                $mol_assert_equal(box.rows(), [box.Show(), box.Warning(), box.Qr(), box.Copy(), box.Scan()]);
+                $mol_assert_equal(box.Qr().uri(), 'secret');
+                box.Scan().found('other');
+                $mol_assert_equal(box.found(), 'other');
+            },
+        });
+    })($$ = $_1.$$ || ($_1.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
 (function ($) {
     function parse(theme) {
         if (theme === 'true')
@@ -7652,6 +7674,52 @@ var $;
             $mol_assert_equal(copy.length, 1);
             $mol_assert_equal(app.Row(copy[0]).title(), 'Купить подарок');
             $mol_assert_equal(app.task_myday(copy[0]), true);
+        },
+        'settings open instead of lists and close back'($) {
+            const app = app_make($);
+            app.$.$mol_state_arg.value('settings', '');
+            $mol_assert_equal(app.pages(), [app.Menu(), app.Settings()]);
+            app.$.$mol_state_arg.value('settings', null);
+            $mol_assert_equal(app.pages()[1], app.List_page('inbox'));
+        },
+        'account link carries the key and is parsed back'($) {
+            const app = app_make($);
+            const settings = app.Settings();
+            const key = settings.account_key();
+            $mol_assert_equal(key.length >= 160, true);
+            $mol_assert_equal(settings.account_key_of(settings.account_link()), key);
+            $mol_assert_equal(settings.account_key_of(' ' + key + '\n'), key);
+            $mol_assert_equal(settings.account_key_of('https://b-on-g.github.io/microtodo/'), '');
+            $mol_assert_equal(settings.account_switch(key), false);
+        },
+        async 'lists of the previous account move into the current one'($) {
+            const app = app_make($);
+            const shared = await $mol_wire_async(app).list_publish(list_make(app, 'Чужой общий'));
+            app.list_drop(shared);
+            const ops = {
+                land: null,
+                grab() {
+                    this.land = $.$giper_baza_glob.land_grab([[null, $giper_baza_rank_read]]);
+                    const old = this.land.Data($bog_microtodo_home);
+                    const task = old.Inbox('auto').make(null);
+                    task.Title('auto').val('Старая задача');
+                    const list = old.Lists('auto').make(null);
+                    list.Title('auto').val('Старый список');
+                    list.Tasks('auto').make(null).Title('auto').val('Старый пункт');
+                    old.Lists('auto').items([...old.Lists().items(), new $giper_baza_link(shared)]);
+                },
+            };
+            await $mol_wire_async(ops).grab();
+            new $mol_wire_atom('bog_microtodo_test_old', () => ops.land.Data($bog_microtodo_home)).fresh();
+            $.$mol_state_local.value('bog_microtodo_merge', ops.land.link().str);
+            app.merge_apply();
+            $mol_assert_equal($.$mol_state_local.value('bog_microtodo_merge'), null);
+            const titles = app.list_tasks('inbox').map(task => app.Row(task).title());
+            $mol_assert_equal(titles.includes('Старая задача'), true);
+            $mol_assert_equal(app.list_ids().includes(shared), true);
+            const moved = app.list_ids().find(id => app.list_title(id) === 'Старый список');
+            $mol_assert_equal(app.list_shared(moved), false);
+            $mol_assert_equal(app.list_tasks(moved).map(task => app.Row(task).title()), ['Старый пункт']);
         },
     });
 })($ || ($ = {}));
