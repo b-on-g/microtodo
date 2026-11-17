@@ -1,0 +1,71 @@
+$bog_microtodo_details $mol_page
+	link \
+	list_title \
+	close_arg *
+		task null
+	head /
+		<= Done $mol_check_box
+			hint @ \Отметить как выполненное
+			checked? <=> done? false
+		<= Title_field $mol_string
+			hint @ \Название задачи
+			value? <=> title? \
+		<= Important $bog_microtodo_star
+			checked? <=> important? false
+		<= Close $mol_link
+			hint @ \Закрыть
+			arg <= close_arg
+			sub /
+				<= Close_icon $mol_icon_close
+	body /
+		<= Steps $mol_list
+			rows <= step_rows /
+				<= Step* $mol_view
+					sub /
+						<= Step_done* $mol_check_box
+							checked? <=> step_done*? false
+						<= Step_title* $mol_string
+							value? <=> step_title*? \
+						<= Step_drop* $mol_button_minor
+							hint @ \Удалить шаг
+							click? <=> step_drop*? null
+							sub /
+								<= Step_drop_icon* $mol_icon_close
+		<= Step_add $mol_string
+			hint @ \+ Следующий шаг
+			value? <=> step_title_new? \
+			submit? <=> step_add? null
+		<= Myday $mol_check
+			Icon <= Myday_icon $mol_icon_white_balance_sunny
+			title <= myday_label @ \Добавить в «Мой день»
+			checked? <=> myday? false
+		<= Due_field $mol_form_field
+			name @ \Срок
+			Content <= Due $mol_date
+				value? <=> due? \
+		<= Repeat_field $mol_form_field
+			name @ \Повтор
+			Content <= Repeat $mol_select
+				value? <=> repeat? \none
+				dictionary *
+					none @ \Не повторять
+					day @ \Каждый день
+					weekday @ \По будним
+					week @ \Каждую неделю
+					month @ \Каждый месяц
+					year @ \Каждый год
+		<= Note $mol_textarea
+			hint @ \Добавить заметку
+			value? <=> note? \
+	foot /
+		<= List_label $mol_view
+			sub /
+				<= list_title
+		<= Created $mol_view
+			sub /
+				<= created_label \
+		<= Drop $mol_button_minor
+			hint @ \Удалить задачу
+			click? <=> drop? null
+			sub /
+				<= Drop_icon $mol_icon_delete_outline

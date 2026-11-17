@@ -1,0 +1,20 @@
+{
+	"id": "bog_microtodo",
+	"name": "Microtodo — задачи на Гипер Базе",
+	"short_name": "Microtodo",
+	"description": "Списки задач без регистрации: «Мой день», важное, сроки, шаги, общие списки по ссылке",
+	"lang": "ru",
+	"scope": "./",
+	"start_url": "./",
+	"display": "standalone",
+	"background_color": "#2564cf",
+	"theme_color": "#2564cf",
+	"icons": [
+		{
+			"src": "bog/microtodo/assets/logo.svg",
+			"type": "image/svg+xml",
+			"sizes": "any",
+			"purpose": "any"
+		}
+	]
+}

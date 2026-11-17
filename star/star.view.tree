@@ -1,0 +1,5 @@
+$bog_microtodo_star $mol_check_icon
+	hint @ \Отметить как важное
+	Icon <= Star_icon null
+	Star_on $mol_icon_star
+	Star_off $mol_icon_star_outline

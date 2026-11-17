@@ -1,0 +1,26 @@
+$bog_microtodo_row $mol_view
+	link \
+	list_title \
+	myday false
+	arg *
+	attr *
+		^
+		bog_microtodo_row_done <= done? false
+		bog_microtodo_row_overdue <= overdue false
+	sub /
+		<= Done $mol_check_box
+			hint @ \Отметить как выполненное
+			checked? <=> done?
+		<= Open $mol_link
+			arg <= arg
+			sub /
+				<= Title $mol_view
+					sub /
+						<= title \
+				<= Meta $mol_view
+					sub <= meta /
+						<= Meta_text $mol_view
+							sub /
+								<= meta_text \
+		<= Important $bog_microtodo_star
+			checked? <=> important? false

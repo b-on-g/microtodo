@@ -1,0 +1,112 @@
+$bog_microtodo_app $mol_book2
+	plugins /
+		<= Theme $bog_theme_auto
+	Placeholder null
+	Menu $mol_page
+		title @ \Microtodo
+		tools /
+			<= Status $giper_baza_status
+			<= Theme_toggle $bog_theme_toggle
+				theme_auto <= Theme
+		body /
+			<= Search $mol_search
+				hint @ \Поиск
+				query? <=> search? \
+			<= Smart $mol_list
+				rows /
+					<= Myday_link $bog_microtodo_nav
+						arg <= myday_arg *
+							list \myday
+							task null
+							search null
+						title <= myday_title @ \Мой день
+						count <= myday_count 0
+						Icon <= Myday_icon $mol_icon_white_balance_sunny
+					<= Important_link $bog_microtodo_nav
+						arg <= important_arg *
+							list \important
+							task null
+							search null
+						title <= important_title @ \Важно
+						count <= important_count 0
+						Icon <= Important_icon $mol_icon_star_outline
+					<= Planned_link $bog_microtodo_nav
+						arg <= planned_arg *
+							list \planned
+							task null
+							search null
+						title <= planned_title @ \Запланировано
+						count <= planned_count 0
+						Icon <= Planned_icon $mol_icon_calendar_blank
+					<= Inbox_link $bog_microtodo_nav
+						arg <= inbox_arg *
+							list \inbox
+							task null
+							search null
+						title <= inbox_title @ \Задачи
+						count <= inbox_count 0
+						Icon <= Inbox_icon $mol_icon_home_outline
+			<= Lists $mol_list
+				rows <= list_links /
+					<= List_link* $bog_microtodo_nav
+						arg <= list_arg* *
+						title <= list_title*? \
+						count <= list_count* 0
+						Icon <= List_icon* null
+		foot /
+			<= List_new $mol_string
+				hint @ \+ Создать список
+				value? <=> list_title_new? \
+				submit? <=> list_add? null
+	List_page* $mol_page
+		title <= list_title*
+		head <= list_head* /
+		tools <= list_tools* /
+		body <= list_body* /
+			<= Add* $mol_view
+				sub /
+					<= Add_title* $mol_string
+						hint @ \+ Добавить задачу
+						value? <=> task_title_new*? \
+						submit? <=> task_add*? null
+			<= Share* $mol_view
+				sub <= share_content* /
+					<= Share_hint* $mol_paragraph
+						title <= share_hint* @ \Все, у кого есть ссылка, смогут видеть и менять этот список
+					<= Share_copy* $mol_button_copy
+						title @ \Скопировать ссылку
+						text <= share_link* \
+			<= Rows* $mol_list
+				rows <= task_rows* /
+				Empty <= Empty* $mol_paragraph
+					title <= empty_text* @ \Задач нет
+			<= Finished* $mol_expander
+				title <= finished_title* \
+				content <= finished_rows* /
+	List_plain_icon* $mol_icon_format_list_bulleted
+	List_shared_icon* $mol_icon_account_multiple
+	List_title_field* $mol_string
+		hint @ \Название списка
+		value? <=> list_title*?
+	List_share* $mol_button_minor
+		hint @ \Поделиться
+		click? <=> list_share*? null
+		sub /
+			<= List_share_icon* $mol_icon_account_plus
+	List_drop* $mol_button_minor
+		hint <= list_drop_hint* @ \Удалить список
+		click? <=> list_drop*? null
+		sub /
+			<= List_drop_icon* $mol_icon_delete_outline
+	Row* $bog_microtodo_row
+		link <= task_link* \
+		arg <= task_arg* *
+		list_title <= task_list_title* \
+		myday <= task_myday*? false
+		done? <=> task_done*? false
+	Details* $bog_microtodo_details
+		link <= task_link*
+		list_title <= task_list_title*
+		done? <=> task_done*?
+		myday? <=> task_myday*?
+		drop? <=> task_drop*? null

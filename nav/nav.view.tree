@@ -1,0 +1,11 @@
+$bog_microtodo_nav $mol_link
+	count 0
+	Icon $mol_icon_format_list_bulleted
+	sub /
+		<= Icon
+		<= Title $mol_view
+			sub /
+				<= title \
+		<= Count $mol_view
+			sub /
+				<= count_label \
