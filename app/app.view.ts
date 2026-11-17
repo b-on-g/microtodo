@@ -21,8 +21,15 @@ namespace $.$$ {
 		}
 
 		auto() {
+			;( this.Settings() as $bog_microtodo_settings ).account_import()
+			;( this.Settings().Install() as $bog_install ).listeners()
+			this.merge_apply()
 			this.join_apply()
 			this.home()
+		}
+
+		settings_opened() {
+			return this.$.$mol_state_arg.value( 'settings' ) !== null
 		}
 
 		list_id( next?: string ) {
@@ -42,6 +49,7 @@ namespace $.$$ {
 		}
 
 		pages() {
+			if( this.settings_opened() ) return [ this.Menu(), this.Settings() ]
 			const task = this.task_id()
 			return [
 				this.Menu(),
@@ -60,7 +68,7 @@ namespace $.$$ {
 		}
 
 		list_arg( id: string ) {
-			return { list: id, task: null, search: null }
+			return { list: id, task: null, search: null, settings: null }
 		}
 
 		list_custom( id: string ) {
@@ -320,6 +328,45 @@ namespace $.$$ {
 			this.task_id( null )
 			this.list_id( target.link().str )
 			return target.link().str
+		}
+
+		@ $mol_mem
+		merge_apply() {
+			const lord = this.$.$mol_state_local.value( 'bog_microtodo_merge' ) as string | null
+			if( !lord ) return null
+			const land = this.$.$giper_baza_glob.Land( new $giper_baza_link( lord ) )
+			const home = this.home()
+			if( land.link().str === home.land().link().str ) {
+				this.$.$mol_state_local.value( 'bog_microtodo_merge', null )
+				return null
+			}
+			const old = land.Data( $bog_microtodo_home )
+			const inbox = old.Inbox()?.items() ?? []
+			const lists = old.Lists()?.items() ?? []
+			this.$.$mol_state_local.value( 'bog_microtodo_merge', null )
+			this.merge_tasks( old, inbox, home.Inbox( 'auto' )! )
+			const links = home.Lists( 'auto' )!
+			for( const link of lists ) {
+				if( links.has( link ) ) continue
+				if( link.land().str !== land.link().str ) {
+					links.items([ ... links.items(), link ])
+					continue
+				}
+				const source = this.$.$giper_baza_glob.Pawn( link, $bog_microtodo_list )
+				const target = links.make( null )
+				target.Title( 'auto' )!.val( source.Title()?.val() ?? '' )
+				this.merge_tasks( old, source.Tasks()?.items() ?? [], target.Tasks( 'auto' )! )
+			}
+			return lord
+		}
+
+		merge_tasks( old: $bog_microtodo_home, tasks: readonly $giper_baza_link[], target: ReturnType< $bog_microtodo_list[ 'Tasks' ] > & {} ) {
+			const today = $bog_microtodo_day()
+			for( const link of tasks ) {
+				const copy = target.make( null )
+				this.task_copy( this.$.$giper_baza_glob.Pawn( link, $bog_microtodo_task ), copy )
+				if( old.Day()?.key( link.str )?.val() === today ) this.task_myday( copy.link().str, true )
+			}
 		}
 
 		@ $mol_mem

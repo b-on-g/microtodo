@@ -1,0 +1,43 @@
+$bog_microtodo_settings $mol_page
+	title @ \Настройки
+	tools /
+		<= Close $mol_link
+			hint @ \Закрыть
+			arg *
+				settings null
+			sub /
+				<= Close_icon $mol_icon_close
+	body /
+		<= Install $bog_install
+			title @ \Установить приложение
+			button_title @ \Добавить на главный экран
+			install_ios_instruction @ \На iPhone или iPad нажмите «Поделиться» и выберите «На экран Домой».
+			install_android_instruction @ \В Chrome на Android откройте меню ⋮ и выберите «Установить приложение».
+			install_desktop_instruction @ \Нажмите значок установки в адресной строке или выберите «Установить приложение» в меню браузера.
+			install_unsupported_browser @ \Установка не поддерживается в этом браузере.
+			install_already_installed @ \Приложение уже установлено.
+		<= Sync $mol_labeler
+			title @ \Синхронизация устройств
+			content /
+				<= Sync_list $mol_list
+					rows /
+						<= Sync_hint $mol_paragraph
+							title @ \Списки привязаны к ключу аккаунта в этом браузере. Чтобы видеть их на телефоне или другом компьютере, отсканируйте там код камерой или откройте ссылку. Ключ даёт полный доступ к спискам, никому его не показывайте.
+						<= Lord $mol_paragraph
+							title <= lord_label \
+						<= Transfer $bog_keyqr
+							key <= account_link \
+							found? <=> account_found? \
+						<= Import $mol_view
+							sub /
+								<= Import_field $mol_string
+									hint @ \Ссылка или ключ с другого устройства
+									value? <=> account_input? \
+									submit? <=> account_apply? null
+								<= Import_apply $mol_button_major
+									title @ \Войти
+									click? <=> account_apply? null
+						<= Import_hint $mol_paragraph
+							title @ \После входа здесь появятся списки того аккаунта, а списки этого устройства перенесутся в него.
+						<= Status $mol_paragraph
+							title <= account_status? \

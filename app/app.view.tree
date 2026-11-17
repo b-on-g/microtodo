@@ -6,6 +6,13 @@ $bog_microtodo_app $mol_book2
 		title @ \Microtodo
 		tools /
 			<= Status $giper_baza_status
+			<= Settings_link $mol_link
+				hint @ \Настройки
+				arg *
+					settings \
+					task null
+				sub /
+					<= Settings_icon $mol_icon_settings
 			<= Theme_toggle $bog_theme_toggle
 				theme_auto <= Theme
 		body /
@@ -19,6 +26,7 @@ $bog_microtodo_app $mol_book2
 							list \myday
 							task null
 							search null
+							settings null
 						title <= myday_title @ \Мой день
 						count <= myday_count 0
 						Icon <= Myday_icon $mol_icon_white_balance_sunny
@@ -27,6 +35,7 @@ $bog_microtodo_app $mol_book2
 							list \important
 							task null
 							search null
+							settings null
 						title <= important_title @ \Важно
 						count <= important_count 0
 						Icon <= Important_icon $mol_icon_star_outline
@@ -35,6 +44,7 @@ $bog_microtodo_app $mol_book2
 							list \planned
 							task null
 							search null
+							settings null
 						title <= planned_title @ \Запланировано
 						count <= planned_count 0
 						Icon <= Planned_icon $mol_icon_calendar_blank
@@ -43,6 +53,7 @@ $bog_microtodo_app $mol_book2
 							list \inbox
 							task null
 							search null
+							settings null
 						title <= inbox_title @ \Задачи
 						count <= inbox_count 0
 						Icon <= Inbox_icon $mol_icon_home_outline
@@ -58,6 +69,7 @@ $bog_microtodo_app $mol_book2
 				hint @ \+ Создать список
 				value? <=> list_title_new? \
 				submit? <=> list_add? null
+	Settings $bog_microtodo_settings
 	List_page* $mol_page
 		title <= list_title*
 		head <= list_head* /
