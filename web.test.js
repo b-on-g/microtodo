@@ -7560,7 +7560,12 @@ var $;
         'task is added on top and moves to finished when done'($) {
             const app = app_make($);
             const list = list_make(app, 'Дом');
-            const milk = task_make(app, list, 'Молоко');
+            $mol_assert_equal(app.Add_submit(list).enabled(), false);
+            app.Add_title(list).value('Молоко');
+            $mol_assert_equal(app.Add_submit(list).enabled(), true);
+            app.Add_submit(list).click();
+            const milk = app.list_open(list)[0];
+            $mol_assert_equal(app.Add_title(list).value(), '');
             const bread = task_make(app, list, 'Хлеб');
             $mol_assert_equal(app.task_rows(list), [app.Row(bread), app.Row(milk)]);
             $mol_assert_equal(app.list_count(list), 2);

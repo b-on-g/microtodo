@@ -42497,6 +42497,27 @@ declare namespace $ {
 //# sourceMappingURL=outline.view.tree.d.ts.map
 declare namespace $ {
 
+	export class $mol_icon_plus extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=plus.view.tree.d.ts.map
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_button_major extends $mol_button_minor {
+		theme( ): string
+	}
+	
+}
+
+//# sourceMappingURL=major.view.tree.d.ts.map
+declare namespace $ {
+
 	export class $mol_icon_clipboard extends $mol_icon {
 		path( ): string
 	}
@@ -42818,18 +42839,6 @@ declare namespace $ {
 }
 
 //# sourceMappingURL=labeler.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_button_major extends $mol_button_minor {
-		theme( ): string
-	}
-	
-}
-
-//# sourceMappingURL=major.view.tree.d.ts.map
 declare namespace $ {
 
 	type $mol_button_major__title_bog_install_1 = $mol_type_enforce<
@@ -44870,42 +44879,67 @@ declare namespace $ {
 		,
 		ReturnType< $mol_string['submit'] >
 	>
-	type $mol_check__Icon_bog_microtodo_details_19 = $mol_type_enforce<
+	type $mol_button_minor__hint_bog_microtodo_details_19 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_minor['hint'] >
+	>
+	type $mol_button_minor__enabled_bog_microtodo_details_20 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_details['step_add_enabled'] >
+		,
+		ReturnType< $mol_button_minor['enabled'] >
+	>
+	type $mol_button_minor__click_bog_microtodo_details_21 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_details['step_add'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub_bog_microtodo_details_22 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub_bog_microtodo_details_23 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_check__Icon_bog_microtodo_details_24 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['Myday_icon'] >
 		,
 		ReturnType< $mol_check['Icon'] >
 	>
-	type $mol_check__title_bog_microtodo_details_20 = $mol_type_enforce<
+	type $mol_check__title_bog_microtodo_details_25 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['myday_label'] >
 		,
 		ReturnType< $mol_check['title'] >
 	>
-	type $mol_check__checked_bog_microtodo_details_21 = $mol_type_enforce<
+	type $mol_check__checked_bog_microtodo_details_26 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['myday'] >
 		,
 		ReturnType< $mol_check['checked'] >
 	>
-	type $mol_date__value_bog_microtodo_details_22 = $mol_type_enforce<
+	type $mol_date__value_bog_microtodo_details_27 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['due'] >
 		,
 		ReturnType< $mol_date['value'] >
 	>
-	type $mol_form_field__name_bog_microtodo_details_23 = $mol_type_enforce<
+	type $mol_form_field__name_bog_microtodo_details_28 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_form_field['name'] >
 	>
-	type $mol_form_field__Content_bog_microtodo_details_24 = $mol_type_enforce<
+	type $mol_form_field__Content_bog_microtodo_details_29 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['Due'] >
 		,
 		ReturnType< $mol_form_field['Content'] >
 	>
-	type $mol_select__value_bog_microtodo_details_25 = $mol_type_enforce<
+	type $mol_select__value_bog_microtodo_details_30 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['repeat'] >
 		,
 		ReturnType< $mol_select['value'] >
 	>
-	type $mol_select__dictionary_bog_microtodo_details_26 = $mol_type_enforce<
+	type $mol_select__dictionary_bog_microtodo_details_31 = $mol_type_enforce<
 		({ 
 			'none': string,
 			'day': string,
@@ -44917,47 +44951,47 @@ declare namespace $ {
 		,
 		ReturnType< $mol_select['dictionary'] >
 	>
-	type $mol_form_field__name_bog_microtodo_details_27 = $mol_type_enforce<
+	type $mol_form_field__name_bog_microtodo_details_32 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_form_field['name'] >
 	>
-	type $mol_form_field__Content_bog_microtodo_details_28 = $mol_type_enforce<
+	type $mol_form_field__Content_bog_microtodo_details_33 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['Repeat'] >
 		,
 		ReturnType< $mol_form_field['Content'] >
 	>
-	type $mol_textarea__hint_bog_microtodo_details_29 = $mol_type_enforce<
+	type $mol_textarea__hint_bog_microtodo_details_34 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_textarea['hint'] >
 	>
-	type $mol_textarea__value_bog_microtodo_details_30 = $mol_type_enforce<
+	type $mol_textarea__value_bog_microtodo_details_35 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['note'] >
 		,
 		ReturnType< $mol_textarea['value'] >
 	>
-	type $mol_view__sub_bog_microtodo_details_31 = $mol_type_enforce<
+	type $mol_view__sub_bog_microtodo_details_36 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_view__sub_bog_microtodo_details_32 = $mol_type_enforce<
+	type $mol_view__sub_bog_microtodo_details_37 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_button_minor__hint_bog_microtodo_details_33 = $mol_type_enforce<
+	type $mol_button_minor__hint_bog_microtodo_details_38 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_bog_microtodo_details_34 = $mol_type_enforce<
+	type $mol_button_minor__click_bog_microtodo_details_39 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_details['drop'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_bog_microtodo_details_35 = $mol_type_enforce<
+	type $mol_button_minor__sub_bog_microtodo_details_40 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
@@ -44984,6 +45018,10 @@ declare namespace $ {
 		step_title_new( next?: string ): string
 		step_add( next?: any ): any
 		Step_add( ): $mol_string
+		step_add_enabled( ): boolean
+		Step_submit_icon( ): $mol_icon_plus
+		Step_submit( ): $mol_button_minor
+		Step_new( ): $mol_view
 		Myday_icon( ): $mol_icon_white_balance_sunny
 		myday_label( ): string
 		myday( next?: boolean ): boolean
@@ -45028,6 +45066,7 @@ declare namespace $.$$ {
         step_rows(): $mol_view[];
         step_title(id: string, next?: string): string;
         step_done(id: string, next?: boolean): boolean;
+        step_add_enabled(): boolean;
         step_add(): void;
         step_drop(id: string): void;
         myday_label(): string;
@@ -45198,197 +45237,237 @@ declare namespace $ {
 		,
 		ReturnType< $mol_string['submit'] >
 	>
-	type $mol_string__hint_bog_microtodo_app_32 = $mol_type_enforce<
+	type $mol_button_minor__hint_bog_microtodo_app_32 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_minor['hint'] >
+	>
+	type $mol_button_minor__enabled_bog_microtodo_app_33 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_app['list_add_enabled'] >
+		,
+		ReturnType< $mol_button_minor['enabled'] >
+	>
+	type $mol_button_minor__click_bog_microtodo_app_34 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_app['list_add'] >
+		,
+		ReturnType< $mol_button_minor['click'] >
+	>
+	type $mol_button_minor__sub_bog_microtodo_app_35 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_button_minor['sub'] >
+	>
+	type $mol_view__sub_bog_microtodo_app_36 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	type $mol_string__hint_bog_microtodo_app_37 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_string['hint'] >
 	>
-	type $mol_string__value_bog_microtodo_app_33 = $mol_type_enforce<
+	type $mol_string__value_bog_microtodo_app_38 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_title_new'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_string__submit_bog_microtodo_app_34 = $mol_type_enforce<
+	type $mol_string__submit_bog_microtodo_app_39 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_add'] >
 		,
 		ReturnType< $mol_string['submit'] >
 	>
-	type $mol_view__sub_bog_microtodo_app_35 = $mol_type_enforce<
+	type $mol_button_major__title_bog_microtodo_app_40 = $mol_type_enforce<
+		string
+		,
+		ReturnType< $mol_button_major['title'] >
+	>
+	type $mol_button_major__enabled_bog_microtodo_app_41 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_app['task_add_enabled'] >
+		,
+		ReturnType< $mol_button_major['enabled'] >
+	>
+	type $mol_button_major__click_bog_microtodo_app_42 = $mol_type_enforce<
+		ReturnType< $bog_microtodo_app['task_add'] >
+		,
+		ReturnType< $mol_button_major['click'] >
+	>
+	type $mol_view__sub_bog_microtodo_app_43 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_paragraph__title_bog_microtodo_app_36 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_microtodo_app_44 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['share_hint'] >
 		,
 		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_button_copy__title_bog_microtodo_app_37 = $mol_type_enforce<
+	type $mol_button_copy__title_bog_microtodo_app_45 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_copy['title'] >
 	>
-	type $mol_button_copy__text_bog_microtodo_app_38 = $mol_type_enforce<
+	type $mol_button_copy__text_bog_microtodo_app_46 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['share_link'] >
 		,
 		ReturnType< $mol_button_copy['text'] >
 	>
-	type $mol_view__sub_bog_microtodo_app_39 = $mol_type_enforce<
+	type $mol_view__sub_bog_microtodo_app_47 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['share_content'] >
 		,
 		ReturnType< $mol_view['sub'] >
 	>
-	type $mol_paragraph__title_bog_microtodo_app_40 = $mol_type_enforce<
+	type $mol_paragraph__title_bog_microtodo_app_48 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['empty_text'] >
 		,
 		ReturnType< $mol_paragraph['title'] >
 	>
-	type $mol_list__rows_bog_microtodo_app_41 = $mol_type_enforce<
+	type $mol_list__rows_bog_microtodo_app_49 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_rows'] >
 		,
 		ReturnType< $mol_list['rows'] >
 	>
-	type $mol_list__Empty_bog_microtodo_app_42 = $mol_type_enforce<
+	type $mol_list__Empty_bog_microtodo_app_50 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['Empty'] >
 		,
 		ReturnType< $mol_list['Empty'] >
 	>
-	type $mol_expander__title_bog_microtodo_app_43 = $mol_type_enforce<
+	type $mol_expander__title_bog_microtodo_app_51 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['finished_title'] >
 		,
 		ReturnType< $mol_expander['title'] >
 	>
-	type $mol_expander__content_bog_microtodo_app_44 = $mol_type_enforce<
+	type $mol_expander__content_bog_microtodo_app_52 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['finished_rows'] >
 		,
 		ReturnType< $mol_expander['content'] >
 	>
-	type $mol_page__title_bog_microtodo_app_45 = $mol_type_enforce<
+	type $mol_page__title_bog_microtodo_app_53 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__tools_bog_microtodo_app_46 = $mol_type_enforce<
+	type $mol_page__tools_bog_microtodo_app_54 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_bog_microtodo_app_47 = $mol_type_enforce<
+	type $mol_page__body_bog_microtodo_app_55 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_page__foot_bog_microtodo_app_48 = $mol_type_enforce<
+	type $mol_page__foot_bog_microtodo_app_56 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['foot'] >
 	>
-	type $mol_page__title_bog_microtodo_app_49 = $mol_type_enforce<
+	type $mol_page__title_bog_microtodo_app_57 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_title'] >
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__head_bog_microtodo_app_50 = $mol_type_enforce<
+	type $mol_page__head_bog_microtodo_app_58 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_head'] >
 		,
 		ReturnType< $mol_page['head'] >
 	>
-	type $mol_page__tools_bog_microtodo_app_51 = $mol_type_enforce<
+	type $mol_page__tools_bog_microtodo_app_59 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_tools'] >
 		,
 		ReturnType< $mol_page['tools'] >
 	>
-	type $mol_page__body_bog_microtodo_app_52 = $mol_type_enforce<
+	type $mol_page__body_bog_microtodo_app_60 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_body'] >
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	type $mol_string__hint_bog_microtodo_app_53 = $mol_type_enforce<
+	type $mol_string__hint_bog_microtodo_app_61 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_string['hint'] >
 	>
-	type $mol_string__value_bog_microtodo_app_54 = $mol_type_enforce<
+	type $mol_string__value_bog_microtodo_app_62 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_title'] >
 		,
 		ReturnType< $mol_string['value'] >
 	>
-	type $mol_button_minor__hint_bog_microtodo_app_55 = $mol_type_enforce<
+	type $mol_button_minor__hint_bog_microtodo_app_63 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_bog_microtodo_app_56 = $mol_type_enforce<
+	type $mol_button_minor__click_bog_microtodo_app_64 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_share'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_bog_microtodo_app_57 = $mol_type_enforce<
+	type $mol_button_minor__sub_bog_microtodo_app_65 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $mol_button_minor__hint_bog_microtodo_app_58 = $mol_type_enforce<
+	type $mol_button_minor__hint_bog_microtodo_app_66 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_drop_hint'] >
 		,
 		ReturnType< $mol_button_minor['hint'] >
 	>
-	type $mol_button_minor__click_bog_microtodo_app_59 = $mol_type_enforce<
+	type $mol_button_minor__click_bog_microtodo_app_67 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['list_drop'] >
 		,
 		ReturnType< $mol_button_minor['click'] >
 	>
-	type $mol_button_minor__sub_bog_microtodo_app_60 = $mol_type_enforce<
+	type $mol_button_minor__sub_bog_microtodo_app_68 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_button_minor['sub'] >
 	>
-	type $bog_microtodo_row__link_bog_microtodo_app_61 = $mol_type_enforce<
+	type $bog_microtodo_row__link_bog_microtodo_app_69 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_link'] >
 		,
 		ReturnType< $bog_microtodo_row['link'] >
 	>
-	type $bog_microtodo_row__arg_bog_microtodo_app_62 = $mol_type_enforce<
+	type $bog_microtodo_row__arg_bog_microtodo_app_70 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_arg'] >
 		,
 		ReturnType< $bog_microtodo_row['arg'] >
 	>
-	type $bog_microtodo_row__list_title_bog_microtodo_app_63 = $mol_type_enforce<
+	type $bog_microtodo_row__list_title_bog_microtodo_app_71 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_list_title'] >
 		,
 		ReturnType< $bog_microtodo_row['list_title'] >
 	>
-	type $bog_microtodo_row__myday_bog_microtodo_app_64 = $mol_type_enforce<
+	type $bog_microtodo_row__myday_bog_microtodo_app_72 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_myday'] >
 		,
 		ReturnType< $bog_microtodo_row['myday'] >
 	>
-	type $bog_microtodo_row__done_bog_microtodo_app_65 = $mol_type_enforce<
+	type $bog_microtodo_row__done_bog_microtodo_app_73 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_done'] >
 		,
 		ReturnType< $bog_microtodo_row['done'] >
 	>
-	type $bog_microtodo_details__link_bog_microtodo_app_66 = $mol_type_enforce<
+	type $bog_microtodo_details__link_bog_microtodo_app_74 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_link'] >
 		,
 		ReturnType< $bog_microtodo_details['link'] >
 	>
-	type $bog_microtodo_details__list_title_bog_microtodo_app_67 = $mol_type_enforce<
+	type $bog_microtodo_details__list_title_bog_microtodo_app_75 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_list_title'] >
 		,
 		ReturnType< $bog_microtodo_details['list_title'] >
 	>
-	type $bog_microtodo_details__done_bog_microtodo_app_68 = $mol_type_enforce<
+	type $bog_microtodo_details__done_bog_microtodo_app_76 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_done'] >
 		,
 		ReturnType< $bog_microtodo_details['done'] >
 	>
-	type $bog_microtodo_details__myday_bog_microtodo_app_69 = $mol_type_enforce<
+	type $bog_microtodo_details__myday_bog_microtodo_app_77 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_myday'] >
 		,
 		ReturnType< $bog_microtodo_details['myday'] >
 	>
-	type $bog_microtodo_details__drop_bog_microtodo_app_70 = $mol_type_enforce<
+	type $bog_microtodo_details__drop_bog_microtodo_app_78 = $mol_type_enforce<
 		ReturnType< $bog_microtodo_app['task_drop'] >
 		,
 		ReturnType< $bog_microtodo_details['drop'] >
@@ -45451,12 +45530,18 @@ declare namespace $ {
 		Lists( ): $mol_list
 		list_title_new( next?: string ): string
 		list_add( next?: any ): any
-		List_new( ): $mol_string
+		List_new_title( ): $mol_string
+		list_add_enabled( ): boolean
+		List_new_icon( ): $mol_icon_plus
+		List_new_submit( ): $mol_button_minor
+		List_new( ): $mol_view
 		list_head( id: any): readonly(any)[]
 		list_tools( id: any): readonly(any)[]
 		task_title_new( id: any, next?: string ): string
 		task_add( id: any, next?: any ): any
 		Add_title( id: any): $mol_string
+		task_add_enabled( id: any): boolean
+		Add_submit( id: any): $mol_button_major
 		Add( id: any): $mol_view
 		share_hint( id: any): string
 		Share_hint( id: any): $mol_paragraph
@@ -45593,6 +45678,8 @@ declare namespace $.$$ {
         task_repeat(id: string): void;
         task_make(list: string, title: string): $bog_microtodo_task;
         task_copy(from: $bog_microtodo_task, to: $bog_microtodo_task): void;
+        task_add_enabled(id: string): boolean;
+        list_add_enabled(): boolean;
         task_add(id: string): void;
         task_drop(id: string): void;
         list_add(): void;

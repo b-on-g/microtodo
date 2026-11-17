@@ -31907,6 +31907,25 @@ var $;
 
 
 ;
+	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
+		theme(){
+			return "$mol_theme_base";
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
 	($.$mol_icon_account_plus) = class $mol_icon_account_plus extends ($.$mol_icon) {
 		path(){
 			return "M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z";
@@ -31925,25 +31944,6 @@ var $;
 		}
 	};
 
-
-;
-"use strict";
-
-
-;
-	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
-		theme(){
-			return "$mol_theme_base";
-		}
-	};
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
-})($ || ($ = {}));
 
 ;
 "use strict";
@@ -44111,6 +44111,26 @@ var $;
 			(obj.submit) = (next) => ((this.step_add(next)));
 			return obj;
 		}
+		step_add_enabled(){
+			return false;
+		}
+		Step_submit_icon(){
+			const obj = new this.$.$mol_icon_plus();
+			return obj;
+		}
+		Step_submit(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_details_Step_submit_hint")));
+			(obj.enabled) = () => ((this.step_add_enabled()));
+			(obj.click) = (next) => ((this.step_add(next)));
+			(obj.sub) = () => ([(this.Step_submit_icon())]);
+			return obj;
+		}
+		Step_new(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Step_add()), (this.Step_submit())]);
+			return obj;
+		}
 		Myday_icon(){
 			const obj = new this.$.$mol_icon_white_balance_sunny();
 			return obj;
@@ -44225,7 +44245,7 @@ var $;
 		body(){
 			return [
 				(this.Steps()), 
-				(this.Step_add()), 
+				(this.Step_new()), 
 				(this.Myday()), 
 				(this.Due_field()), 
 				(this.Repeat_field()), 
@@ -44260,6 +44280,9 @@ var $;
 	($mol_mem(($.$bog_microtodo_details.prototype), "step_title_new"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "step_add"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "Step_add"));
+	($mol_mem(($.$bog_microtodo_details.prototype), "Step_submit_icon"));
+	($mol_mem(($.$bog_microtodo_details.prototype), "Step_submit"));
+	($mol_mem(($.$bog_microtodo_details.prototype), "Step_new"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "Myday_icon"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "myday"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "Myday"));
@@ -44323,6 +44346,9 @@ var $;
             step_done(id, next) {
                 return this.step(id).Done(next === undefined ? undefined : 'auto')?.val(next) ?? false;
             }
+            step_add_enabled() {
+                return Boolean(this.step_title_new().trim());
+            }
             step_add() {
                 const title = this.step_title_new().trim();
                 if (!title)
@@ -44381,6 +44407,11 @@ var $;
         },
         Body_content: {
             gap: $mol_gap.block,
+        },
+        Step_add: {
+            flex: {
+                grow: 1,
+            },
         },
         Note: {
             minHeight: '8rem',
@@ -44589,11 +44620,31 @@ var $;
 			if(next !== undefined) return next;
 			return null;
 		}
-		List_new(){
+		List_new_title(){
 			const obj = new this.$.$mol_string();
-			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_List_new_hint")));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_List_new_title_hint")));
 			(obj.value) = (next) => ((this.list_title_new(next)));
 			(obj.submit) = (next) => ((this.list_add(next)));
+			return obj;
+		}
+		list_add_enabled(){
+			return false;
+		}
+		List_new_icon(){
+			const obj = new this.$.$mol_icon_plus();
+			return obj;
+		}
+		List_new_submit(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_List_new_submit_hint")));
+			(obj.enabled) = () => ((this.list_add_enabled()));
+			(obj.click) = (next) => ((this.list_add(next)));
+			(obj.sub) = () => ([(this.List_new_icon())]);
+			return obj;
+		}
+		List_new(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.List_new_title()), (this.List_new_submit())]);
 			return obj;
 		}
 		list_head(id){
@@ -44617,9 +44668,19 @@ var $;
 			(obj.submit) = (next) => ((this.task_add(id, next)));
 			return obj;
 		}
+		task_add_enabled(id){
+			return false;
+		}
+		Add_submit(id){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_Add_submit_title")));
+			(obj.enabled) = () => ((this.task_add_enabled(id)));
+			(obj.click) = (next) => ((this.task_add(id, next)));
+			return obj;
+		}
 		Add(id){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.Add_title(id))]);
+			(obj.sub) = () => ([(this.Add_title(id)), (this.Add_submit(id))]);
 			return obj;
 		}
 		share_hint(id){
@@ -44826,10 +44887,14 @@ var $;
 	($mol_mem(($.$bog_microtodo_app.prototype), "Lists"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "list_title_new"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "list_add"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "List_new_title"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "List_new_icon"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "List_new_submit"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "List_new"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "task_title_new"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "task_add"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add_title"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add_submit"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_hint"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_copy"));
@@ -45100,6 +45165,12 @@ var $;
                     step.Done('auto').val(source.Done()?.val() ?? false);
                 }
             }
+            task_add_enabled(id) {
+                return Boolean(this.task_title_new(id).trim());
+            }
+            list_add_enabled() {
+                return Boolean(this.list_title_new().trim());
+            }
             task_add(id) {
                 const title = this.task_title_new(id).trim();
                 if (!title)
@@ -45273,6 +45344,11 @@ var $;
         },
         Add: {
             padding: $mol_gap.block,
+        },
+        List_new_title: {
+            flex: {
+                grow: 1,
+            },
         },
         Add_title: {
             flex: {

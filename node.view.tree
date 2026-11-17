@@ -488,6 +488,11 @@ $mol_icon_home $mol_icon path \M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z
 
 $mol_icon_home_outline $mol_icon path \M12 5.69L17 10.19V18H15V12H9V18H7V10.19L12 5.69M12 3L2 12H5V20H11V14H13V20H19V12H22
 
+$mol_icon_plus $mol_icon path \M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z
+
+$mol_button_major $mol_button_minor
+	theme \$mol_theme_base
+
 $mol_icon_clipboard $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3
 
 $mol_icon_clipboard_outline $mol_icon path \M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7Z
@@ -572,9 +577,6 @@ $mol_labeler $mol_list
 		<= Content $mol_view
 			minimal_height 24
 			sub <= content /
-
-$mol_button_major $mol_button_minor
-	theme \$mol_theme_base
 
 $bog_install $mol_labeler
 	title @ \Install app
@@ -1152,10 +1154,18 @@ $bog_microtodo_details $mol_page
 							click? <=> step_drop*? null
 							sub /
 								<= Step_drop_icon* $mol_icon_close
-		<= Step_add $mol_string
-			hint @ \+ Следующий шаг
-			value? <=> step_title_new? \
-			submit? <=> step_add? null
+		<= Step_new $mol_view
+			sub /
+				<= Step_add $mol_string
+					hint @ \Следующий шаг
+					value? <=> step_title_new? \
+					submit? <=> step_add? null
+				<= Step_submit $mol_button_minor
+					hint @ \Добавить шаг
+					enabled <= step_add_enabled false
+					click? <=> step_add? null
+					sub /
+						<= Step_submit_icon $mol_icon_plus
 		<= Myday $mol_check
 			Icon <= Myday_icon $mol_icon_white_balance_sunny
 			title <= myday_label @ \Добавить в «Мой день»
@@ -1258,10 +1268,18 @@ $bog_microtodo_app $mol_book2
 						count <= list_count* 0
 						Icon <= List_icon* null
 		foot /
-			<= List_new $mol_string
-				hint @ \+ Создать список
-				value? <=> list_title_new? \
-				submit? <=> list_add? null
+			<= List_new $mol_view
+				sub /
+					<= List_new_title $mol_string
+						hint @ \Создать список
+						value? <=> list_title_new? \
+						submit? <=> list_add? null
+					<= List_new_submit $mol_button_minor
+						hint @ \Создать список
+						enabled <= list_add_enabled false
+						click? <=> list_add? null
+						sub /
+							<= List_new_icon $mol_icon_plus
 	Settings $bog_microtodo_settings
 	List_page* $mol_page
 		title <= list_title*
@@ -1271,9 +1289,13 @@ $bog_microtodo_app $mol_book2
 			<= Add* $mol_view
 				sub /
 					<= Add_title* $mol_string
-						hint @ \+ Добавить задачу
+						hint @ \Добавить задачу
 						value? <=> task_title_new*? \
 						submit? <=> task_add*? null
+					<= Add_submit* $mol_button_major
+						title @ \Добавить
+						enabled <= task_add_enabled* false
+						click? <=> task_add*? null
 			<= Share* $mol_view
 				sub <= share_content* /
 					<= Share_hint* $mol_paragraph

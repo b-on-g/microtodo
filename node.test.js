@@ -19995,6 +19995,37 @@ var $;
 
 
 ;
+	($.$mol_icon_plus) = class $mol_icon_plus extends ($.$mol_icon) {
+		path(){
+			return "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z";
+		}
+	};
+
+
+;
+"use strict";
+
+
+;
+	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
+		theme(){
+			return "$mol_theme_base";
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
 	($.$mol_icon_clipboard) = class $mol_icon_clipboard extends ($.$mol_icon) {
 		path(){
 			return "M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3";
@@ -20578,25 +20609,6 @@ var $;
 var $;
 (function ($) {
     $mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tmin-height: 2rem;\n\tcolor: var(--mol_theme_shade);\n\tpadding: 0;\n\tpadding-top: .5rem;\n\tpadding-inline: .75rem;\n\tgap: 0 var(--mol_gap_block);\n\tflex-wrap: wrap;\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n\tpadding: var(--mol_gap_text);\n\tmin-height: 2.5rem;\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-
-;
-	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
-		theme(){
-			return "$mol_theme_base";
-		}
-	};
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
 })($ || ($ = {}));
 
 ;
@@ -24504,6 +24516,26 @@ var $;
 			(obj.submit) = (next) => ((this.step_add(next)));
 			return obj;
 		}
+		step_add_enabled(){
+			return false;
+		}
+		Step_submit_icon(){
+			const obj = new this.$.$mol_icon_plus();
+			return obj;
+		}
+		Step_submit(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_details_Step_submit_hint")));
+			(obj.enabled) = () => ((this.step_add_enabled()));
+			(obj.click) = (next) => ((this.step_add(next)));
+			(obj.sub) = () => ([(this.Step_submit_icon())]);
+			return obj;
+		}
+		Step_new(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.Step_add()), (this.Step_submit())]);
+			return obj;
+		}
 		Myday_icon(){
 			const obj = new this.$.$mol_icon_white_balance_sunny();
 			return obj;
@@ -24618,7 +24650,7 @@ var $;
 		body(){
 			return [
 				(this.Steps()), 
-				(this.Step_add()), 
+				(this.Step_new()), 
 				(this.Myday()), 
 				(this.Due_field()), 
 				(this.Repeat_field()), 
@@ -24653,6 +24685,9 @@ var $;
 	($mol_mem(($.$bog_microtodo_details.prototype), "step_title_new"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "step_add"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "Step_add"));
+	($mol_mem(($.$bog_microtodo_details.prototype), "Step_submit_icon"));
+	($mol_mem(($.$bog_microtodo_details.prototype), "Step_submit"));
+	($mol_mem(($.$bog_microtodo_details.prototype), "Step_new"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "Myday_icon"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "myday"));
 	($mol_mem(($.$bog_microtodo_details.prototype), "Myday"));
@@ -24716,6 +24751,9 @@ var $;
             step_done(id, next) {
                 return this.step(id).Done(next === undefined ? undefined : 'auto')?.val(next) ?? false;
             }
+            step_add_enabled() {
+                return Boolean(this.step_title_new().trim());
+            }
             step_add() {
                 const title = this.step_title_new().trim();
                 if (!title)
@@ -24774,6 +24812,11 @@ var $;
         },
         Body_content: {
             gap: $mol_gap.block,
+        },
+        Step_add: {
+            flex: {
+                grow: 1,
+            },
         },
         Note: {
             minHeight: '8rem',
@@ -24982,11 +25025,31 @@ var $;
 			if(next !== undefined) return next;
 			return null;
 		}
-		List_new(){
+		List_new_title(){
 			const obj = new this.$.$mol_string();
-			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_List_new_hint")));
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_List_new_title_hint")));
 			(obj.value) = (next) => ((this.list_title_new(next)));
 			(obj.submit) = (next) => ((this.list_add(next)));
+			return obj;
+		}
+		list_add_enabled(){
+			return false;
+		}
+		List_new_icon(){
+			const obj = new this.$.$mol_icon_plus();
+			return obj;
+		}
+		List_new_submit(){
+			const obj = new this.$.$mol_button_minor();
+			(obj.hint) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_List_new_submit_hint")));
+			(obj.enabled) = () => ((this.list_add_enabled()));
+			(obj.click) = (next) => ((this.list_add(next)));
+			(obj.sub) = () => ([(this.List_new_icon())]);
+			return obj;
+		}
+		List_new(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.List_new_title()), (this.List_new_submit())]);
 			return obj;
 		}
 		list_head(id){
@@ -25010,9 +25073,19 @@ var $;
 			(obj.submit) = (next) => ((this.task_add(id, next)));
 			return obj;
 		}
+		task_add_enabled(id){
+			return false;
+		}
+		Add_submit(id){
+			const obj = new this.$.$mol_button_major();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_Add_submit_title")));
+			(obj.enabled) = () => ((this.task_add_enabled(id)));
+			(obj.click) = (next) => ((this.task_add(id, next)));
+			return obj;
+		}
 		Add(id){
 			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.Add_title(id))]);
+			(obj.sub) = () => ([(this.Add_title(id)), (this.Add_submit(id))]);
 			return obj;
 		}
 		share_hint(id){
@@ -25219,10 +25292,14 @@ var $;
 	($mol_mem(($.$bog_microtodo_app.prototype), "Lists"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "list_title_new"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "list_add"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "List_new_title"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "List_new_icon"));
+	($mol_mem(($.$bog_microtodo_app.prototype), "List_new_submit"));
 	($mol_mem(($.$bog_microtodo_app.prototype), "List_new"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "task_title_new"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "task_add"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add_title"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add_submit"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_hint"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_copy"));
@@ -25493,6 +25570,12 @@ var $;
                     step.Done('auto').val(source.Done()?.val() ?? false);
                 }
             }
+            task_add_enabled(id) {
+                return Boolean(this.task_title_new(id).trim());
+            }
+            list_add_enabled() {
+                return Boolean(this.list_title_new().trim());
+            }
             task_add(id) {
                 const title = this.task_title_new(id).trim();
                 if (!title)
@@ -25666,6 +25749,11 @@ var $;
         },
         Add: {
             padding: $mol_gap.block,
+        },
+        List_new_title: {
+            flex: {
+                grow: 1,
+            },
         },
         Add_title: {
             flex: {
@@ -32782,7 +32870,12 @@ var $;
         'task is added on top and moves to finished when done'($) {
             const app = app_make($);
             const list = list_make(app, 'Дом');
-            const milk = task_make(app, list, 'Молоко');
+            $mol_assert_equal(app.Add_submit(list).enabled(), false);
+            app.Add_title(list).value('Молоко');
+            $mol_assert_equal(app.Add_submit(list).enabled(), true);
+            app.Add_submit(list).click();
+            const milk = app.list_open(list)[0];
+            $mol_assert_equal(app.Add_title(list).value(), '');
             const bread = task_make(app, list, 'Хлеб');
             $mol_assert_equal(app.task_rows(list), [app.Row(bread), app.Row(milk)]);
             $mol_assert_equal(app.list_count(list), 2);
