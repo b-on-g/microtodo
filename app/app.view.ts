@@ -129,14 +129,55 @@ namespace $.$$ {
 				.map( id => this.list_land( id ) )
 		}
 
+		invite_key( id: string ) {
+			return this.list( id ).Invite()?.val() ?? ''
+		}
+
+		invite_hidden( id: string ) {
+			return this.list( id ).Invites()?.items() ?? []
+		}
+
 		share_hint( id: string ) {
-			if( this.list_owned( id ) ) return super.share_hint( id )
 			if( !this.list_land( id ).encrypted() ) return 'Список открыт всем, у кого есть ссылка'
-			return 'Вы участник списка. Доступ раздаёт его владелец.'
+			if( !this.invite_key( id ) ) return this.list_owned( id )
+				? 'Ссылка закрыта. Новые участники не войдут, пока вы не создадите новую.'
+				: 'Ссылку на список закрыл владелец.'
+			return super.share_hint( id )
+		}
+
+		invite_tools( id: string ) {
+			const key = this.invite_key( id )
+			if( !this.list_owned( id ) ) return key ? [ this.Share_copy( id ) ] : []
+			return key
+				? [ this.Share_copy( id ), this.Invite_renew( id ), this.Invite_close( id ) ]
+				: [ this.Invite_renew( id ) ]
+		}
+
+		invite_renew_title( id: string ) {
+			return this.invite_key( id ) ? super.invite_renew_title( id ) : 'Создать ссылку'
+		}
+
+		invite_renew( id: string ) {
+			$mol_wire_async( this ).invite_renew_run( id )
+		}
+
+		invite_renew_run( id: string ) {
+			const land = this.list_land( id )
+			$bog_microtodo_invite_close( land )
+			$bog_microtodo_invite_make( land )
+		}
+
+		invite_close( id: string ) {
+			$mol_wire_async( this ).invite_close_run( id )
+		}
+
+		invite_close_run( id: string ) {
+			$bog_microtodo_invite_close( this.list_land( id ) )
 		}
 
 		share_link( id: string ) {
-			return this.$.$mol_state_arg.make_link({ join: id })
+			const key = this.invite_key( id )
+			return this.$.$mol_state_arg.make_link( key ? { join: id, invite: key } : { join: id } )
 		}
 
 		list_drop_hint( id: string ) {
@@ -347,6 +388,7 @@ namespace $.$$ {
 			const land = this.$.$giper_baza_glob.land_grab([[ null, $giper_baza_rank_deny ]])
 			const target = land.Data( $bog_microtodo_list )
 			target.Title( 'auto' )!.val( source.Title()?.val() ?? '' )
+			$bog_microtodo_invite_make( land )
 			for( const task of tasks ) {
 				const copy = target.Tasks( 'auto' )!.make( null )
 				this.task_copy( this.task( task ), copy )
@@ -404,11 +446,33 @@ namespace $.$$ {
 			if( !id ) return null
 			const link = $giper_baza_link.check( id )
 			if( !link ) return null
+			const key = this.$.$mol_state_arg.value( 'invite' ) ?? ''
+			if( key && !this.join_member( link, key ) ) return null
 			const lists = this.home().Lists( 'auto' )!
 			if( !lists.has( link ) ) lists.items([ ... lists.items(), link ])
+			this.$.$mol_state_arg.value( 'invite', null )
 			this.$.$mol_state_arg.value( 'join', null )
 			this.list_id( link.str )
 			return link.str
+		}
+
+		join_started = new Set< string >()
+
+		join_member( link: $giper_baza_link, key: string ) {
+			const land = this.$.$giper_baza_glob.Land( link.land() )
+			land.sync()
+			if( land._gift.get( this.$.$giper_baza_auth.current().pass().lord().str ) ) return true
+			if( !land._gift.get( $giper_baza_auth.from( key ).pass().lord().str ) ) return false
+			if( !$bog_microtodo_invite_open( land, key ) ) return true
+			if( this.join_started.has( link.str ) ) return false
+			this.join_started.add( link.str )
+			$mol_wire_async( this ).join_accept( link, key )
+			return false
+		}
+
+		join_accept( link: $giper_baza_link, key: string ) {
+			const land = this.$.$giper_baza_glob.Land( link.land() )
+			$bog_microtodo_invite.accept( land, key, this.$.$giper_baza_auth.current().pass() )
 		}
 
 	}

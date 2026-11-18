@@ -21,6 +21,42 @@ namespace $ {
 		return app.list_open( list )[0]
 	}
 
+	async function publish( app: $$.$bog_microtodo_app, title: string ) {
+		const shared = await $mol_wire_async( app ).list_publish( list_make( app, title ) )
+		new $mol_wire_atom( 'bog_microtodo_test_shared', ()=> app.list_land( shared ) ).fresh()
+		return shared
+	}
+
+	async function wire( from: $giper_baza_land, to: $giper_baza_land ) {
+		const net = {
+			pack() {
+				return $giper_baza_pack.make( from.diff_parts() ).asArray().slice()
+			},
+			apply( parts: $giper_baza_pack_parts ) {
+				for( const [ , part ] of parts ) to.diff_apply( part.units )
+			},
+		}
+		const bin = await $mol_wire_async( net ).pack()
+		await $mol_wire_async( net ).apply( $giper_baza_pack.from( bin ).parts() )
+	}
+
+	async function guest_join( $: $, app: $$.$bog_microtodo_app, shared: string ) {
+		const land = app.list_land( shared )
+		const key = app.invite_key( shared )
+		const guest = await $mol_wire_async( $.$giper_baza_auth ).grab()
+		const copy = $giper_baza_land.make({ $, link: ()=> land.link(), auth: ()=> guest })
+		await wire( land, copy )
+		const ops = {
+			accept() {
+				$bog_microtodo_invite.accept( copy, key, guest.pass() )
+			},
+			title() {
+				return copy.Data( $bog_microtodo_list ).Title()?.val() ?? ''
+			},
+		}
+		return { land, guest, copy, ops }
+	}
+
 	$mol_test({
 
 		'new list opens and shows up in the menu'( $ ) {
@@ -174,7 +210,7 @@ namespace $ {
 			$mol_assert_equal( app.lands_owned(), [ land ] )
 
 			const friend = await $mol_wire_async( $.$giper_baza_auth ).grab()
-			const rights = app.Rights( shared ) as $$.$giper_baza_land_rights
+			const rights = app.Rights( shared ) as $$.$bog_microtodo_rights
 			const ops = {
 				add() {
 					rights.add_key( friend.pass().toString() )
@@ -202,6 +238,58 @@ namespace $ {
 				},
 			}
 			$mol_assert_equal( await $mol_wire_async( read ).title(), [ 'Ремонт', 'Купить краску' ] )
+		},
+
+		async 'guest with invite link becomes a member without the owner'( $ ) {
+			const app = app_make( $ )
+			const shared = await publish( app, 'Поход' )
+
+			$mol_assert_equal( app.share_link( shared ).includes( 'invite=' ), true )
+			$mol_assert_equal( app.invite_tools( shared ), [ app.Share_copy( shared ), app.Invite_renew( shared ), app.Invite_close( shared ) ] )
+
+			const { land, guest, copy, ops } = await guest_join( $, app, shared )
+			await $mol_wire_async( ops ).accept()
+			$mol_assert_equal( await $mol_wire_async( ops ).title(), 'Поход' )
+
+			await wire( copy, land )
+			$mol_assert_equal( land.lord_rank( guest.pass().lord() ), $giper_baza_rank_post( 'just' ) )
+			const rights = app.Rights( shared ) as $$.$bog_microtodo_rights
+			$mol_assert_equal( rights.gifts().includes( rights.Gift( guest.pass().lord() ) ), true )
+			$mol_assert_equal( rights.gifts().includes( rights.Gift( new $giper_baza_link( app.invite_hidden( shared )[0] ) ) ), false )
+		},
+
+		async 'closed invite link lets nobody in'( $ ) {
+			const app = app_make( $ )
+			const shared = await publish( app, 'Тайна' )
+			const key = app.invite_key( shared )
+			await $mol_wire_async( app ).invite_close_run( shared )
+
+			$mol_assert_equal( app.invite_key( shared ), '' )
+			$mol_assert_equal( app.invite_tools( shared ), [ app.Invite_renew( shared ) ] )
+			$mol_assert_equal( $bog_microtodo_invite_open( app.list_land( shared ), key ), false )
+
+			const land = app.list_land( shared )
+			const guest = await $mol_wire_async( $.$giper_baza_auth ).grab()
+			const copy = $giper_baza_land.make({ $, link: ()=> land.link(), auth: ()=> guest })
+			await wire( land, copy )
+			const ops = {
+				accept() {
+					$bog_microtodo_invite.accept( copy, key, guest.pass() )
+				},
+			}
+			let denied = ''
+			try {
+				await $mol_wire_async( ops ).accept()
+			} catch( error: any ) {
+				denied = error.message
+			}
+			$mol_assert_equal( denied !== '', true )
+			$mol_assert_equal( copy.lord_rank( guest.pass().lord() ), $giper_baza_rank_deny )
+
+			await $mol_wire_async( app ).invite_renew_run( shared )
+			$mol_assert_equal( app.invite_key( shared ) !== '', true )
+			$mol_assert_unique( app.invite_key( shared ), key )
+			$mol_assert_equal( app.invite_hidden( shared ).length, 2 )
 		},
 
 		async 'shared list copies tasks into its own land'( $ ) {

@@ -97,12 +97,23 @@ $bog_microtodo_app $mol_book2
 			<= Share* $mol_view
 				sub <= share_content* /
 					<= Share_hint* $mol_paragraph
-						title <= share_hint* @ \Список видят только участники. Попросите человека прислать ключ аккаунта из настроек, добавьте его ниже и поставьте «Запись», потом отправьте ему ссылку на список.
-					<= Rights* $giper_baza_land_rights
+						title <= share_hint* @ \Список видят только участники. Кто откроет ссылку, станет участником и сможет менять список.
+					<= Invite* $mol_view
+						sub <= invite_tools* /
+							<= Share_copy* $mol_button_copy
+								title @ \Скопировать ссылку
+								text <= share_link* \
+							<= Invite_renew* $mol_button_minor
+								title <= invite_renew_title* @ \Новая ссылка
+								click? <=> invite_renew*? null
+							<= Invite_close* $mol_button_minor
+								title @ \Закрыть ссылку
+								click? <=> invite_close*? null
+					<= Members_title* $mol_paragraph
+						title @ \Участники
+					<= Rights* $bog_microtodo_rights
 						land <= list_land* null
-					<= Share_copy* $mol_button_copy
-						title @ \Скопировать ссылку на список
-						text <= share_link* \
+						hidden <= invite_hidden* /string
 			<= Rows* $mol_list
 				rows <= task_rows* /
 				Empty <= Empty* $mol_paragraph

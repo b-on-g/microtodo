@@ -20,7 +20,49 @@ namespace $ {
 	export class $bog_microtodo_list extends $giper_baza_dict.with({
 		Title: $giper_baza_atom_text,
 		Tasks: $giper_baza_list_link.to( ()=> $bog_microtodo_task ),
+		Invite: $giper_baza_atom_text,
+		Invites: $giper_baza_list_str,
 	}) {}
+
+	export function $bog_microtodo_invite_make( land: $giper_baza_land ) {
+		const invite = land.$.$giper_baza_auth.grab()
+		land.give( invite.pass(), $giper_baza_rank_rule )
+		const list = land.Data( $bog_microtodo_list )
+		list.Invite( 'auto' )!.val( invite.toString() + invite.toStringPrivate() )
+		const invites = list.Invites( 'auto' )!
+		invites.items([ ... invites.items(), invite.pass().lord().str ])
+		return invite
+	}
+
+	export function $bog_microtodo_invite_close( land: $giper_baza_land ) {
+		const key = land.Data( $bog_microtodo_list ).Invite()?.val() ?? ''
+		if( key ) land.give( $giper_baza_auth.from( key ).pass(), $giper_baza_rank_deny )
+		land.Data( $bog_microtodo_list ).Invite( 'auto' )!.val( '' )
+	}
+
+	export function $bog_microtodo_invite_open( land: $giper_baza_land, key: string ) {
+		const invite = $giper_baza_auth.from( key )
+		return land.lord_rank( invite.pass().lord() ) >= $giper_baza_rank_rule
+	}
+
+	export class $bog_microtodo_invite extends $mol_object {
+
+		@ $mol_action
+		static proxy( land: $giper_baza_land, key: string ) {
+			const invite = $giper_baza_auth.from( key )
+			return $giper_baza_land.make({ $: land.$, link: ()=> land.link(), auth: ()=> invite })
+		}
+
+		@ $mol_action
+		static accept( land: $giper_baza_land, key: string, pass: $giper_baza_auth_pass ) {
+			const proxy = this.proxy( land, key )
+			proxy.units_steal( land )
+			proxy.give( pass, $giper_baza_rank_post( 'just' ) )
+			land.units_steal( proxy )
+			land.broadcast()
+		}
+
+	}
 
 	export class $bog_microtodo_home extends $giper_baza_dict.with({
 		Inbox: $giper_baza_list_link.to( ()=> $bog_microtodo_task ),
