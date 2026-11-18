@@ -13874,9 +13874,53 @@ var $;
     class $bog_microtodo_list extends $giper_baza_dict.with({
         Title: $giper_baza_atom_text,
         Tasks: $giper_baza_list_link.to(() => $bog_microtodo_task),
+        Invite: $giper_baza_atom_text,
+        Invites: $giper_baza_list_str,
     }) {
     }
     $.$bog_microtodo_list = $bog_microtodo_list;
+    function $bog_microtodo_invite_make(land) {
+        const invite = land.$.$giper_baza_auth.grab();
+        land.give(invite.pass(), $giper_baza_rank_rule);
+        const list = land.Data($bog_microtodo_list);
+        list.Invite('auto').val(invite.toString() + invite.toStringPrivate());
+        const invites = list.Invites('auto');
+        invites.items([...invites.items(), invite.pass().lord().str]);
+        return invite;
+    }
+    $.$bog_microtodo_invite_make = $bog_microtodo_invite_make;
+    function $bog_microtodo_invite_close(land) {
+        const key = land.Data($bog_microtodo_list).Invite()?.val() ?? '';
+        if (key)
+            land.give($giper_baza_auth.from(key).pass(), $giper_baza_rank_deny);
+        land.Data($bog_microtodo_list).Invite('auto').val('');
+    }
+    $.$bog_microtodo_invite_close = $bog_microtodo_invite_close;
+    function $bog_microtodo_invite_open(land, key) {
+        const invite = $giper_baza_auth.from(key);
+        return land.lord_rank(invite.pass().lord()) >= $giper_baza_rank_rule;
+    }
+    $.$bog_microtodo_invite_open = $bog_microtodo_invite_open;
+    class $bog_microtodo_invite extends $mol_object {
+        static proxy(land, key) {
+            const invite = $giper_baza_auth.from(key);
+            return $giper_baza_land.make({ $: land.$, link: () => land.link(), auth: () => invite });
+        }
+        static accept(land, key, pass) {
+            const proxy = this.proxy(land, key);
+            proxy.units_steal(land);
+            proxy.give(pass, $giper_baza_rank_post('just'));
+            land.units_steal(proxy);
+            land.broadcast();
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $bog_microtodo_invite, "proxy", null);
+    __decorate([
+        $mol_action
+    ], $bog_microtodo_invite, "accept", null);
+    $.$bog_microtodo_invite = $bog_microtodo_invite;
     class $bog_microtodo_home extends $giper_baza_dict.with({
         Inbox: $giper_baza_list_link.to(() => $bog_microtodo_task),
         Lists: $giper_baza_list_link.to(() => $bog_microtodo_list),
@@ -20026,6 +20070,129 @@ var $;
 
 
 ;
+	($.$mol_icon_clipboard) = class $mol_icon_clipboard extends ($.$mol_icon) {
+		path(){
+			return "M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3";
+		}
+	};
+
+
+;
+"use strict";
+
+
+;
+	($.$mol_icon_clipboard_outline) = class $mol_icon_clipboard_outline extends ($.$mol_icon) {
+		path(){
+			return "M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7Z";
+		}
+	};
+
+
+;
+"use strict";
+
+
+;
+	($.$mol_button_copy) = class $mol_button_copy extends ($.$mol_button_minor) {
+		text(){
+			return (this.title());
+		}
+		text_blob(next){
+			if(next !== undefined) return next;
+			const obj = new this.$.$mol_blob([(this.text())], {"type": "text/plain"});
+			return obj;
+		}
+		html(){
+			return "";
+		}
+		html_blob(next){
+			if(next !== undefined) return next;
+			const obj = new this.$.$mol_blob([(this.html())], {"type": "text/html"});
+			return obj;
+		}
+		Icon(){
+			const obj = new this.$.$mol_icon_clipboard_outline();
+			return obj;
+		}
+		title(){
+			return "";
+		}
+		blobs(){
+			return [(this.text_blob()), (this.html_blob())];
+		}
+		data(){
+			return {};
+		}
+		sub(){
+			return [(this.Icon()), (this.title())];
+		}
+	};
+	($mol_mem(($.$mol_button_copy.prototype), "text_blob"));
+	($mol_mem(($.$mol_button_copy.prototype), "html_blob"));
+	($mol_mem(($.$mol_button_copy.prototype), "Icon"));
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    const mapping = {
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        '&': '&amp;',
+    };
+    function $mol_html_encode(text) {
+        return text.replace(/[&<">]/gi, str => mapping[str]);
+    }
+    $.$mol_html_encode = $mol_html_encode;
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        /**
+         * Button copy text() value to clipboard
+         * @see https://mol.hyoo.ru/#!section=demos/demo=mol_button_demo
+         */
+        class $mol_button_copy extends $.$mol_button_copy {
+            data() {
+                return Object.fromEntries(this.blobs().map(blob => [blob.type, blob]));
+            }
+            html() {
+                return $mol_html_encode(this.text());
+            }
+            attachments() {
+                return [new ClipboardItem(this.data())];
+            }
+            click(event) {
+                const cb = $mol_wire_sync(this.$.$mol_dom_context.navigator.clipboard);
+                cb.writeText?.(this.text());
+                cb.write?.(this.attachments());
+                if (cb.writeText === undefined && cb.write === undefined) {
+                    throw new Error("doesn't support copy to clipoard");
+                }
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_button_copy.prototype, "html", null);
+        __decorate([
+            $mol_mem
+        ], $mol_button_copy.prototype, "attachments", null);
+        $$.$mol_button_copy = $mol_button_copy;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
 	($.$giper_baza_link_chip) = class $giper_baza_link_chip extends ($.$mol_link) {
 		icon(){
 			return "";
@@ -20393,84 +20560,12 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_icon_clipboard) = class $mol_icon_clipboard extends ($.$mol_icon) {
-		path(){
-			return "M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3";
+	($.$bog_microtodo_rights) = class $bog_microtodo_rights extends ($.$giper_baza_land_rights) {
+		hidden(){
+			return [];
 		}
 	};
 
-
-;
-"use strict";
-
-
-;
-	($.$mol_icon_clipboard_outline) = class $mol_icon_clipboard_outline extends ($.$mol_icon) {
-		path(){
-			return "M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7Z";
-		}
-	};
-
-
-;
-"use strict";
-
-
-;
-	($.$mol_button_copy) = class $mol_button_copy extends ($.$mol_button_minor) {
-		text(){
-			return (this.title());
-		}
-		text_blob(next){
-			if(next !== undefined) return next;
-			const obj = new this.$.$mol_blob([(this.text())], {"type": "text/plain"});
-			return obj;
-		}
-		html(){
-			return "";
-		}
-		html_blob(next){
-			if(next !== undefined) return next;
-			const obj = new this.$.$mol_blob([(this.html())], {"type": "text/html"});
-			return obj;
-		}
-		Icon(){
-			const obj = new this.$.$mol_icon_clipboard_outline();
-			return obj;
-		}
-		title(){
-			return "";
-		}
-		blobs(){
-			return [(this.text_blob()), (this.html_blob())];
-		}
-		data(){
-			return {};
-		}
-		sub(){
-			return [(this.Icon()), (this.title())];
-		}
-	};
-	($mol_mem(($.$mol_button_copy.prototype), "text_blob"));
-	($mol_mem(($.$mol_button_copy.prototype), "html_blob"));
-	($mol_mem(($.$mol_button_copy.prototype), "Icon"));
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    const mapping = {
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        '&': '&amp;',
-    };
-    function $mol_html_encode(text) {
-        return text.replace(/[&<">]/gi, str => mapping[str]);
-    }
-    $.$mol_html_encode = $mol_html_encode;
-})($ || ($ = {}));
 
 ;
 "use strict";
@@ -20482,36 +20577,20 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        /**
-         * Button copy text() value to clipboard
-         * @see https://mol.hyoo.ru/#!section=demos/demo=mol_button_demo
-         */
-        class $mol_button_copy extends $.$mol_button_copy {
-            data() {
-                return Object.fromEntries(this.blobs().map(blob => [blob.type, blob]));
-            }
-            html() {
-                return $mol_html_encode(this.text());
-            }
-            attachments() {
-                return [new ClipboardItem(this.data())];
-            }
-            click(event) {
-                const cb = $mol_wire_sync(this.$.$mol_dom_context.navigator.clipboard);
-                cb.writeText?.(this.text());
-                cb.write?.(this.attachments());
-                if (cb.writeText === undefined && cb.write === undefined) {
-                    throw new Error("doesn't support copy to clipoard");
-                }
+        class $bog_microtodo_rights extends $.$bog_microtodo_rights {
+            gifts() {
+                const land = this.land();
+                const hidden = new Set(['', land.link().lord().str, ...this.hidden()]);
+                return [...land._gift.keys()]
+                    .filter(lord => !hidden.has(lord))
+                    .reverse()
+                    .map(lord => this.Gift(new $giper_baza_link(lord)));
             }
         }
         __decorate([
             $mol_mem
-        ], $mol_button_copy.prototype, "html", null);
-        __decorate([
-            $mol_mem
-        ], $mol_button_copy.prototype, "attachments", null);
-        $$.$mol_button_copy = $mol_button_copy;
+        ], $bog_microtodo_rights.prototype, "gifts", null);
+        $$.$bog_microtodo_rights = $bog_microtodo_rights;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
 
@@ -25487,14 +25566,6 @@ var $;
 			(obj.title) = () => ((this.share_hint(id)));
 			return obj;
 		}
-		list_land(id){
-			return null;
-		}
-		Rights(id){
-			const obj = new this.$.$giper_baza_land_rights();
-			(obj.land) = () => ((this.list_land(id)));
-			return obj;
-		}
 		share_link(id){
 			return "";
 		}
@@ -25504,11 +25575,64 @@ var $;
 			(obj.text) = () => ((this.share_link(id)));
 			return obj;
 		}
+		invite_renew_title(id){
+			return (this.$.$mol_locale.text("$bog_microtodo_app_invite_renew_title"));
+		}
+		invite_renew(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Invite_renew(id){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ((this.invite_renew_title(id)));
+			(obj.click) = (next) => ((this.invite_renew(id, next)));
+			return obj;
+		}
+		invite_close(id, next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		Invite_close(id){
+			const obj = new this.$.$mol_button_minor();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_Invite_close_title")));
+			(obj.click) = (next) => ((this.invite_close(id, next)));
+			return obj;
+		}
+		invite_tools(id){
+			return [
+				(this.Share_copy(id)), 
+				(this.Invite_renew(id)), 
+				(this.Invite_close(id))
+			];
+		}
+		Invite(id){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ((this.invite_tools(id)));
+			return obj;
+		}
+		Members_title(id){
+			const obj = new this.$.$mol_paragraph();
+			(obj.title) = () => ((this.$.$mol_locale.text("$bog_microtodo_app_Members_title_title")));
+			return obj;
+		}
+		list_land(id){
+			return null;
+		}
+		invite_hidden(id){
+			return [];
+		}
+		Rights(id){
+			const obj = new this.$.$bog_microtodo_rights();
+			(obj.land) = () => ((this.list_land(id)));
+			(obj.hidden) = () => ((this.invite_hidden(id)));
+			return obj;
+		}
 		share_content(id){
 			return [
 				(this.Share_hint(id)), 
-				(this.Rights(id)), 
-				(this.Share_copy(id))
+				(this.Invite(id)), 
+				(this.Members_title(id)), 
+				(this.Rights(id))
 			];
 		}
 		Share(id){
@@ -25706,8 +25830,14 @@ var $;
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add_submit"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Add"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_hint"));
-	($mol_mem_key(($.$bog_microtodo_app.prototype), "Rights"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share_copy"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "invite_renew"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Invite_renew"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "invite_close"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Invite_close"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Invite"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Members_title"));
+	($mol_mem_key(($.$bog_microtodo_app.prototype), "Rights"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Share"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Empty"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Rows"));
@@ -25851,15 +25981,49 @@ var $;
                     .filter(id => this.list_shared(id) && this.list_owned(id))
                     .map(id => this.list_land(id));
             }
+            invite_key(id) {
+                return this.list(id).Invite()?.val() ?? '';
+            }
+            invite_hidden(id) {
+                return this.list(id).Invites()?.items() ?? [];
+            }
             share_hint(id) {
-                if (this.list_owned(id))
-                    return super.share_hint(id);
                 if (!this.list_land(id).encrypted())
                     return 'Список открыт всем, у кого есть ссылка';
-                return 'Вы участник списка. Доступ раздаёт его владелец.';
+                if (!this.invite_key(id))
+                    return this.list_owned(id)
+                        ? 'Ссылка закрыта. Новые участники не войдут, пока вы не создадите новую.'
+                        : 'Ссылку на список закрыл владелец.';
+                return super.share_hint(id);
+            }
+            invite_tools(id) {
+                const key = this.invite_key(id);
+                if (!this.list_owned(id))
+                    return key ? [this.Share_copy(id)] : [];
+                return key
+                    ? [this.Share_copy(id), this.Invite_renew(id), this.Invite_close(id)]
+                    : [this.Invite_renew(id)];
+            }
+            invite_renew_title(id) {
+                return this.invite_key(id) ? super.invite_renew_title(id) : 'Создать ссылку';
+            }
+            invite_renew(id) {
+                $mol_wire_async(this).invite_renew_run(id);
+            }
+            invite_renew_run(id) {
+                const land = this.list_land(id);
+                $bog_microtodo_invite_close(land);
+                $bog_microtodo_invite_make(land);
+            }
+            invite_close(id) {
+                $mol_wire_async(this).invite_close_run(id);
+            }
+            invite_close_run(id) {
+                $bog_microtodo_invite_close(this.list_land(id));
             }
             share_link(id) {
-                return this.$.$mol_state_arg.make_link({ join: id });
+                const key = this.invite_key(id);
+                return this.$.$mol_state_arg.make_link(key ? { join: id, invite: key } : { join: id });
             }
             list_drop_hint(id) {
                 return this.list_shared(id) ? 'Покинуть список' : super.list_drop_hint(id);
@@ -26044,6 +26208,7 @@ var $;
                 const land = this.$.$giper_baza_glob.land_grab([[null, $giper_baza_rank_deny]]);
                 const target = land.Data($bog_microtodo_list);
                 target.Title('auto').val(source.Title()?.val() ?? '');
+                $bog_microtodo_invite_make(land);
                 for (const task of tasks) {
                     const copy = target.Tasks('auto').make(null);
                     this.task_copy(this.task(task), copy);
@@ -26102,12 +26267,36 @@ var $;
                 const link = $giper_baza_link.check(id);
                 if (!link)
                     return null;
+                const key = this.$.$mol_state_arg.value('invite') ?? '';
+                if (key && !this.join_member(link, key))
+                    return null;
                 const lists = this.home().Lists('auto');
                 if (!lists.has(link))
                     lists.items([...lists.items(), link]);
+                this.$.$mol_state_arg.value('invite', null);
                 this.$.$mol_state_arg.value('join', null);
                 this.list_id(link.str);
                 return link.str;
+            }
+            join_started = new Set();
+            join_member(link, key) {
+                const land = this.$.$giper_baza_glob.Land(link.land());
+                land.sync();
+                if (land._gift.get(this.$.$giper_baza_auth.current().pass().lord().str))
+                    return true;
+                if (!land._gift.get($giper_baza_auth.from(key).pass().lord().str))
+                    return false;
+                if (!$bog_microtodo_invite_open(land, key))
+                    return true;
+                if (this.join_started.has(link.str))
+                    return false;
+                this.join_started.add(link.str);
+                $mol_wire_async(this).join_accept(link, key);
+                return false;
+            }
+            join_accept(link, key) {
+                const land = this.$.$giper_baza_glob.Land(link.land());
+                $bog_microtodo_invite.accept(land, key, this.$.$giper_baza_auth.current().pass());
             }
         }
         __decorate([
@@ -33282,6 +33471,40 @@ var $;
         app.task_add(list);
         return app.list_open(list)[0];
     }
+    async function publish(app, title) {
+        const shared = await $mol_wire_async(app).list_publish(list_make(app, title));
+        new $mol_wire_atom('bog_microtodo_test_shared', () => app.list_land(shared)).fresh();
+        return shared;
+    }
+    async function wire(from, to) {
+        const net = {
+            pack() {
+                return $giper_baza_pack.make(from.diff_parts()).asArray().slice();
+            },
+            apply(parts) {
+                for (const [, part] of parts)
+                    to.diff_apply(part.units);
+            },
+        };
+        const bin = await $mol_wire_async(net).pack();
+        await $mol_wire_async(net).apply($giper_baza_pack.from(bin).parts());
+    }
+    async function guest_join($, app, shared) {
+        const land = app.list_land(shared);
+        const key = app.invite_key(shared);
+        const guest = await $mol_wire_async($.$giper_baza_auth).grab();
+        const copy = $giper_baza_land.make({ $, link: () => land.link(), auth: () => guest });
+        await wire(land, copy);
+        const ops = {
+            accept() {
+                $bog_microtodo_invite.accept(copy, key, guest.pass());
+            },
+            title() {
+                return copy.Data($bog_microtodo_list).Title()?.val() ?? '';
+            },
+        };
+        return { land, guest, copy, ops };
+    }
     $mol_test({
         'new list opens and shows up in the menu'($) {
             const app = app_make($);
@@ -33435,6 +33658,51 @@ var $;
                 },
             };
             $mol_assert_equal(await $mol_wire_async(read).title(), ['Ремонт', 'Купить краску']);
+        },
+        async 'guest with invite link becomes a member without the owner'($) {
+            const app = app_make($);
+            const shared = await publish(app, 'Поход');
+            $mol_assert_equal(app.share_link(shared).includes('invite='), true);
+            $mol_assert_equal(app.invite_tools(shared), [app.Share_copy(shared), app.Invite_renew(shared), app.Invite_close(shared)]);
+            const { land, guest, copy, ops } = await guest_join($, app, shared);
+            await $mol_wire_async(ops).accept();
+            $mol_assert_equal(await $mol_wire_async(ops).title(), 'Поход');
+            await wire(copy, land);
+            $mol_assert_equal(land.lord_rank(guest.pass().lord()), $giper_baza_rank_post('just'));
+            const rights = app.Rights(shared);
+            $mol_assert_equal(rights.gifts().includes(rights.Gift(guest.pass().lord())), true);
+            $mol_assert_equal(rights.gifts().includes(rights.Gift(new $giper_baza_link(app.invite_hidden(shared)[0]))), false);
+        },
+        async 'closed invite link lets nobody in'($) {
+            const app = app_make($);
+            const shared = await publish(app, 'Тайна');
+            const key = app.invite_key(shared);
+            await $mol_wire_async(app).invite_close_run(shared);
+            $mol_assert_equal(app.invite_key(shared), '');
+            $mol_assert_equal(app.invite_tools(shared), [app.Invite_renew(shared)]);
+            $mol_assert_equal($bog_microtodo_invite_open(app.list_land(shared), key), false);
+            const land = app.list_land(shared);
+            const guest = await $mol_wire_async($.$giper_baza_auth).grab();
+            const copy = $giper_baza_land.make({ $, link: () => land.link(), auth: () => guest });
+            await wire(land, copy);
+            const ops = {
+                accept() {
+                    $bog_microtodo_invite.accept(copy, key, guest.pass());
+                },
+            };
+            let denied = '';
+            try {
+                await $mol_wire_async(ops).accept();
+            }
+            catch (error) {
+                denied = error.message;
+            }
+            $mol_assert_equal(denied !== '', true);
+            $mol_assert_equal(copy.lord_rank(guest.pass().lord()), $giper_baza_rank_deny);
+            await $mol_wire_async(app).invite_renew_run(shared);
+            $mol_assert_equal(app.invite_key(shared) !== '', true);
+            $mol_assert_unique(app.invite_key(shared), key);
+            $mol_assert_equal(app.invite_hidden(shared).length, 2);
         },
         async 'shared list copies tasks into its own land'($) {
             const app = app_make($);
