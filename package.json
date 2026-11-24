@@ -129,6 +129,7 @@
     "$mol_dom_context",
     "$mol_dom",
     "$mol_storage",
+    "$mol_mem_persist",
     "$mol_state_time",
     "$mol_file",
     "$mol_file_base",
@@ -413,7 +414,18 @@
     "$mol_text",
     "$mol_text_code_line",
     "$mol_text_code_token",
-    "$mol_syntax2_md"
+    "$mol_syntax2_md",
+    "$bog_dock_side",
+    "$bog_dock",
+    "$bog_dock_frame",
+    "$giper_web_frame",
+    "$giper_web",
+    "$mol_frame",
+    "$mol_embed_native",
+    "$mol_embed",
+    "$mol_wait_timeout",
+    "$mol_wait",
+    "$mol_lights"
   ],
   "dependencies": {
     "autoinstall": "*",

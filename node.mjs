@@ -3951,6 +3951,13 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    $.$mol_mem_persist = $mol_wire_solid;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
     /** State of time moment */
     class $mol_state_time extends $mol_object {
         static task(precision, reset) {
@@ -3984,6 +3991,7 @@ var $;
             return true;
         }
         static stats() {
+            $mol_mem_persist();
             $mol_state_time.now(1000);
             return $node.fs.statfsSync('.');
         }
@@ -8766,6 +8774,7 @@ var $;
                         const sens = seal.shot().mix(this.link());
                         const sign = await auth.signer().sign(sens);
                         seal.sign(sign);
+                        seal.hash(null);
                     } while (seal.rate_min() > rate);
                     return seal;
                 });
@@ -10232,8 +10241,11 @@ var $;
         salt() {
             return new Uint8Array(this.buffer, this.byteOffset + 2, 16); /* tick(2), time(4), lord(10) */
         }
-        hash() {
-            return $giper_baza_link.hash_bin(this.asArray());
+        _hash = null;
+        hash(refresh) {
+            if (this._hash && !refresh)
+                return this._hash;
+            return this._hash = $giper_baza_link.hash_bin(this.asArray());
         }
         tier_min() {
             return $giper_baza_rank_tier.rule;
@@ -15831,6 +15843,93 @@ var $;
 
 ;
 "use strict";
+var $;
+(function ($) {
+    /**
+     * Localisation in $mol framework
+     * @see https://mol.hyoo.ru/#!section=docs/=s5aqnb_odub8l
+     */
+    class $mol_locale extends $mol_object {
+        static lang_default() {
+            return 'en';
+        }
+        static lang(next) {
+            return this.$.$mol_state_local.value('locale', next) || $mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
+        }
+        static langs_rtl() {
+            return ['ar', 'he', 'fa', 'ur', 'yi', 'ps', 'ug', 'sd'];
+        }
+        static direction() {
+            const lang = this.lang();
+            let direction;
+            try {
+                direction = new Intl.Locale(lang).getTextInfo().direction;
+            }
+            catch (e) {
+                $mol_fail_log(e);
+            }
+            return direction ?? (this.langs_rtl().includes(lang) ? 'rtl' : 'ltr');
+        }
+        static source(lang) {
+            return JSON.parse(this.$.$mol_file.relative(`web.locale=${lang}.json`).text().toString());
+        }
+        static texts(lang, next) {
+            if (next)
+                return next;
+            try {
+                return this.source(lang).valueOf();
+            }
+            catch (error) {
+                if ($mol_fail_catch(error)) {
+                    const def = this.lang_default();
+                    if (lang === def)
+                        throw error;
+                }
+            }
+            return {};
+        }
+        static text(key) {
+            const lang = this.lang();
+            const target = this.texts(lang)[key];
+            if (target)
+                return target;
+            this.warn(key);
+            const en = this.texts('en')[key];
+            if (!en)
+                return key;
+            return en;
+        }
+        static warn(key) {
+            console.warn(`Not translated to "${this.lang()}": ${key}`);
+            return null;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_locale, "lang_default", null);
+    __decorate([
+        $mol_mem
+    ], $mol_locale, "lang", null);
+    __decorate([
+        $mol_mem
+    ], $mol_locale, "direction", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "source", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "texts", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "text", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_locale, "warn", null);
+    $.$mol_locale = $mol_locale;
+})($ || ($ = {}));
+
+;
+"use strict";
 
 
 ;
@@ -15849,25 +15948,24 @@ var $;
                 const anchor_rect = this.Anchor()?.view_rect();
                 if (!anchor_rect)
                     return null;
+                const size = this.$.$mol_window.size();
                 const offset = this.offset();
                 const align = this.align();
                 const width = self_rect?.width ?? 0;
                 const height = self_rect?.height ?? 0;
-                let left = Math.floor((prev?.left ?? 0)
-                    - (self_rect?.left ?? 0)
-                    + width * align[0]
-                    + (anchor_rect?.left ?? 0)
-                    + offset[0] * (anchor_rect?.width ?? 0));
-                let top = Math.floor((prev?.top ?? 0)
-                    - (self_rect?.top ?? 0)
-                    + height * align[1]
-                    + (anchor_rect?.top ?? 0)
-                    + offset[1] * (anchor_rect?.height ?? 0));
-                const size = this.$.$mol_window.size();
-                left = Math.max(0, Math.min(left, size.width - width));
-                top = Math.max(0, Math.min(top, size.height - height));
+                let left = Math.floor(+width * align[0]
+                    + anchor_rect.left
+                    + offset[0] * anchor_rect.width);
+                const base_left = (prev?.left ?? 0) - (self_rect?.left ?? 0);
+                left = Math.max(0, Math.min(left, size.width - width)) + base_left;
+                let top = Math.floor(+height * align[1]
+                    + anchor_rect.top
+                    + offset[1] * anchor_rect.height);
+                const base_top = (prev?.top ?? 0) - (self_rect?.top ?? 0);
+                top = Math.max(0, Math.min(top, size.height - height)) + base_top;
                 return { left, top };
             }
+            locale() { return this.$.$mol_locale; }
             transform() {
                 const pos = this.pos();
                 if (!pos)
@@ -15992,93 +16090,6 @@ var $;
 		}
 	};
 
-
-;
-"use strict";
-var $;
-(function ($) {
-    /**
-     * Localisation in $mol framework
-     * @see https://mol.hyoo.ru/#!section=docs/=s5aqnb_odub8l
-     */
-    class $mol_locale extends $mol_object {
-        static lang_default() {
-            return 'en';
-        }
-        static lang(next) {
-            return this.$.$mol_state_local.value('locale', next) || $mol_dom_context.navigator.language.replace(/-.*/, '') || this.lang_default();
-        }
-        static langs_rtl() {
-            return ['ar', 'he', 'fa', 'ur', 'yi', 'ps', 'ug', 'sd'];
-        }
-        static direction() {
-            const lang = this.lang();
-            let direction;
-            try {
-                direction = new Intl.Locale(lang).getTextInfo().direction;
-            }
-            catch (e) {
-                $mol_fail_log(e);
-            }
-            return direction ?? (this.langs_rtl().includes(lang) ? 'rtl' : 'ltr');
-        }
-        static source(lang) {
-            return JSON.parse(this.$.$mol_file.relative(`web.locale=${lang}.json`).text().toString());
-        }
-        static texts(lang, next) {
-            if (next)
-                return next;
-            try {
-                return this.source(lang).valueOf();
-            }
-            catch (error) {
-                if ($mol_fail_catch(error)) {
-                    const def = this.lang_default();
-                    if (lang === def)
-                        throw error;
-                }
-            }
-            return {};
-        }
-        static text(key) {
-            const lang = this.lang();
-            const target = this.texts(lang)[key];
-            if (target)
-                return target;
-            this.warn(key);
-            const en = this.texts('en')[key];
-            if (!en)
-                return key;
-            return en;
-        }
-        static warn(key) {
-            console.warn(`Not translated to "${this.lang()}": ${key}`);
-            return null;
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_locale, "lang_default", null);
-    __decorate([
-        $mol_mem
-    ], $mol_locale, "lang", null);
-    __decorate([
-        $mol_mem
-    ], $mol_locale, "direction", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "source", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "texts", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "text", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_locale, "warn", null);
-    $.$mol_locale = $mol_locale;
-})($ || ($ = {}));
 
 ;
 "use strict";
@@ -22023,11 +22034,13 @@ var $;
 (function ($) {
     var $$;
     (function ($$) {
-        const qr_module = require('jsqr/dist/jsQR.js');
-        const qr_read = qr_module.default ?? qr_module;
         class $bog_keyqr_scan extends $.$bog_keyqr_scan {
             sub() {
                 return this.scanning() ? [this.Toggle(), this.Camera()] : [this.Toggle()];
+            }
+            qr_read(data, width, height) {
+                const lib = require('jsqr/dist/jsQR.js');
+                return (lib.default ?? lib)(data, width, height);
             }
             canvas() {
                 return $mol_dom_context.document.createElement('canvas');
@@ -22046,7 +22059,7 @@ var $;
                 canvas.height = height;
                 const context = canvas.getContext('2d', { willReadFrequently: true });
                 context.drawImage(video, 0, 0, width, height);
-                const found = qr_read(context.getImageData(0, 0, width, height).data, width, height);
+                const found = this.qr_read(context.getImageData(0, 0, width, height).data, width, height);
                 if (!found?.data)
                     return null;
                 setTimeout(() => {
@@ -25869,6 +25882,435 @@ var $;
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Row"));
 	($mol_mem_key(($.$bog_microtodo_app.prototype), "Details"));
 
+
+;
+	($.$mol_embed_native) = class $mol_embed_native extends ($.$mol_scroll) {
+		uri(next){
+			if(next !== undefined) return next;
+			return "about:config";
+		}
+		title(){
+			return "";
+		}
+		Fallback(){
+			const obj = new this.$.$mol_link();
+			(obj.uri) = () => ((this.uri()));
+			(obj.sub) = () => ([(this.title())]);
+			return obj;
+		}
+		uri_change(next){
+			if(next !== undefined) return next;
+			return null;
+		}
+		dom_name(){
+			return "iframe";
+		}
+		window(){
+			return null;
+		}
+		attr(){
+			return {...(super.attr()), "src": (this.uri())};
+		}
+		sub(){
+			return [(this.Fallback())];
+		}
+		message(){
+			return {"hashchange": (next) => (this.uri_change(next))};
+		}
+	};
+	($mol_mem(($.$mol_embed_native.prototype), "uri"));
+	($mol_mem(($.$mol_embed_native.prototype), "Fallback"));
+	($mol_mem(($.$mol_embed_native.prototype), "uri_change"));
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_wait_timeout_async(timeout) {
+        const promise = new $mol_promise();
+        const task = new this.$mol_after_timeout(timeout, () => promise.done());
+        return Object.assign(promise, {
+            destructor: () => task.destructor()
+        });
+    }
+    $.$mol_wait_timeout_async = $mol_wait_timeout_async;
+    function $mol_wait_timeout(timeout) {
+        return this.$mol_wire_sync(this).$mol_wait_timeout_async(timeout);
+    }
+    $.$mol_wait_timeout = $mol_wait_timeout;
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_embed_native extends $.$mol_embed_native {
+            window() {
+                $mol_wire_solid();
+                this.uri_resource();
+                return $mol_wire_sync(this).load(this.dom_node_actual());
+            }
+            load(frame) {
+                return new Promise((done, fail) => {
+                    frame.onload = () => {
+                        try {
+                            if (frame.contentWindow.location.href === 'about:blank') {
+                                return;
+                            }
+                        }
+                        catch { }
+                        done(frame.contentWindow);
+                    };
+                    frame.onerror = (event) => {
+                        fail(typeof event === 'string' ? new Error(event) : event.error || event);
+                    };
+                });
+            }
+            uri_resource() {
+                return this.uri().replace(/#.*/, '');
+            }
+            message_listener() {
+                return new $mol_dom_listener($mol_dom_context, 'message', $mol_wire_async(this).message_receive);
+            }
+            sub_visible() {
+                this.window();
+                return super.sub_visible();
+            }
+            message_receive(event) {
+                if (!event)
+                    return;
+                if (event.source !== this.window())
+                    return;
+                if (!Array.isArray(event.data))
+                    return;
+                this.message()[event.data[0]]?.(event);
+            }
+            uri_change(event) {
+                this.$.$mol_wait_timeout(1000);
+                this.uri(event.data[1]);
+            }
+            auto() {
+                return [
+                    this.message_listener(),
+                    this.window(),
+                ];
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_embed_native.prototype, "window", null);
+        __decorate([
+            $mol_mem
+        ], $mol_embed_native.prototype, "uri_resource", null);
+        __decorate([
+            $mol_mem
+        ], $mol_embed_native.prototype, "message_listener", null);
+        $$.$mol_embed_native = $mol_embed_native;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/embed/native/native.view.css", "[mol_embed_native] {\n\tmin-width: 0;\n\tmin-height: 0;\n\tmax-width: 100%;\n\tmax-height: 100vh;\n\tobject-fit: cover;\n\tdisplay: flex;\n\tflex: 1 1 auto;\n\tobject-position: top left;\n\tborder-radius: var(--mol_gap_round);\n\taspect-ratio: 4/3;\n\tborder: none;\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_frame) = class $mol_frame extends ($.$mol_embed_native) {
+		allow(){
+			return "";
+		}
+		html(){
+			return null;
+		}
+		attr(){
+			return {
+				"tabindex": (this.tabindex()), 
+				"allow": (this.allow()), 
+				"src": (this.uri()), 
+				"srcdoc": (this.html())
+			};
+		}
+		fullscreen(){
+			return true;
+		}
+		accelerometer(){
+			return true;
+		}
+		autoplay(){
+			return true;
+		}
+		encription(){
+			return true;
+		}
+		gyroscope(){
+			return true;
+		}
+		pip(){
+			return true;
+		}
+		clipboard_read(){
+			return true;
+		}
+		clipboard_write(){
+			return true;
+		}
+	};
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        /**
+         * @see https://mol.hyoo.ru/#!section=demos/demo=mol_frame_demo
+         */
+        class $mol_frame extends $.$mol_frame {
+            window() {
+                // if( this.html() ) return ( this.dom_node() as HTMLIFrameElement ).contentWindow!
+                return super.window();
+            }
+            allow() {
+                return [
+                    ...this.fullscreen() ? ['fullscreen'] : [],
+                    ...this.accelerometer() ? ['accelerometer'] : [],
+                    ...this.autoplay() ? ['autoplay'] : [],
+                    ...this.encription() ? ['encrypted-media'] : [],
+                    ...this.gyroscope() ? ['gyroscope'] : [],
+                    ...this.pip() ? ['picture-in-picture'] : [],
+                    ...this.clipboard_read() ? [`clipboard-read ${this.uri()}`] : [],
+                    ...this.clipboard_write() ? [`clipboard-write ${this.uri()}`] : [],
+                ].join('; ');
+            }
+        }
+        $$.$mol_frame = $mol_frame;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_define($mol_frame, {
+        border: {
+            style: 'none',
+        },
+        maxHeight: $mol_style_unit.vh(100),
+    });
+})($ || ($ = {}));
+
+;
+	($.$giper_web_frame) = class $giper_web_frame extends ($.$mol_frame) {
+		uri(){
+			return "https://web.giper.dev/#mol_lights={lights}/current={current}/query={query}";
+		}
+		query(){
+			return "";
+		}
+	};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    function parse(theme) {
+        if (theme === 'true')
+            return true;
+        if (theme === 'false')
+            return false;
+        return null;
+    }
+    // Get once because chrome switches to light on print
+    const base = $.$mol_media.match('(prefers-color-scheme: light)');
+    /**
+     * Switcher between light/dark themes (usually for `mol_theme_auto` plugin).
+     * @see https://mol.hyoo.ru/#!section=demos/demo=mol_lights_demo
+     */
+    function $mol_lights(next) {
+        const arg = parse(this.$mol_state_arg.value('mol_lights'));
+        if (next === undefined) {
+            return arg ?? this.$mol_state_local.value('$mol_lights') ?? base;
+        }
+        else {
+            if (arg === null) {
+                this.$mol_state_local.value('$mol_lights', next === base ? null : next);
+            }
+            else {
+                this.$mol_state_arg.value('mol_lights', String(next));
+            }
+            return next;
+        }
+    }
+    $.$mol_lights = $mol_lights;
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $giper_web_frame extends $.$giper_web_frame {
+            uri() {
+                return super.uri()
+                    .replace('{lights}', String(this.$.$mol_lights()))
+                    .replace('{query}', encodeURIComponent(this.query()))
+                    .replace('{current}', encodeURIComponent(this.$.$mol_state_arg.href().replace(/^https?:\/\/|\/?\??#.*$/, '')));
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $giper_web_frame.prototype, "uri", null);
+        $$.$giper_web_frame = $giper_web_frame;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("giper/web/frame/frame.view.css", "/* @keyframes giper_web_frame_show {\n\tfrom {\n\t\topacity: 0;\n\t}\n}\n\n[giper_web_frame] {\n\tanimation: 5s -1s ease-in giper_web_frame_show;\n} */\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        $mol_style_define($giper_web_frame, {
+            flex: {
+                basis: '4rem',
+                shrink: 0,
+                grow: 0,
+            },
+        });
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$bog_dock_frame) = class $bog_dock_frame extends ($.$giper_web_frame) {
+		host(){
+			return "https://b-on-g.github.io/dock/";
+		}
+		lights(){
+			return true;
+		}
+		clipboard_read(){
+			return false;
+		}
+		clipboard_write(){
+			return false;
+		}
+	};
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $bog_dock_frame extends $.$bog_dock_frame {
+            lights() {
+                return this.$.$mol_lights();
+            }
+            uri() {
+                return super.uri()
+                    .replace(/^[^#]*/, this.host())
+                    .replace(/mol_lights=\w+/, `mol_lights=${this.lights()}`);
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $bog_dock_frame.prototype, "uri", null);
+        $$.$bog_dock_frame = $bog_dock_frame;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$bog_dock_side) = class $bog_dock_side extends ($.$mol_view) {
+		lights(){
+			return true;
+		}
+		Frame(){
+			const obj = new this.$.$bog_dock_frame();
+			(obj.lights) = () => ((this.lights()));
+			return obj;
+		}
+		shown(){
+			return false;
+		}
+		attr(){
+			return {...(super.attr()), "bog_dock_side_shown": (this.shown())};
+		}
+		sub(){
+			return [(this.Frame())];
+		}
+	};
+	($mol_mem(($.$bog_dock_side.prototype), "Frame"));
+
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $bog_dock_side extends $.$bog_dock_side {
+            embedded() {
+                const win = this.$.$mol_dom_context;
+                return win.parent !== win.self;
+            }
+            shown() {
+                return !this.embedded() && this.$.$mol_media.match('(min-width: 60rem)');
+            }
+            lights() {
+                const root = this.$.$mol_view.roots()[0];
+                const theme = root?.Theme?.() ?? root?.Theme_auto?.();
+                return theme?.is_light_now?.() ?? this.$.$mol_lights();
+            }
+            sub() {
+                return this.shown() ? super.sub() : [];
+            }
+        }
+        $$.$bog_dock_side = $bog_dock_side;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("bog/dock/side/side.view.css", "[bog_dock_side][mol_view_root] {\n\tdisplay: none;\n\tposition: fixed;\n\tz-index: 1;\n\ttop: 0;\n\tleft: 0;\n\twidth: 4rem;\n\theight: 100%;\n\ttransition: none;\n}\n\n[bog_dock_side][mol_view_root][bog_dock_side_shown=\"true\"] {\n\tdisplay: flex;\n}\n\n[bog_dock_side_frame] {\n\theight: 100%;\n}\n\nbody:has( > [bog_dock_side_shown=\"true\"] ) {\n\tpadding-left: 4rem;\n}\n\n@media print {\n\t[bog_dock_side][mol_view_root][bog_dock_side_shown=\"true\"] { display: none; }\n\tbody:has( > [bog_dock_side_shown=\"true\"] ) { padding-left: 0; }\n}\n");
+})($ || ($ = {}));
 
 ;
 "use strict";

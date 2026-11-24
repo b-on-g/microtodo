@@ -2475,7 +2475,8 @@ declare namespace $ {
         lord(next?: $giper_baza_link): $giper_baza_link;
         /** Unique number for encryption */
         salt(): Uint8Array<ArrayBuffer>;
-        hash(): $giper_baza_link;
+        _hash: null | $giper_baza_link;
+        hash(refresh?: null): $giper_baza_link;
         tier_min(): $giper_baza_rank_tier;
         encoded(): boolean;
         _land: null | $giper_baza_land;
@@ -34037,6 +34038,26 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    interface $mol_locale_dict {
+        [key: string]: string;
+    }
+    /**
+     * Localisation in $mol framework
+     * @see https://mol.hyoo.ru/#!section=docs/=s5aqnb_odub8l
+     */
+    class $mol_locale extends $mol_object {
+        static lang_default(): string;
+        static lang(next?: string): string;
+        static langs_rtl(): string[];
+        static direction(): "ltr" | "rtl";
+        static source(lang: string): any;
+        static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
+        static text(key: string): string;
+        static warn(key: string): null;
+    }
+}
+
+declare namespace $ {
 
 	export class $mol_follower extends $mol_ghost {
 		transform( ): string
@@ -34060,31 +34081,12 @@ declare namespace $.$$ {
             left: number;
             top: number;
         } | null;
+        locale(): typeof $mol_locale;
         transform(): string;
     }
 }
 
 declare namespace $ {
-}
-
-declare namespace $ {
-    interface $mol_locale_dict {
-        [key: string]: string;
-    }
-    /**
-     * Localisation in $mol framework
-     * @see https://mol.hyoo.ru/#!section=docs/=s5aqnb_odub8l
-     */
-    class $mol_locale extends $mol_object {
-        static lang_default(): string;
-        static lang(next?: string): string;
-        static langs_rtl(): string[];
-        static direction(): "ltr" | "rtl";
-        static source(lang: string): any;
-        static texts(lang: string, next?: $mol_locale_dict): $mol_locale_dict;
-        static text(key: string): string;
-        static warn(key: string): null;
-    }
 }
 
 declare namespace $ {
@@ -49401,6 +49403,7 @@ declare namespace $ {
 declare namespace $.$$ {
     class $bog_keyqr_scan extends $.$bog_keyqr_scan {
         sub(): ($.$mol_check | $.$mol_video_camera)[];
+        qr_read(data: Uint8ClampedArray, width: number, height: number): import("jsqr").QRCode | null;
         canvas(): HTMLCanvasElement;
         tick(): string | null;
         auto(): void;
@@ -50225,6 +50228,87 @@ declare namespace $.$$ {
         step_drop(id: string): void;
         myday_label(): string;
         created_label(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    /**
+     * Switcher between light/dark themes (usually for `mol_theme_auto` plugin).
+     * @see https://mol.hyoo.ru/#!section=demos/demo=mol_lights_demo
+     */
+    function $mol_lights(this: $, next?: boolean): boolean;
+}
+
+declare namespace $ {
+
+	export class $giper_web_frame extends $mol_frame {
+		uri( ): string
+		query( ): string
+	}
+	
+}
+
+//# sourceMappingURL=frame.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $giper_web_frame extends $.$giper_web_frame {
+        uri(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $ {
+
+	export class $bog_dock_frame extends $giper_web_frame {
+		host( ): string
+		lights( ): boolean
+		clipboard_read( ): boolean
+		clipboard_write( ): boolean
+	}
+	
+}
+
+//# sourceMappingURL=frame.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $bog_dock_frame extends $.$bog_dock_frame {
+        lights(): boolean;
+        uri(): string;
+    }
+}
+
+declare namespace $ {
+
+	type $bog_dock_frame__lights_bog_dock_side_1 = $mol_type_enforce<
+		ReturnType< $bog_dock_side['lights'] >
+		,
+		ReturnType< $bog_dock_frame['lights'] >
+	>
+	export class $bog_dock_side extends $mol_view {
+		lights( ): boolean
+		Frame( ): $bog_dock_frame
+		shown( ): boolean
+		attr( ): ({ 
+			'bog_dock_side_shown': ReturnType< $bog_dock_side['shown'] >,
+		})  & ReturnType< $mol_view['attr'] >
+		sub( ): readonly(any)[]
+	}
+	
+}
+
+//# sourceMappingURL=side.view.tree.d.ts.map
+declare namespace $.$$ {
+    class $bog_dock_side extends $.$bog_dock_side {
+        embedded(): boolean;
+        shown(): boolean;
+        lights(): boolean;
+        sub(): readonly any[];
     }
 }
 
