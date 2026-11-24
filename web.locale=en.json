@@ -1,4 +1,5 @@
 {
+	"$bog_dock_side_tab_hint": "Apps",
 	"$bog_install_button_title": "Add to Home Screen",
 	"$bog_install_install_already_installed": "The app is already installed.",
 	"$bog_install_install_android_instruction": "In Chrome on Android, open the menu and choose “Install app”.",

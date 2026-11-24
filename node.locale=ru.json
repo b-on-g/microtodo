@@ -1,4 +1,5 @@
 {
+	"$bog_dock_side_tab_hint": "Приложения",
 	"$bog_install_button_title": "Добавить на главный экран",
 	"$bog_install_install_already_installed": "Приложение уже установлено.",
 	"$bog_install_install_android_instruction": "В Chrome на Android откройте меню ⋮ и выберите «Установить приложение».",
