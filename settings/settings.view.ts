@@ -41,6 +41,11 @@ namespace $.$$ {
 			return ''
 		}
 
+		id_apply( next?: string ) {
+			if( next ) this.account_enter( next )
+			return ''
+		}
+
 		account_apply() {
 			this.account_enter( this.account_input() )
 		}

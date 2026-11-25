@@ -30,6 +30,8 @@ $bog_microtodo_settings $mol_page
 							title @ \Скопировать ключ для приглашений
 							hint @ \Этот ключ публичный, его можно отправить владельцу общего списка
 							text <= pass_text \
+						<= Id $bog_id_enter
+							apply? <=> id_apply? \
 						<= Transfer $bog_keyqr
 							key <= account_link \
 							found? <=> account_found? \
