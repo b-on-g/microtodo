@@ -2271,6 +2271,30 @@ $bog_install $mol_labeler
 			title <= button_title
 			click? <=> install? null
 
+$bog_id_enter $mol_list
+	provider \https://dev-cmyser.github.io/id/
+	scope \account
+	apply? \
+	rows <= parts /
+	Enter $mol_button_major
+		title @ \Sign in with Giper ID
+		click? <=> enter? null
+	Hint $mol_paragraph
+		title @ \Keeps the key of this account in Giper ID. Other devices get the same account. Nothing changes here until you confirm it.
+	Status $mol_paragraph
+		title <= status \
+	Replace $mol_button_minor
+		title <= replace_title @ \Switch to the account from Giper ID
+		click? <=> replace? null
+	Error $mol_paragraph
+		title <= error? \
+	armed? false
+	replace_sure @ \Really switch? The account changes in all apps of this domain
+	wait @ \Getting the key from Giper Base…
+	conflict @ \Giper ID keeps another account. The account of this device stays until you switch.
+	done @ \Signed in with Giper ID: {name}
+	error_bad @ \This does not look like an account key
+
 $bog_qr $mol_svg_root
 	uri \
 	module_radius 0.35
@@ -2440,6 +2464,8 @@ $bog_microtodo_settings $mol_page
 							title @ \Скопировать ключ для приглашений
 							hint @ \Этот ключ публичный, его можно отправить владельцу общего списка
 							text <= pass_text \
+						<= Id $bog_id_enter
+							apply? <=> id_apply? \
 						<= Transfer $bog_keyqr
 							key <= account_link \
 							found? <=> account_found? \
